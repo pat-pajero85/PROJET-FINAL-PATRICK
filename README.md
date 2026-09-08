@@ -38,6 +38,18 @@ Cette étape est finalisée :
 - contrôles des clés et nettoyage minimal réalisés ;
 - limites métier et techniques documentées.
 
+### Étape 2 : nettoyage et structuration relationnelle
+
+Cette étape est également réalisée avec SQLite :
+
+- tables de staging conservant les données importées ;
+- schéma relationnel normalisé avec clés primaires, clés étrangères et contraintes ;
+- nettoyage final exécuté par `INSERT ... SELECT` en SQL ;
+- index et vues analytiques pour les départs par arrêt et par ligne ;
+- base locale `gtfs_pays_loire.sqlite` construite et contrôlée.
+
+La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 services, 182 725 trajets, 4 000 625 passages, 22 286 correspondances et 24 observations météo. Les contrôles d'orphelins entre trajets, lignes, passages et arrêts renvoient zéro anomalie.
+
 ### Résultats du diagnostic
 
 - 1 029 lignes ;
@@ -57,6 +69,10 @@ Cette étape est finalisée :
 - [02_controle_nettoyage_gtfs.py](02_controle_nettoyage_gtfs.py) : contrôles des clés, horaires et coordonnées ;
 - [diagnostic_initial.json](diagnostic_initial.json) : résultats du diagnostic initial ;
 - [rapport_qualite_gtfs.json](rapport_qualite_gtfs.json) : rapport des contrôles qualité ;
+- [03_schema_gtfs.sql](03_schema_gtfs.sql) : staging, tables normalisées, contraintes, index et vues ;
+- [03_charger_bdd_gtfs.py](03_charger_bdd_gtfs.py) : import technique des CSV puis exécution du SQL ;
+- [03_schema_relationnel.md](03_schema_relationnel.md) : justification du modèle relationnel ;
+- [04_validation_bdd.sql](04_validation_bdd.sql) : requêtes de contrôle et indicateurs métier ;
 - `stops_clean.csv` : arrêts normalisés et statut géographique ;
 - `stop_times_clean.csv` : passages normalisés avec horaires en secondes.
 
@@ -67,9 +83,12 @@ Depuis la racine du projet :
 ```powershell
 python .\01_diagnostic_initial.py
 python .\02_controle_nettoyage_gtfs.py
+python .\03_charger_bdd_gtfs.py
 ```
 
 Les scripts utilisent uniquement la bibliothèque standard Python pour les contrôles actuels. Les dépendances de l'environnement sont listées dans [requirements.txt](requirements.txt).
+
+Le traitement de nettoyage et de structuration est réalisé en SQL dans [03_schema_gtfs.sql](03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
 
 ## Limites actuelles
 
