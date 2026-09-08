@@ -1,0 +1,38 @@
+{
+  "reference_counts": {
+    "routes": 1029,
+    "stops": 20170,
+    "services": 6090,
+    "shapes": 9906,
+    "trips": 182725
+  },
+  "duplicate_primary_keys": {
+    "routes": 0,
+    "stops": 0,
+    "trips": 0
+  },
+  "expected_repeated_identifiers": {
+    "calendar_dates_service_id": "service_id repeats across dates by design",
+    "shapes_shape_id": "shape_id repeats across geometry points by design"
+  },
+  "stops": {
+    "within_pdl_bbox": 11862,
+    "outside_pdl_bbox": 8308,
+    "stop_ids_loaded": 20170
+  },
+  "stop_times": {
+    "rows_read": 4000625,
+    "rows_written": 4000625
+  },
+  "rules": {
+    "coordinate_bbox": [
+      46.0,
+      48.6,
+      -2.4,
+      0.5
+    ],
+    "outside_coordinates_are_flagged_not_deleted": true,
+    "gtfs_time_is_stored_as_seconds_after_midnight": true,
+    "hours_over_24_are_accepted": true
+  }
+}

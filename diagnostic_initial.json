@@ -1,0 +1,173 @@
+{
+  "agency.txt": {
+    "rows": 14,
+    "columns": [
+      "agency_id",
+      "agency_name",
+      "agency_url",
+      "agency_timezone",
+      "agency_lang",
+      "agency_phone",
+      "agency_fare_url",
+      "agency_email"
+    ],
+    "blank_counts": {
+      "agency_phone": 14,
+      "agency_fare_url": 14,
+      "agency_email": 14
+    }
+  },
+  "calendar_dates.txt": {
+    "rows": 142340,
+    "columns": [
+      "service_id",
+      "date",
+      "exception_type"
+    ],
+    "blank_counts": {},
+    "unique_service_id": 6090,
+    "min_date": "20250402",
+    "max_date": "20270402"
+  },
+  "feed_info.txt": {
+    "rows": 1,
+    "columns": [
+      "feed_publisher_name",
+      "feed_publisher_url",
+      "feed_lang",
+      "feed_start_date",
+      "feed_end_date",
+      "feed_version"
+    ],
+    "blank_counts": {}
+  },
+  "routes.txt": {
+    "rows": 1029,
+    "columns": [
+      "route_id",
+      "agency_id",
+      "route_short_name",
+      "route_long_name",
+      "route_desc",
+      "route_type",
+      "route_url",
+      "route_color",
+      "route_text_color"
+    ],
+    "blank_counts": {
+      "route_desc": 1029,
+      "route_url": 1029,
+      "route_short_name": 662,
+      "route_color": 662,
+      "route_text_color": 662
+    },
+    "unique_route_type": [
+      "0",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  "shapes.txt": {
+    "rows": 899601,
+    "columns": [
+      "shape_id",
+      "shape_pt_lat",
+      "shape_pt_lon",
+      "shape_pt_sequence",
+      "shape_dist_traveled"
+    ],
+    "blank_counts": {
+      "shape_dist_traveled": 11530
+    }
+  },
+  "stops.txt": {
+    "rows": 20170,
+    "columns": [
+      "stop_id",
+      "stop_code",
+      "stop_name",
+      "stop_desc",
+      "stop_lat",
+      "stop_lon",
+      "zone_id",
+      "stop_url",
+      "location_type",
+      "parent_station",
+      "wheelchair_boarding",
+      "stop_timezone"
+    ],
+    "blank_counts": {
+      "stop_code": 20170,
+      "stop_desc": 20170,
+      "zone_id": 20170,
+      "stop_url": 20170,
+      "parent_station": 7525,
+      "stop_timezone": 20170
+    },
+    "coordinate_issues": {
+      "longitude_outside_pdl_bbox": 7789,
+      "latitude_outside_pdl_bbox": 5187
+    }
+  },
+  "stop_times.txt": {
+    "rows": 4000625,
+    "columns": [
+      "trip_id",
+      "arrival_time",
+      "departure_time",
+      "stop_id",
+      "stop_sequence",
+      "pickup_type",
+      "drop_off_type",
+      "stop_headsign",
+      "shape_dist_traveled",
+      "timepoint"
+    ],
+    "blank_counts": {
+      "stop_headsign": 3994490,
+      "shape_dist_traveled": 4000625,
+      "timepoint": 4000625
+    }
+  },
+  "transfers.txt": {
+    "rows": 22286,
+    "columns": [
+      "from_stop_id",
+      "to_stop_id",
+      "transfer_type",
+      "min_transfer_time"
+    ],
+    "blank_counts": {
+      "min_transfer_time": 20799
+    }
+  },
+  "trips.txt": {
+    "rows": 182725,
+    "columns": [
+      "route_id",
+      "service_id",
+      "trip_id",
+      "trip_headsign",
+      "trip_short_name",
+      "direction_id",
+      "block_id",
+      "wheelchair_accessible",
+      "bikes_allowed",
+      "shape_id"
+    ],
+    "blank_counts": {
+      "trip_headsign": 182725,
+      "trip_short_name": 182725,
+      "block_id": 49690,
+      "shape_id": 537
+    },
+    "unique_service_id": 6090
+  },
+  "weather_source": {
+    "latitude": 47.41652,
+    "longitude": -0.7377014,
+    "timezone": "Europe/Paris",
+    "status": "incoherent_with_pays_de_la_loire"
+  }
+}

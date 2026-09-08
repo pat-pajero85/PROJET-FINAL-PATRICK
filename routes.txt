@@ -1,0 +1,1030 @@
+﻿route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+TAN:1-0,TAN,"1","François Mitterrand / Jamet - Beaujoire / Ranzay","",0,,007A45,FFFFFF
+TAN:10-0,TAN,"10","Gare de Chantenay - Bd de Doulon","",3,,FFED00,000000
+TAN:101-0,TAN,"101","Mairie de Couëron - Sinière","",3,,FFFFFF,E53138
+TAN:102-0,TAN,"102","Chalonges - René Bernier","",3,,FFFFFF,E53138
+TAN:104-0,TAN,"104","Les Sorinières - Petite Lande","",3,,FFFFFF,E53138
+TAN:107-0,TAN,"107","Bournière - Reinetière","",3,,FFFFFF,E53138
+TAN:109-0,TAN,"109","Ferrière - Couchant","",3,,FFFFFF,E53138
+TAN:11-0,TAN,"11","Tertre - Perray","",3,,E9C389,000000
+TAN:111-0,TAN,"111","ADAPEI à Tillay - Lycée Appert","",3,,FFFFFF,E53138
+TAN:112-0,TAN,"112","St Blaise - Savarières","",3,,FFFFFF,E53138
+TAN:115-0,TAN,"115","Lycée Carquefou - Beaujoire","",3,,FFFFFF,E53138
+TAN:117-0,TAN,"117","Le Halleray - Reinetière","",3,,FFFFFF,E53138
+TAN:119-0,TAN,"119","Mairie d'Orvault - Angevinière","",3,,FFFFFF,E53138
+TAN:12-0,TAN,"12","Jules Verne - Beauséjour","",3,,B5DDF3,000000
+TAN:122-0,TAN,"122","Savarières - St Blaise","",3,,FFFFFF,E53138
+TAN:127-0,TAN,"127","Colinière - Monteverdi","",3,,FFFFFF,E53138
+TAN:128-0,TAN,"128","Pé de Buzay - Lycée d'Orbigny","",3,,FFFFFF,E53138
+TAN:129-0,TAN,"129","Les Anges - Angevinière","",3,,FFFFFF,E53138
+TAN:131-0,TAN,"131","Bac de Couëron - Mendès France Bellevue","",3,,FFFFFF,E53138
+TAN:137-0,TAN,"137","Chinon / Monteverdi - Toutes Aides","",3,,FFFFFF,E53138
+TAN:138-0,TAN,"138","Le Pellerin - Lycée de Bouaye","",3,,FFFFFF,E53138
+TAN:139-0,TAN,"139","Sautron - Angevinière","",3,,FFFFFF,E53138
+TAN:142-0,TAN,"142","CAT Vertonne - Porte de Vertou","",3,,FFFFFF,E53138
+TAN:147-0,TAN,"147","Bournière - Toutes Aides","",3,,FFFFFF,E53138
+TAN:149-0,TAN,"149","Cheverny - Sautron","",3,,FFFFFF,E53138
+TAN:152-0,TAN,"152","La Herdrie - Pirmil","",3,,FFFFFF,E53138
+TAN:157-0,TAN,"157","Toutes Aides - Le Halleray","",3,,FFFFFF,E53138
+TAN:158-0,TAN,"158","St Jean de Boisseau - Lycée de Bouaye","",3,,FFFFFF,E53138
+TAN:159-0,TAN,"159","Sautron - Angevinière","",3,,FFFFFF,E53138
+TAN:169-0,TAN,"169","Sautron - Thébaudières","",3,,FFFFFF,E53138
+TAN:179-0,TAN,"179","Les Anges - Orvault-Morlière","",3,,FFFFFF,E53138
+TAN:189-0,TAN,"189","Pont Marchand - Angevinière","",3,,FFFFFF,E53138
+TAN:2-0,TAN,"2","Orvault Grand Val - Gare de Pont Rousseau","",0,,E53138,FFFFFF
+TAN:23-0,TAN,"23","Haluchère Batignolles - Maison des arts","",3,,34B4E4,FFFFFF
+TAN:26-0,TAN,"26","Jonelière - Hôtel de Région","",3,,009534,FFFFFF
+TAN:27-0,TAN,"27","La Herdrie - Pirmil","",3,,B5DDF3,000000
+TAN:28-0,TAN,"28","Vertou - Pirmil","",3,,B5DDF3,000000
+TAN:3-0,TAN,"3","Marcel Paul - Neustrie","",0,,0079BC,FFFFFF
+TAN:30-0,TAN,"30","Joliverie / Iles de Loire - Trentemoult","",3,,FFED00,000000
+TAN:33-0,TAN,"33","Robinière / L'Aufrère - Espace Diderot","",3,,F5BAC6,000000
+TAN:36-0,TAN,"36","Greneraie - Croix Jeannette","",3,,00A4A7,FFFFFF
+TAN:3B-0,TAN,"3B","Marcel Paul - Neustrie","",3,,0079BC,FFFFFF
+TAN:4-0,TAN,"4","Foch - Cathédrale - Porte de Vertou","",3,,FDC600,000000
+TAN:40-0,TAN,"40","Mendès France - Bellevue - Neustrie","",3,,FFED00,000000
+TAN:42-0,TAN,"42","Vertou - Pirmil","",3,,CBD300,000000
+TAN:47-0,TAN,"47","Pégers / Grande Noëlle - Vertou","",3,,BEABD0,FFFFFF
+TAN:50-0,TAN,"50","Basse Indre - Porte de La Chapelle","",3,,FFED00,000000
+TAN:54-0,TAN,"54","Marcel Paul - Saupin","",3,,CBD300,000000
+TAN:59-0,TAN,"59","Mendès France - Bellevue - Bout des Landes","",3,,F5BAC6,000000
+TAN:66-0,TAN,"66","Babinière - Ecole Centrale-Audencia","",3,,2C4393,FFFFFF
+TAN:67-0,TAN,"67","Le Cellier - Centre de Thouaré","",3,,2C4393,FFFFFF
+TAN:69-0,TAN,"69","Sautron - Orvault Morlière","",3,,C0893A,FFFFFF
+TAN:71-0,TAN,"71","Bac de Couëron - François Mitterrand","",3,,CBD300,000000
+TAN:75-0,TAN,"75","Charbonneau - Facultés","",3,,E9C389,000000
+TAN:77-0,TAN,"77","Sables d'Or - Haluchère - Batignolles","",3,,B5DDF3,000000
+TAN:78-0,TAN,"78","Bac du Pellerin - Neustrie","",3,,F8B323,000000
+TAN:79-0,TAN,"79","Orvault - Beauséjour","",3,,F5BAC6,000000
+TAN:80-0,TAN,"80","Chassay / Bellevue -  Fac de Droit","",3,,FFED00,000000
+TAN:81-0,TAN,"81","Mendès France - Bellevue - Gare Maritime","",3,,00A4A7,FFFFFF
+TAN:85-0,TAN,"85","Souchais - Haluchère - Batignolles","",3,,F5BAC6,000000
+TAN:86-0,TAN,"86","La Chapelle Aulnay - Bout des Pavés","",3,,34B4E4,FFFFFF
+TAN:87-0,TAN,"87","Le Halleray - Toutes Aides","",3,,F8B323,000000
+TAN:88-0,TAN,"88","Château d'Aux - Neustrie","",3,,BEABD0,FFFFFF
+TAN:89-0,TAN,"89","Le Cardo - Beauséjour","",3,,77AD1C,FFFFFF
+TAN:91-0,TAN,"91","Couëron-Bougon - Mendès France - Bellevue","",3,,009534,FFFFFF
+TAN:93-0,TAN,"93","Hôpital Laënnec - Hauts de Couëron","",3,,00A4A7,FFFFFF
+TAN:95-0,TAN,"95","Bois St-Lys - Haluchère - Batignolles","",3,,CBD300,000000
+TAN:96-0,TAN,"96","Coutancière - Bout des Pavés","",3,,F8B323,000000
+TAN:97-0,TAN,"97","Vertou - Trentemoult","",3,,BEABD0,FFFFFF
+TAN:98-0,TAN,"98","St-Léger-les-Vignes / Brains - Neustrie","",3,,F8B323,000000
+TAN:C1-0,TAN,"C1","Haluchère - Batignolles - Gare de Chantenay","",3,,34B4E4,FFFFFF
+TAN:C2-0,TAN,"C2","Le Cardo - Gare Sud","",3,,ED7703,FFFFFF
+TAN:C3-0,TAN,"C3","Armor - Bd de Doulon","",3,,F8B323,000000
+TAN:C4-0,TAN,"C4","Les Sorinières - Greneraie","",3,,77AD1C,FFFFFF
+TAN:C6-0,TAN,"C6","Chantrerie Grandes Ecoles - Hermeland","",3,,BEABD0,FFFFFF
+TAN:C7-0,TAN,"C7","Trianon / Clairais - Souillarderie","",3,,CBD300,000000
+TAN:E1-0,TAN,"E1","Couëron Océan - Gare Maritime","",3,,E53138,FFFFFF
+TAN:E4-0,TAN,"E4","Porte de Vertou - Vertou","",3,,E53138,FFFFFF
+TAN:E5-0,TAN,"E5","Carquefou - Fac de Droit","",3,,E53138,FFFFFF
+TAN:E8-0,TAN,"E8","La Cochère - Greneraie","",3,,E53138,FFFFFF
+TAN:LCE-0,TAN,"LCE","Cotalard - Léo Lagrange","",3,,009534,FFFFFF
+TAN:LCN-0,TAN,"LCN","Léo Lagrange - Pont Pilet","",3,,E53138,FFFFFF
+TAN:LCO-0,TAN,"LCO","René Cassin - Léo Lagrange","",3,,34B4E4,FFFFFF
+TAN:NA-0,TAN,"NA","Aéroport - Hôtel Dieu","",3,,34B4E4,FFFFFF
+SETRAM:11,SETRAM,"11","Le Cadran/St-Aubin - Closerie","",3,,FEDD00,000000
+SETRAM:12,SETRAM,"12","Domaine de Beauregard - Zamenhof","",3,,FCB514,FFFFFF
+SETRAM:17,SETRAM,"17","Gallière - Mairie","",3,,9B4F96,FFFFFF
+SETRAM:20,SETRAM,"20","Éperon - Aigné","",3,,ED2893,FFFFFF
+SETRAM:21,SETRAM,"21","St-Martin - Arnage-Hôtel de Ville","",3,,70CE9B,000000
+SETRAM:22,SETRAM,"22","Sargé-lès-Le-Mans par Zamenhof","",3,,A5A0D6,000000
+SETRAM:23,SETRAM,"23","République - Yvré-l'Évêque","",3,,A5A0D6,FFFFFF
+SETRAM:24,SETRAM,"24","Antarès - Stade Marie Marvingt - Mulsanne","",3,,F9E814,000000
+SETRAM:25,SETRAM,"25","République - Champagné","",3,,00B2AA,FFFFFF
+SETRAM:26,SETRAM,"26","St-Georges / St-Joseph - Allonnes","",3,,E87511,000000
+SETRAM:27,SETRAM,"27","Mairie Ruaudin - Antarès - Stade Marie Marvingt","",3,,BD3D31,FFFFFF
+SETRAM:4,SETRAM,"4","St-Georges / St-Joseph – Bellevue-Hauts de C.","",3,,1EB53A,FFFFFF
+SETRAM:5,SETRAM,"5","Gazonfier - Oasis-Centre des Expositions","",3,,9B0070,000000
+SETRAM:6,SETRAM,"6","République - St-Martin","",3,,1B4395,FFFFFF
+SETRAM:T1,SETRAM,"T1","Antarès - Stade Marie Marvingt - Université","",0,,D81E05,FFFFFF
+SETRAM:T2,SETRAM,"T2","Espal-Arche de la Nature – Bellevue-Hauts de C.","",0,,1564AD,FFFFFF
+SETRAM:T3,SETRAM,"T3","Allonnes-Bois Joli - Gares","",3,,5EB24B,FFFFFF
+CHOLETBUS:1,CHOLETBUS,"1","L'Autre Faubourg - Arcole","",3,,57AA46,ffffff
+CHOLETBUS:19,CHOLETBUS,"6a","Hôtel de Ville - Bois Lavau","",3,,B07761,ffffff
+CHOLETBUS:2,CHOLETBUS,"4","Musée Textile et Mode - Le Plessis","",3,,00B9F1,ffffff
+CHOLETBUS:22,CHOLETBUS,"6","Langeais - Polyclinique","",3,,B07761,ffffff
+CHOLETBUS:23,CHOLETBUS,"1a","Le Cormier - Hôtel de Ville/Gare SNCF","",3,,57AA46,ffffff
+CHOLETBUS:26,CHOLETBUS,"3a","Verger - Bois d'Ouin","",3,,0071BB,ffffff
+CHOLETBUS:28,CHOLETBUS,"1b","ZI Ecuyère - Hôtel de Ville","",3,,57AA46,ffffff
+CHOLETBUS:29,CHOLETBUS,"A","Eurespace - Le Plessis","",3,,D4C2FF,000000
+CHOLETBUS:3,CHOLETBUS,"2","Croix Blanche - Verger","",3,,F2594F,ffffff
+CHOLETBUS:4,CHOLETBUS,"3","Arcole - Verger","",3,,0071BB,ffffff
+CHOLETBUS:7,CHOLETBUS,"5","Val de Moine - Hôtel de Ville","",3,,FFFF00,000000
+SNCF:1000,SNCF,"","Rennes - Brest","",2,,,
+SNCF:1001,SNCF,"","Dol - Saint Brieuc","",2,,,
+SNCF:1002,SNCF,"","PARIS-DIJON - MULHOUSE - TER GRAND EST","",2,,,
+SNCF:1026,SNCF,"","Guingamp - Paimpol","",2,,,
+SNCF:1056,SNCF,"","Besançon - Morteau - La Chaux de Fonds","",2,,,
+SNCF:1057,SNCF,"","Dole / Pontarlier - Besançon / Dole / St Claude","",2,,,
+SNCF:1058,SNCF,"","Belfort / Vesoul - Belfort / Epinal","",2,,,
+SNCF:1059,SNCF,"","Besançon Viotte - Besançon TGV","",2,,,
+SNCF:1060,SNCF,"","Belfort - Lyon","",2,,,
+SNCF:1061,SNCF,"","Belfort - Delle","",2,,,
+SNCF:1062,SNCF,"","Pontarlier - Frasne - Vallorbe","",2,,,
+SNCF:1075,SNCF,"","Guingamp - Carhaix","",2,,,
+SNCF:1080,SNCF,"","Salbris - Romorantin - Luçay le Mâle","",2,,,
+SNCF:1081,SNCF,"","Commentry / Montluçon / Vierzon","",2,,,
+SNCF:1082,SNCF,"","Tours - Nevers","",2,,,
+SNCF:1083,SNCF,"","Orléans - Nevers","",2,,,
+SNCF:1085,SNCF,"","ORL-TOURS","",2,,,
+SNCF:1086,SNCF,"","Tours - Saumur","",2,,,
+SNCF:1087,SNCF,"","Droué - Chartres - Courtalain","",2,,,
+SNCF:1092,SNCF,"","Belfort - Besançon","",2,,,
+SNCF:1093,SNCF,"","Besançon - Dijon","",2,,,
+SNCF:1121,SNCF,"","Quimper - Brest","",2,,,
+SNCF:1126,SNCF,"","Saumur-Angers-Cholet","",2,,,
+SNCF:1134,SNCF,"","Navettes Franois-Villers-Neuilly (cars)","",3,,,
+SNCF:1168,SNCF,"","Paris - Nevers","",2,,,
+SNCF:1176,SNCF,"","POITIERS - TOURS","",2,,,
+SNCF:1177,SNCF,"","THOUARS - SAUMUR - ANGERS","",2,,,
+SNCF:1178,SNCF,"","LA ROCHE SUR YON - BRESSUIRE - SAUMUR - TOURS","",2,,,
+SNCF:1182,SNCF,"","Cars Moulins / Vichy (cars)","",3,,,
+SNCF:1183,SNCF,"","Cars Aurillac / Figeac (cars)","",3,,,
+SNCF:1185,SNCF,"","Cars Arvant / Aurillac (cars)","",3,,,
+SNCF:1206,SNCF,"","Lorient-Quimperlé (cars)","",3,,,
+SNCF:1231,SNCF,"","Clermont-Fd - Lyon","",2,,,
+SNCF:1236,SNCF,"","LAON-FISMES","",2,,,
+SNCF:1239,SNCF,"","Nantes - Redon - Rennes","",2,,,
+SNCF:1254,SNCF,"","BELLEGARDE - GENEVE","",2,,,
+SNCF:1256,SNCF,"","Laval-Vitré-Rennes","",2,,,
+SNCF:1261,SNCF,"","Poitiers-La Rochelle","",2,,,
+SNCF:1263,SNCF,"","La Rochelle-Bordeaux","",2,,,
+SNCF:1266,SNCF,"","La Rochelle-Saintes","",2,,,
+SNCF:1267,SNCF,"","La Rochelle-Rochefort","",2,,,
+SNCF:1270,SNCF,"","Limoges-Uzerche-Brive","",2,,,
+SNCF:1271,SNCF,"","Limoges-St Yrieix-Brive","",2,,,
+SNCF:1277,SNCF,"","Limoges-Périgueux-Bordeaux","",2,,,
+SNCF:1282,SNCF,"","Périgueux-Bordeaux","",2,,,
+SNCF:1284,SNCF,"","Périgueux-Agen/Sarlat","",2,,,
+SNCF:1286,SNCF,"","Bordeaux-Arcachon","",2,,,
+SNCF:1287,SNCF,"","St Mariens-Bordeaux","",2,,,
+SNCF:1288,SNCF,"","Bordeaux-Mont de Marsan","",2,,,
+SNCF:1289,SNCF,"","Bordeaux-Hendaye","",2,,,
+SNCF:1290,SNCF,"","Bordeaux-Pau-Tarbes","",2,,,
+SNCF:1292,SNCF,"","Bayonne-St Jean Pied de Port","",2,,,
+SNCF:1293,SNCF,"","Pau-Bedous","",2,,,
+SNCF:1294,SNCF,"","Bordeaux-Langon","",2,,,
+SNCF:1295,SNCF,"","Bordeaux-Agen","",2,,,
+SNCF:1296,SNCF,"","Bordeaux-Pointe de Grave","",2,,,
+SNCF:1297,SNCF,"","Pessac-Macau","",2,,,
+SNCF:1310,SNCF,"","Le Mans-Rennes","",2,,,
+SNCF:1312,SNCF,"","Lannion - Brest","",2,,,
+SNCF:1314,SNCF,"","Nantes - Quimper - Brest","",2,,,
+SNCF:1324,SNCF,"","Rennes - Quimper","",2,,,
+SNCF:1344,SNCF,"","CARPENTRAS / AVIGNON TGV","",2,,,
+SNCF:1345,SNCF,"","Nantes - Saint-Nazaire - Le Croisic","",2,,,
+SNCF:1353,SNCF,"","Le Mans - Angers - Nantes","",2,,,
+SNCF:1355,SNCF,"","tram-train-SGS","",0,,,
+SNCF:1358,SNCF,"","Nantes - Cholet","",2,,,
+SNCF:1361,SNCF,"","Nantes-La Roche sur Yon - Les Sables","",2,,,
+SNCF:1363,SNCF,"","Nantes - Saint-Gilles-Croix-de-Vie - Pornic","",2,,,
+SNCF:1364,SNCF,"","Angers - Cholet","",2,,,
+SNCF:1365,SNCF,"","Verdun-Nancy","",2,,,
+SNCF:1366,SNCF,"","Châteaubriant - Rennes","",2,,,
+SNCF:1367,SNCF,"","Nantes - Redon","",2,,,
+SNCF:1368,SNCF,"","Le Mans - Le Croisic","",2,,,
+SNCF:1370,SNCF,"","Luxembourg-Metz-Nancy","",2,,,
+SNCF:1373,SNCF,"","Sarrebourg-Rémilly-Metz","",2,,,
+SNCF:1374,SNCF,"","Treves-Metz","",2,,,
+SNCF:1375,SNCF,"","Thionville-Longwy","",2,,,
+SNCF:1376,SNCF,"","Thouars - La-Roche-sur-Yon","",2,,,
+SNCF:1377,SNCF,"","Sarreguemines-Béning -Metz","",2,,,
+SNCF:1378,SNCF,"","MARSEILLE/LES ARCS","",2,,,
+SNCF:1379,SNCF,"","Orléans - Tours - Nantes - Le Croisic","",2,,,
+SNCF:1380,SNCF,"","MARSEILLE/AIX/PERTUIS","",2,,,
+SNCF:1381,SNCF,"","IC MARSEILLE/SISTERON/BRIANCON + GAP/BRI","",2,,,
+SNCF:1382,SNCF,"","Paris-Le Mans","",2,,,
+SNCF:1383,SNCF,"","Lunéville-Nancy","",2,,,
+SNCF:1385,SNCF,"","Pont-St-Vincent- Nancy","",2,,,
+SNCF:1386,SNCF,"","Dijon-Culmont-Neufchateau-Toul- Nancy","",2,,,
+SNCF:1387,SNCF,"","Remiremont-Epinal-Nancy-Metz","",2,,,
+SNCF:1388,SNCF,"","St-Dié-Nancy","",2,,,
+SNCF:1390,SNCF,"","Verdun-Onville-Metz","",2,,,
+SNCF:1391,SNCF,"","Verdun-Conflans-Hagondange-Metz","",2,,,
+SNCF:1393,SNCF,"","Tours -Caen","",2,,,
+SNCF:1400,SNCF,"","Clermont Fd pass nord / sud","",2,,,
+SNCF:1405,SNCF,"","Aurillac / Figeac / Capdenac","",2,,,
+SNCF:1408,SNCF,"","Redon - Quimper","",2,,,
+SNCF:1417,SNCF,"","Cars Volvic / St Gervais (cars)","",3,,,
+SNCF:1420,SNCF,"","Toulouse / Auch","",2,,,
+SNCF:1421,SNCF,"","Toulouse / Latour de Carol","",2,,,
+SNCF:1422,SNCF,"","Toulouse / Mazamet","",2,,,
+SNCF:1423,SNCF,"","Toulouse / Rodez","",2,,,
+SNCF:1424,SNCF,"","Brive / Rodez","",2,,,
+SNCF:1425,SNCF,"","Rodez / Millau / Tournemire-Roquefort (cars)","",3,,,
+SNCF:1426,SNCF,"","Toulouse / Luchon / Pau","",2,,,
+SNCF:1428,SNCF,"","Toulouse / Brive","",2,,,
+SNCF:1439,SNCF,"","Cars Clermont / Le Puy (cars)","",3,,,
+SNCF:1444,SNCF,"","Rennes - Saint Malo","",2,,,
+SNCF:1456,SNCF,"","Cars Montluçon / Gannat / Clermont Fd (cars)","",3,,,
+SNCF:1457,SNCF,"","Cars Montluçon / Vierzon (cars)","",3,,,
+SNCF:1464,SNCF,"","Cars Clermont Fd / St Etienne (cars)","",3,,,
+SNCF:1479,SNCF,"","Rennes - Vannes","",2,,,
+SNCF:1508,SNCF,"","Car THIONVILLE - APACH (cars)","",3,,,
+SNCF:1509,SNCF,"","Car REMILLY - MORHANGE (cars)","",3,,,
+SNCF:1512,SNCF,"","Car SARREGUEMINES - BENING (cars)","",3,,,
+SNCF:1513,SNCF,"","Car LONGWY - LONGUYON (cars)","",3,,,
+SNCF:1539,SNCF,"","Car NANCY - METZ (cars)","",3,,,
+SNCF:1542,SNCF,"","Car SARREBOURG - SARREGUEMINES (cars)","",3,,,
+SNCF:1547,SNCF,"","Car ST DIE - EPINAL (cars)","",3,,,
+SNCF:1549,SNCF,"","Car NANCY - NEUFCHATEAU (cars)","",3,,,
+SNCF:1551,SNCF,"","Car CREUTZWALD - THIONVILLE (cars)","",3,,,
+SNCF:1554,SNCF,"","Car SARREBOURG - MORHANGE (cars)","",3,,,
+SNCF:1562,SNCF,"","Carcassonne-Quillan","",2,,,
+SNCF:1563,SNCF,"","Nîmes-Le Grau du Roi","",2,,,
+SNCF:1579,SNCF,"","ROUEN LE HAVRE","",2,,,
+SNCF:1580,SNCF,"","ELBEUF YVETOT","",2,,,
+SNCF:1584,SNCF,"","Perpignan-Villefranche","",2,,,
+SNCF:1585,SNCF,"","Villefranche-La Tour de Carol","",2,,,
+SNCF:1586,SNCF,"","Dijon / Clermont Multi-Activités","",2,,,
+SNCF:1588,SNCF,"","Nîmes-Mende-St Chély d'Apcher","",2,,,
+SNCF:1589,SNCF,"","Béziers-Neussargues","",2,,,
+SNCF:1590,SNCF,"","ROMANS/BRIANCON","",2,,,
+SNCF:1597,SNCF,"","Nantes - Luçon - La Rochelle","",2,,,
+SNCF:1599,SNCF,"","Le Mans-Laval","",2,,,
+SNCF:1600,SNCF,"","Nantes-Saumur","",2,,,
+SNCF:1602,SNCF,"","Le Mans - Nogent","",2,,,
+SNCF:1603,SNCF,"","Le Mans-Caen","",2,,,
+SNCF:1606,SNCF,"","Chateau du Loir - Le Mans - Alençon","",2,,,
+SNCF:1607,SNCF,"","Nantes - Sablé - Rennes (Virgule)","",2,,,
+SNCF:1608,SNCF,"","IV Marseille - Nice - Menton - Vintimille","",2,,,
+SNCF:1626,SNCF,"","Rennes - Saint Brieuc","",2,,,
+SNCF:1629,SNCF,"","CHARLEVILLE-GIVET","",2,,,
+SNCF:1631,SNCF,"","CHATEAU THIERRY-CHALONS-EPERNAY-REIMS","",2,,,
+SNCF:1633,SNCF,"","CGV-REIMS-DIJON","",2,,,
+SNCF:1634,SNCF,"","CGV-REIMS (Navettes)","",2,,,
+SNCF:1635,SNCF,"","CGV-SEDAN","",2,,,
+SNCF:1636,SNCF,"","CHARLEVILLE - THIONVILLE","",2,,,
+SNCF:1643,SNCF,"","MARSEILLE/AVIGNON/ORANGE via RGC, ARS et CNV","",2,,,
+SNCF:1644,SNCF,"","MARSEILLE/MIRAMAS via PDB","",2,,,
+SNCF:1672,SNCF,"","Saint Brieuc - Brest","",2,,,
+SNCF:1674,SNCF,"","Res-Dol-Din","",2,,,
+SNCF:1675,SNCF,"","Saint Brieuc - Lannion","",2,,,
+SNCF:1698,SNCF,"","Salbris - Valençay (cars)","",3,,,
+SNCF:1728,SNCF,"","Cars Reguliers L 06  (Nantes - Clisson - Cholet) (cars)","",3,,,
+SNCF:1730,SNCF,"","Cars Reguliers L 11  (Nantes - St Gilles Croix de Vie) (cars)","",3,,,
+SNCF:1789,SNCF,"","BUS TX PARIS - BAR LE DUC (cars)","",3,,,
+SNCF:1790,SNCF,"","BUS CGV - RE - DN (cars)","",3,,,
+SNCF:1791,SNCF,"","BUS TER CHARLEVILLE - GIVET (cars)","",3,,,
+LILAPRESQUILE:10569694,LILAPRESQUILE,"1","Guérande / La Baule","",3,,303192,FFFFFF
+LILAPRESQUILE:10569695,LILAPRESQUILE,"2","Herbignac / Saint-Lyphard / Guérande / Saint-Nazaire","",3,,FF2D16,FFFFFF
+LILAPRESQUILE:10569697,LILAPRESQUILE,"4","Piriac-Sur-Mer / La Turballe / Guérande / La Baule","",3,,48C9C8,FFFFFF
+LILAPRESQUILE:10569698,LILAPRESQUILE,"5","Le Croisic / Batz-sur-Mer / Guérande","",3,,7167B4,FFFFFF
+LILAPRESQUILE:10569699,LILAPRESQUILE,"6","Le Croisic / Batz-sur-Mer / Le Pouliguen / Guérande","",3,,FF7121,FFFFFF
+LILAPRESQUILE:10569700,LILAPRESQUILE,"7","Pénestin / Assérac / Satin-Molf / Guérande","",3,,8D2621,FFFFFF
+LILAPRESQUILE:10569701,LILAPRESQUILE,"8","Camoël / Férel / Herbignac","",3,,035D5A,FFFFFF
+LILAPRESQUILE:10569702,LILAPRESQUILE,"9","Mesquer / Guérande","",3,,27895F,FFFFFF
+LILAPRESQUILE:10569703,LILAPRESQUILE,"10","Navette interne à Guérande, Ty'Gwen","",3,,FF9A39,FFFFFF
+LILAPRESQUILE:10569704,LILAPRESQUILE,"20","La Baule Bus","",3,,56BD49,FFFFFF
+LILAPRESQUILE:10569705,LILAPRESQUILE,"30","Ligne interne au Croisic","",3,,37B695,FFFFFF
+LILAPRESQUILE:10569707,LILAPRESQUILE,"A1","Ligne Virtuelle - Herbignac / La Chapelle des Marais (sur réservation)","",3,,2A4D86,FFFFFF
+LILAPRESQUILE:10569708,LILAPRESQUILE,"A2","Herbignac / Ferel / La Roche Bernard (sur réservation)","",3,,AD6E2F,FFFFFF
+LILAPRESQUILE:11067641,LILAPRESQUILE,"L13","La Baule / Pornichet / Saint-Nazaire","",3,,124F91,FFFFFF
+SNCF:3111,SNCF,"","SAUMUR - LES SABLES D'OLONNES","",2,,,
+SNCF:3149,SNCF,"","EVIAN - COPPET","",2,,,
+SNCF:3150,SNCF,"","ST-GERVAIS - COPPET","",2,,,
+SNCF:3151,SNCF,"","ANNEMASSE - COPPET","",2,,,
+SNCF:3152,SNCF,"","ANNECY - COPPET","",2,,,
+SNCF:3175,SNCF,"","Ussel-Bort les Orgues (cars)","",3,,,
+SNCF:3176,SNCF,"","Guéret-Montluçon (cars)","",3,,,
+SNCF:3177,SNCF,"","Ussel-Brive","",2,,,
+SNCF:3393,SNCF,"","Amiens - Compiègne","",2,,,
+TAN:1B-0,TAN,"1B","François Mitterrand - Beaujoire / Ranzay","",3,,007A45,FFFFFF
+TAN:108-0,TAN,"108","Saint-Hermeland - Saint-Léger-les-Vignes","",3,,FFFFFF,E53138
+TAN:162-0,TAN,"162","La Herdrie - Pirmil","",3,,FFFFFF,E53138
+TAN:172-0,TAN,"172","René Bernier - Pirmil","",3,,FFFFFF,E53138
+TAN:60-0,TAN,"60","Quintaine - Vertou","",3,,F8EA22,000000
+TAN:C20-0,TAN,"C20","Ecole Centrale - Audencia - Gare Maritime","",3,,F8EA22,000000
+TAN:C9-0,TAN,"C9","Basse Goulaine / Chalonges - Pirmil","",3,,F5B8C6,000000
+SETRAM:101,SETRAM,"101","Aigné - Collège Les Mûriers","",3,,F298C0,000000
+SETRAM:102,SETRAM,"102","Aigné - Collège La Madeleine","",3,,706F6F,FFFFFF
+SETRAM:10A,SETRAM,"10A","Oasis-Centre des Exp. par Pontlieue et Glonnières","",3,,EB5E1D,000000
+SETRAM:10B,SETRAM,"10B","Oasis-centre des Exp. par Glonnières et Pontlieue","",3,,EB5E1D,000000
+SETRAM:113,SETRAM,"113","Les Landes - Collège Les Sources","",3,,E40428,FFFFFF
+SETRAM:13,SETRAM,"13","Gare Routière - Arnage-Hôtel de Ville","",3,,923189,FFFFFF
+SETRAM:14,SETRAM,"14","Parc Manceau - St-Martin","",3,,6DC7DD,000000
+SETRAM:15,SETRAM,"15","Le Verger - Guetteloup","",3,,009FE3,000000
+SETRAM:16,SETRAM,"16","Lafayette - Californie","",3,,27348B,FFFFFF
+SETRAM:28,SETRAM,"28","Four à Chanvre - Rouillon","",3,,614E9B,FFFFFF
+SETRAM:33,SETRAM,"33","La Denisière - Université","",3,,1FADAA,FFFFFF
+SETRAM:34,SETRAM,"34","C.C St-Georges-du-Bois - Gare Sud","",3,,A52468,FFFFFF
+SETRAM:7,SETRAM,"7","Éperon par Auchan","",3,,F07D1B,000000
+SNCF:3702,SNCF,"","Rennes - Auray - Quiberon","",2,,,
+SNCF:4701,SNCF,"","Ussel-Tulle-Brive-Perigueux-Bordeaux","",2,,,
+SNCF:4702,SNCF,"","MARSEILLE VALENCE","",2,,,
+SNCF:4703,SNCF,"","PARIS ROUEN LE HAVRE","",2,,,
+SNCF:4704,SNCF,"","PARIS CAEN CHERBOURG","",2,,,
+SNCF:4705,SNCF,"","PARIS EVREUX LISIEUX TROUVILLE/DEAUVILLE","",2,,,
+SNCF:4711,SNCF,"","Paris Caen K","",2,,,
+SNCF:4712,SNCF,"","Paris Dieppe","",2,,,
+SNCF:4718,SNCF,"","CAR TER REIMS - FISMES (cars)","",3,,,
+SNCF:4785,SNCF,"","PARIS EVREUX SERQUIGNY LISIEUX CAEN","",2,,,
+SNCF:4786,SNCF,"","LISIEUX CAEN","",2,,,
+SNCF:4787,SNCF,"","LISIEUX TROUVILLE/DEAUVILLE","",2,,,
+SNCF:4788,SNCF,"","CAEN COUTANCES GRANVILLE RENNES","",2,,,
+SNCF:4790,SNCF,"","ROUEN CAEN P","",2,,,
+SNCF:4798,SNCF,"","Lille-Rouen (multi activités)","",2,,,
+SNCF:4799,SNCF,"","ROUEN DIEPPE K","",2,,,
+SNCF:4800,SNCF,"","ROUEN DIEPPE P","",2,,,
+SNCF:4802,SNCF,"","CAEN CHERBOURG","",2,,,
+SNCF:4803,SNCF,"","AMIENS ABANCOURT SERQUEUX ROUEN","",2,,,
+SNCF:4843,SNCF,"","Lille-Tourcoing-Courtrai","",2,,,
+SNCF:4844,SNCF,"","Dunkerque-Calais","",2,,,
+SNCF:4845,SNCF,"","Cambrai-Valenciennes","",2,,,
+SNCF:4846,SNCF,"","Douai-Valenciennes","",2,,,
+SNCF:4849,SNCF,"","Douai-Cambrai","",2,,,
+SNCF:4852,SNCF,"","Albert-Amiens-Abbeville-Rang du Fliers-Calais","",2,,,
+SNCF:4853,SNCF,"","Lille-Libercourt-Lens","",2,,,
+SNCF:4854,SNCF,"","Lens-Douai","",2,,,
+SNCF:4856,SNCF,"","Lille-Béthune-St Pol","",2,,,
+SNCF:4857,SNCF,"","Lille-Don-Lens","",2,,,
+SNCF:4858,SNCF,"","Lille-Hazebrouck-Dunkerque","",2,,,
+SNCF:4859,SNCF,"","Lille-Hazebrouck-St omer-Calais","",2,,,
+SNCF:4860,SNCF,"","Arras-Hazebrouck-Dunkerque-Calais","",2,,,
+SNCF:4861,SNCF,"","Lille-Valenciennes-Maubeuge-Jeumont","",2,,,
+SNCF:4862,SNCF,"","TER GV (multi activités)","",2,,,
+SNCF:4863,SNCF,"","Lille-Aulnoye-Hirson-Charleville (multi activités)","",2,,,
+SNCF:4864,SNCF,"","St Quentin-Douai-Lille","",2,,,
+SNCF:4865,SNCF,"","Béthune - St Pol - Etaples","",2,,,
+SNCF:4883,SNCF,"","Lille-Ascq-Tournai-Orchies","",2,,,
+SNCF:4891,SNCF,"","CAR CHARMES-EPINAL (cars)","",3,,,
+SNCF:4892,SNCF,"","CAR BAR LE DUC REVIGNY (cars)","",3,,,
+SNCF:4904,SNCF,"","Maubeuge-Aulnoye-Busigny-St Quentin-Tergnier","",2,,,
+SNCF:4907,SNCF,"","Lens - Béthune - St Pol","",2,,,
+SNCF:4947,SNCF,"","Cars Haguenau - Niederbronn - Bitche (cars)","",3,,,
+SNCF:4948,SNCF,"","Cars Strasbourg -Haguenau (cars)","",3,,,
+SNCF:4949,SNCF,"","Cars Haguenau - Wissembourg (cars)","",3,,,
+SNCF:4950,SNCF,"","Cars Haguenau-Obermodern-Saverne (cars)","",3,,,
+SNCF:4951,SNCF,"","Cars Strasbourg-Sélestat via Erstein (cars)","",3,,,
+SNCF:4952,SNCF,"","Cars Colmar - Bollwiller - Mulhouse (cars)","",3,,,
+SNCF:4954,SNCF,"","Cars Strasbourg-Sarreguemines (cars)","",3,,,
+SNCF:4955,SNCF,"","Cars Ingwiller - Wimmenau - Lichtenberg (cars)","",3,,,
+SNCF:4956,SNCF,"","Cars Strasbourg - Saverne (cars)","",3,,,
+SNCF:4958,SNCF,"","Cars Mulhouse - Kruth (cars)","",3,,,
+SNCF:4959,SNCF,"","Cars Colmar - Munster - Metzeral (cars)","",3,,,
+SNCF:4961,SNCF,"","Cars Mulhouse - St Louis - Bâle (cars)","",3,,,
+SNCF:4962,SNCF,"","Cars Frohmuhl-Saverne (cars)","",3,,,
+SNCF:4964,SNCF,"","Cars Strasbourg-Lauterbourg (cars)","",3,,,
+SNCF:4965,SNCF,"","Cars Strasbourg - Barr - Sélestat (cars)","",3,,,
+SNCF:4966,SNCF,"","Cars Strasbourg - Rothau - Saales (cars)","",3,,,
+SNCF:4967,SNCF,"","Cars Mulhouse-Belfort (cars)","",3,,,
+SNCF:4968,SNCF,"","Cars St-Dié-Ste Marie aux Mines-Sélestat (cars)","",3,,,
+SNCF:4971,SNCF,"","CAR TER SEDAN - LA FERTE SUR CHIERS (cars)","",3,,,
+SNCF:4972,SNCF,"","CAR TER CHALONS EN CHAMPAGNE - VERDUN (cars)","",3,,,
+SNCF:4975,SNCF,"","CAR TER TROYES - CHAUMONT (cars)","",3,,,
+SNCF:4976,SNCF,"","CAR TER TROYES - LAROCHES-MIGENNES (cars)","",3,,,
+SNCF:4977,SNCF,"","CAR TER ROMILLY - NOGENT-SUR-SEINE (cars)","",3,,,
+SNCF:4982,SNCF,"","Frasne-Vallorbe (cars)","",3,,,
+SNCF:4983,SNCF,"","CAR CULMONT CHALINDREY VITTEL (cars)","",3,,,
+SNCF:5000,SNCF,"","Cars ligne 10 Saumur-Bressuire-La Roche/yon (cars)","",3,,,
+SNCF:5002,SNCF,"","Cars Sélestat - Ribeauvillé - (Riquewihr) (cars)","",3,,,
+SNCF:5020,SNCF,"","Epernay-Bar Le Duc-Metz","",2,,,
+SNCF:5021,SNCF,"","Epernay-Bar Le Duc-Nancy","",2,,,
+SNCF:5035,SNCF,"","Grenoble - Gap","",2,,,
+SNCF:5097,SNCF,"","Luneville-Nancy-Bar Le Duc-Epernay","",2,,,
+SNCF:5098,SNCF,"","PARIS-ST DIZIER-BAR LE DUC-STRASBOURG","",2,,,
+SNCF:5100,SNCF,"","Paris-Crépy-Soissons-Laon","",2,,,
+SNCF:5129,SNCF,"","Arras-St pol-Etaples","",2,,,
+SNCF:5144,SNCF,"","PARIS-MULHOUSE VIA CHALONS","",2,,,
+SNCF:5379,SNCF,"","CARS CREPY-LAON (cars)","",3,,,
+SNCF:5497,SNCF,"","PARIS VERNON ROUEN avec car SNCF","",2,,,
+SNCF:5499,SNCF,"","Paris-Amiens-Calais","",2,,,
+SNCF:5500,SNCF,"","Paris - Creil - Longueau - Lille","",2,,,
+SNCF:5501,SNCF,"","PARIS MONTP DREUX ARGENTAN LE MT ST MICHEL GRANVILLE avec car SNCF","",2,,,
+SNCF:5502,SNCF,"","TOURS LE MANS ALENCON ARGENTAN CAEN + car SNCF Caen Le Mans","",2,,,
+SNCF:5503,SNCF,"","Paris Bercy-Dijon-Lyon (Multi-activités)","",2,,,
+SNCF:5504,SNCF,"","Navettes scolaires schirmeck (cars)","",3,,,
+SNCF:5505,SNCF,"","Nevers-Luzy (cars)","",3,,,
+SNCF:5506,SNCF,"","Etang-Autun (cars)","",3,,,
+SNCF:5507,SNCF,"","Nevers-Moulins (cars)","",3,,,
+SNCF:5508,SNCF,"","Paray-Moulins (cars)","",3,,,
+SNCF:5509,SNCF,"","Digoin-Paray-Lozanne (cars)","",3,,,
+SNCF:5510,SNCF,"","Seurre-Bourg en Bresse (cars)","",3,,,
+SNCF:5511,SNCF,"","Auxerre-Avallon-Clamecy-Corbigny (cars)","",3,,,
+SNCF:5513,SNCF,"","CAR TER ST DIZIER - JOINVILLE - CHAUMONT (cars)","",3,,,
+SNCF:5514,SNCF,"","CAR TER CHARLEVILLE - HIRSON (cars)","",3,,,
+SNCF:5515,SNCF,"","Aillevillers - Belfort (cars)","",3,,,
+SNCF:5516,SNCF,"","Besançon-Morteau-Le Locle (cars)","",3,,,
+SNCF:5517,SNCF,"","Dole-Mouchard-Saint Claude (cars)","",3,,,
+SNCF:5518,SNCF,"","Besançon-Mouchard-Lons le Saunier (cars)","",3,,,
+SNCF:5519,SNCF,"","Pontarlier-Frasne (cars)","",3,,,
+SNCF:5521,SNCF,"","CARS - LILLE - AULNOYE - HIRSON - CHARLEVILLE (cars)","",3,,,
+SNCF:5523,SNCF,"","CARS - DOUAI - VALENCIENNES (cars)","",3,,,
+SNCF:5525,SNCF,"","CARS - LILLE - VALENCIENNES - MAUBEUGE - JEUMONT (cars)","",3,,,
+SNCF:5526,SNCF,"","CARS - ALBERT - AMIENS - ABBEVILLE - RANG DU FLIER - CALAIS (cars)","",3,,,
+SNCF:5527,SNCF,"","CARS - LILLE - HAZEBROUCK - DUNKERQUE (cars)","",3,,,
+SNCF:5528,SNCF,"","CARS - ARRAS - HAZEBROUCK - DUNKERQUE - CALAIS (cars)","",3,,,
+SNCF:5536,SNCF,"","DREUX L'AIGLE SURDON ALENCON routier SNCF (cars)","",3,,,
+SNCF:5538,SNCF,"","TROUVILLE/DEAUVILLE DIVES/CABOURG train","",2,,,
+SNCF:5540,SNCF,"","ROUEN CAEN K avec car SNCF","",2,,,
+SNCF:5541,SNCF,"","CAEN GRANVILLE AVRANCHES RENNES car SNCF K (cars)","",3,,,
+SNCF:5542,SNCF,"","FECAMP LE HAVRE car et train","",2,,,
+SNCF:5546,SNCF,"","CARS - ST QUENTIN - DOUAI - LILLE (cars)","",3,,,
+SNCF:5551,SNCF,"","Paris Bercy-Laroche-Morvan","",2,,,
+SNCF:5553,SNCF,"","CARS - LILLE - HAZEBROUCK - ST OMER - CALAIS (cars)","",3,,,
+SNCF:5555,SNCF,"","CARS - MAUBEUGE - AULNOYE - BUSIGNY - ST QUENTIN - TERGNIER (cars)","",3,,,
+SNCF:5557,SNCF,"","CARS - TERGNIER - ST QUENTIN - MAUBEUGE - CAMBRAI (cars)","",3,,,
+SNCF:5570,SNCF,"","MT ST AIGNAN ROUEN EVREUX VERNEUIL car région (cars)","",3,,,
+SNCF:5579,SNCF,"","Niversac-Mussidan-Coutras","",2,,,
+SNCF:5581,SNCF,"","Auxerre-Laroche-Dijon","",2,,,
+SNCF:5582,SNCF,"","Dijon-Chalon-Mâcon","",2,,,
+SNCF:5583,SNCF,"","Is sur Tille-Dijon-Les Laumes","",2,,,
+SNCF:5584,SNCF,"","Dijon-Bourg en Bresse (Multi activités)","",2,,,
+SNCF:5585,SNCF,"","Dijon-Nevers","",2,,,
+SNCF:5586,SNCF,"","Chalon-Montchanin-Paray","",2,,,
+SNCF:5588,SNCF,"","Decize-Nevers-Moulins","",2,,,
+SNCF:5589,SNCF,"","Nevers-Paray-Lyon (Multi-activités)","",2,,,
+SETRAM:30,SETRAM,"30","Gare Sud - Les Croisettes","",3,,F29FC5,000000
+SETRAM:31,SETRAM,"31","Malpalu - EHPAD","",3,,994263,FFFFFF
+SETRAM:32,SETRAM,"32","Gare Sud - Stade Asnillé/Église Fay","",3,,E71D73,FFFFFF
+SETRAM:35,SETRAM,"35","Gare Sud - Sécurité Sociale","",3,,0E8C8D,FFFFFF
+OLEANE:3030,OLEANE,"LIGNE B","LA CHAUME - LES SABLES CENTRE - POLE SANTE","",3,,E3A51A,000000
+SNCF:6108,SNCF,"","Cars travaux BGD-EVI/SGB (cars)","",3,,,
+SNCF:6128,SNCF,"","CARS - DOUAI - CAMBRAI","",2,,,
+SNCF:6161,SNCF,"","CAR TERGV (multi activités) (cars)","",3,,,
+SNCF:6191,SNCF,"","Prinptemp de Bourges/Orleans (cars)","",3,,,
+SNCF:6192,SNCF,"","Printemps de Bourges / Tours (cars)","",3,,,
+SNCF:6206,SNCF,"","Bréauté Etretat car région (cars)","",3,,,
+SNCF:6218,SNCF,"","Honfleur Trouville/Deauville car région (cars)","",3,,,
+SNCF:6219,SNCF,"","Honfleur Le Havre car région (cars)","",3,,,
+OLEANE:3715,OLEANE,"LIGNE A","L'ILE D'OLONNE - OLONNE - LES SABLES CENTRE","",3,,C73435,FFFFFF
+OLEANE:3717,OLEANE,"LIGNE C","POLE SANTE - LA PIRONNIERE - LES SABLES CENTRE","",3,,5CA662,000000
+OLEANE:3718,OLEANE,"LIGNE D","OCEANES - LES SABLES CENTRE","",3,,414390,FFFFFF
+OLEANE:3719,OLEANE,"LIGNE E","LE CHATEAU - LES SABLES CENTRE","",3,,80217E,FFFFFF
+OLEANE:3720,OLEANE,"LIGNE 10","ARCHERS - MAISON NEUVE - LES SABLES CENTRE","",3,,335C34,FFFFFF
+OLEANE:4557,OLEANE,"LIGNE 12","L'ILE D'OLONNE - LES SABLES CENTRE","",3,,C4AC74,000000
+OLEANE:4558,OLEANE,"LIGNE 13","VAIRE - LES SABLES CENTRE","",3,,917562,FFFFFF
+OLEANE:4559,OLEANE,"LIGNE 14","SAINT MATHURIN  - LES SABLES CENTRE","",3,,AF8FBE,000000
+OLEANE:4560,OLEANE,"LIGNE 15","SAINTE FOY - LES SABLES CENTRE","",3,,B6C931,000000
+OLEANE:4561,OLEANE,"LIGNE 7","PIERRE LEVEE - POLE SANTE - TANCHET","",3,,97B3DF,000000
+OLEANE:4562,OLEANE,"LIGNE 8","GRANDS ROCHERS - LES SABLES CENTRE","",3,,A89F32,000000
+OLEANE:4563,OLEANE,"LIGNE 9","SAPONAIRES - LES SABLES CENTRE","",3,,802B3B,FFFFFF
+TAN:192-0,TAN,"192","Jean Monnet - Porte de Vertou","",3,,FFFFFF,E53138
+TAN:N1-0,TAN,"N1","Trentemoult - Roquios - Gare Maritime","",4,,2AAAB6,FFFFFF
+TAN:N3-0,TAN,"N3","Port Boyer Navibus - Petit Port-Facultés","",4,,2AAAB6,FFFFFF
+SNCF:1510,SNCF,"","Car SARREBOURG-IGNEY AVRICOURT-LUNEVILLE (cars)","",3,,,
+SNCF:1511,SNCF,"","Avignon-Port Bou","",2,,,
+SETRAM:100,SETRAM,"100","Grand Rolland - Collège Les Mûriers","",3,,009640,FFFFFF
+SETRAM:103,SETRAM,"103","Aigné - Lycée Sud","",3,,F9AF23,000000
+SETRAM:110,SETRAM,"110","Mulsanne - Sainte Hélène","",3,,36A9E1,000000
+SETRAM:111,SETRAM,"111","Mulsanne - Lycée Bellevue","",3,,F39200,000000
+SETRAM:112,SETRAM,"112","Mulsanne - Lycée Claude Chappe","",3,,00A690,FFFFFF
+SETRAM:120,SETRAM,"120","Champagné - Lycée Washington","",3,,A3195B,FFFFFF
+SETRAM:121,SETRAM,"121","Champagné - Lycée Montesquieu","",3,,1C8385,FFFFFF
+SETRAM:122,SETRAM,"122","George Sand - Parence - George Sand","",3,,BA1818,FFFFFF
+SETRAM:130,SETRAM,"130","Sargé-lès-Le-Mans - Collège La Psallette","",3,,96B0DC,000000
+SETRAM:131,SETRAM,"131","Bellevue Hauts de Coulaines - Campus Ribay","",3,,F0762B,000000
+SETRAM:140,SETRAM,"140","Berardières - École Lyautey","",3,,FCBC00,000000
+SETRAM:141,SETRAM,"141","Tourellerie - Col. Vieux Colombier/St Joseph","",3,,E71D73,FFFFFF
+SETRAM:142,SETRAM,"142","Lycée André Malraux - Tourellerie","",3,,89D0F5,000000
+SETRAM:150,SETRAM,"150","C.C. St-Georges-du-Bois - Collège Kennedy","",3,,35417C,FFFFFF
+SETRAM:151,SETRAM,"151","C.C St Georges-du-Bois - Lycée St-Joseph","",3,,F9AF0E,000000
+SETRAM:152,SETRAM,"152","Église Fay - Lycée Malraux","",3,,C54190,FFFFFF
+SETRAM:153,SETRAM,"153","Les Gravillons - Col.Vieux Colombier","",3,,4DB05B,FFFFFF
+SETRAM:154,SETRAM,"154","Route de Fay - Collège Vieux Colombier","",3,,E51A33,FFFFFF
+SETRAM:155,SETRAM,"155","Les Gravillons - Col.Ambroise Paré","",3,,E83E2E,FFFFFF
+SETRAM:160,SETRAM,"160","Foresterie - Collège Épine","",3,,F39200,000000
+SETRAM:161,SETRAM,"161","Foresterie - École Louise Labé","",3,,E30613,FFFFFF
+SETRAM:162,SETRAM,"162","Éperon - Ste-Catherine","",3,,2B4C9B,FFFFFF
+SETRAM:163,SETRAM,"163","Gare Routière - Ste-Catherine","",3,,B17F4A,FFFFFF
+SETRAM:164,SETRAM,"164","Gare Routière - Lycée St-Joseph","",3,,0DAE8D,FFFFFF
+TAN:N2-0,TAN,"N2","Bas-Chantenay - Hangar à Bananes","",4,,2AAAB6,FFFFFF
+TAN:5-0,TAN,"5","Hangar à Bananes - Gare Sud","",3,,34B4E4,FFFFFF
+OLEANE:4556,OLEANE,"TSR","TSR","",3,,809F8C,000000
+SNCF:4714,SNCF,"","CAR VITTEL CONTREX NANCY (cars)","",3,,,
+SNCF:4715,SNCF,"","Cars réguliers Mulhouse Mullheim (cars)","",3,,,
+SNCF:4716,SNCF,"","Sarre Union Diemeringen Sarralbe (cars)","",3,,,
+SNCF:4717,SNCF,"","CAR TER TROYES - ROMILLY (cars)","",3,,,
+CHOLETBUS:10,CHOLETBUS,"13","Lys Haut Layon - Coron - Chanteloup - Vezins - Nuaillé - Cholet","",3,,980076,ffffff
+CHOLETBUS:11,CHOLETBUS,"14","Toutlemonde - Mazières - Cholet","",3,,E1218B,ffffff
+CHOLETBUS:12,CHOLETBUS,"15","La Tessoualle - Le Puy St Bonnet - Cholet","",3,,FFA000,ffffff
+CHOLETBUS:13,CHOLETBUS,"10","La Romagne - La Séguinière - Cholet","",3,,F69CBE,000000
+CHOLETBUS:14,CHOLETBUS,"16","St Christophe du Bois - Cholet","",3,,A376CD,ffffff
+CHOLETBUS:31,CHOLETBUS,"17","La Plaine - Somloire - Les Cerqueux - Yzernay - Maulévrier - Cholet","",3,,0649A7,ffffff
+CHOLETBUS:8,CHOLETBUS,"11","Bégrolles - Le May - St Léger - Cholet","",3,,FFD200,000000
+CHOLETBUS:9,CHOLETBUS,"12","Trémentines - Nuaillé - Cholet","",3,,B3BD00,FFFFFF
+ALEOP:101,ALEOP,"101","Angers - Château-Gontier - Laval","",3,,A5A756,FFFFFF
+ALEOP:101-AD,ALEOP,"101-AD","Angers - Château-Gontier - Laval / A la demande","",3,,A5A756,FFFFFF
+ALEOP:101E,ALEOP,"101E","Angers - Château-Gontier - Laval / Navette Express","",3,,A5A756,FFFFFF
+ALEOP:102,ALEOP,"102","Mayenne - Laval","",3,,76B82A,FFFFFF
+ALEOP:102E,ALEOP,"102E","Mayenne - Laval / Express","",3,,76B82A,FFFFFF
+ALEOP:103,ALEOP,"103","Sainte-Suzanne - Laval","",3,,009E3D,FFFFFF
+ALEOP:103-AD,ALEOP,"103-AD","Sainte-Suzanne - Laval / A la demande","",3,,009E3D,FFFFFF
+ALEOP:104,ALEOP,"104","Ernée - Andouillé - La Baconnière - Laval","",3,,768F53,FFFFFF
+ALEOP:104-AD,ALEOP,"104-AD","Ernée - Andouillé - La Baconnière - Laval / A la demande","",3,,768F53,FFFFFF
+ALEOP:105,ALEOP,"105","Ernée - Andouillé - La Baconnière - Laval","",3,,365E3C,FFFFFF
+ALEOP:105-AD,ALEOP,"105-AD","Ernée - Andouillé - La Baconnière - Laval / A la demande","",3,,365E3C,FFFFFF
+ALEOP:107,ALEOP,"107","Saint-Pierre-des-Landes - Olivet - Laval","",3,,0075BF,FFFFFF
+ALEOP:107-AD,ALEOP,"107-AD","Saint-Pierre-des-Landes - Olivet - Laval / A la demande","",3,,0075BF,FFFFFF
+ALEOP:108,ALEOP,"108","La Guerche-de-Bretagne - Montjean - Laval","",3,,164194,FFFFFF
+ALEOP:108-AD,ALEOP,"108-AD","La Guerche-de-Bretagne - Montjean - Laval","",3,,164194,FFFFFF
+ALEOP:109,ALEOP,"109","Sablé-sur-Sarthe - Meslay-du-Maine - Laval","",3,,831F82,FFFFFF
+ALEOP:110,ALEOP,"110","Lassay-les-Châteaux - Mayenne - Laval","",3,,7A7AB9,FFFFFF
+ALEOP:110-AD,ALEOP,"110-AD","Lassay-les-Châteaux - Mayenne  / A la demande","",3,,7A7AB9,FFFFFF
+ALEOP:111,ALEOP,"111","Gorron - Mayenne","",3,,F3975D,FFFFFF
+ALEOP:111-AD,ALEOP,"111-AD","Gorron - Mayenne / A la demande","",3,,F3975D,FFFFFF
+ALEOP:112,ALEOP,"112","Évron - Jublains - Mayenne","",3,,C0087F,FFFFFF
+ALEOP:112-AD,ALEOP,"112-AD","Évron - Jublains - Mayenne / A la demande","",3,,C0087F,FFFFFF
+ALEOP:113,ALEOP,"113","Saint-Pierre-des-Nids - Alençon - Villaines-la-Juhel - Mayenne - Laval","",3,,E40134,FFFFFF
+ALEOP:116,ALEOP,"116","Landivy - Ernée - Mayenne","",3,,9B567E,FFFFFF
+ALEOP:116-AD,ALEOP,"116-AD","Landivy - Ernée - Mayenne  / A la demande","",3,,9B567E,FFFFFF
+ALEOP:118,ALEOP,"118","Sablé-sur-Sarthe - Meslay-du-Maine - Château-Gontier-sur-Mayenne - Segré","",3,,EA5B0C,FFFFFF
+ALEOP:118-AD,ALEOP,"118-AD","Sablé-sur-Sarthe -  Château-Gontier-sur-Mayenne - Segré / A la demande","",3,,EA5B0C,FFFFFF
+ALEOP:140,ALEOP,"140","Châteaubriant - Craon - Cossé-le-Vivien - Laval","",3,,589DD6,FFFFFF
+ALEOP:140-AD,ALEOP,"140-AD","Renazé - Craon - Cossé-le-Vivien - Laval  / A la demande","",3,,589DD6,FFFFFF
+ALEOP:150,ALEOP,"150","Saint-Aignan-sur-Roë – Congrier – Ballots – Simplé – Craon – Château-Gontier-sur-Mayenne","",3,,FDC300,000000
+ALEOP:150-AD,ALEOP,"150-AD","Saint-Aignan-sur-Roë – Congrier – Ballots – Simplé – Craon – Château-Gontier-sur-Mayenne / A la demande","",3,,FDC300,000000
+ALEOP:203,ALEOP,"203","Sablé sur Sarthe - La Flèche","",3,,0075BF,FFFFFF
+ALEOP:204,ALEOP,"204","Fresnay - Alençon","",3,,164194,FFFFFF
+ALEOP:206,ALEOP,"206","La Flèche - Le Mans","",3,,589DD6,FFFFFF
+ALEOP:207,ALEOP,"207","St Denis d'Orques - Le Mans","",3,,7A7AB9,FFFFFF
+ALEOP:208,ALEOP,"208","Sablé - Le Mans","",3,,831F82,FFFFFF
+ALEOP:209,ALEOP,"209","Rouez - Le Mans","",3,,C0087F,FFFFFF
+ALEOP:210,ALEOP,"210","Fresnay-sur-Sarthe - Le Mans","",3,,4F304E,FFFFFF
+ALEOP:211,ALEOP,"211","Marolles - Le Mans","",3,,9B567E,FFFFFF
+ALEOP:212_E,ALEOP,"212 E","Mamers - Le Mans","",3,,E40134,FFFFFF
+ALEOP:212_S,ALEOP,"212 S","Mamers - Le Mans","",3,,E40134,FFFFFF
+ALEOP:214,ALEOP,"214","Montmirail - Le Mans","",3,,EA5B0C,FFFFFF
+ALEOP:215,ALEOP,"215","Bessé sur Braye - Le Mans","",3,,EE756D,000000
+ALEOP:216_E,ALEOP,"216 E","Ruillé sur Loir - Le Mans","",3,,F3975D,000000
+ALEOP:216_S,ALEOP,"216 S","Ruillé sur Loir - Le Mans","",3,,F3975D,000000
+ALEOP:217,ALEOP,"217","Ecommoy - Le Mans","",3,,FDC300,000000
+ALEOP:218,ALEOP,"218","Le Lude - Le Mans","",3,,D3D800,000000
+ALEOP:219,ALEOP,"219","Tuffé - Le Mans","",3,,C4A856,FFFFFF
+ALEOP:300,ALEOP,"300","Grandchamp-des-Fontaines - Nantes","",3,,164194,FFFFFF
+ALEOP:301,ALEOP,"301","Paimboeuf - Saint Père en Retz - Nantes","",3,,164194,FFFFFF
+ALEOP:303,ALEOP,"303","Pornic - Nantes","",3,,589DD6,FFFFFF
+ALEOP:309,ALEOP,"309","Nozay - Nantes (Express)","",3,,831F82,FFFFFF
+ALEOP:310,ALEOP,"310","Derval - Nantes","",3,,C0087F,FFFFFF
+ALEOP:311,ALEOP,"311","Blain - Nantes","",3,,4F304E,FFFFFF
+ALEOP:312,ALEOP,"312","Saint Philbert de Grand Lieu - Nantes","",3,,9B567E,FFFFFF
+ALEOP:313,ALEOP,"313","Saint Philbert de Grand Lieu - Nantes Express","",3,,009E3D,FFFFFF
+ALEOP:314,ALEOP,"314","Saint Philbert de Grand Lieu - Nantes  Scolaire","",3,,EA5B0C,000000
+ALEOP:315,ALEOP,"315","Préfailles - Saint Nazaire","",3,,EE756D,F7F7F7
+ALEOP:316,ALEOP,"316","Frossay - Saint Nazaire","",3,,F3975D,FFFFFF
+ALEOP:317,ALEOP,"317","Saint Brévin - Saint Nazaire","",3,,FDC300,000000
+ALEOP:320,ALEOP,"320","Savenay - Nantes","",3,,D3D800,000000
+ALEOP:322,ALEOP,"322","Granchamp des Fontaines - Nantes","",3,,C4A856,FFFFFF
+ALEOP:324,ALEOP,"324","Treillières - Orvault","",3,,A5A756,FFFFFF
+ALEOP:330,ALEOP,"330","La Chapelle Basse Mer - Nantes","",3,,76B82A,FFFFFF
+ALEOP:331,ALEOP,"331","La Regrippière - Nantes","",3,,E40134,FFFFFF
+ALEOP:332,ALEOP,"332","Château Thébaud - Vertou","",3,,768F53,FFFFFF
+ALEOP:333,ALEOP,"333","Divatte sur Loire - Nantes","",3,,365E3C,FFFFFF
+ALEOP:344,ALEOP,"344","Châteaubriant - Saint Nazaire","",3,,0075BF,FFFFFF
+ALEOP:346,ALEOP,"346","Vallons de l'Erdre - Nantes","",3,,F3975D,FFFFFF
+ALEOP:347,ALEOP,"347","Casson  - Sucé-sur-Erdre","",3,,589DD6,FFFFFF
+ALEOP:348,ALEOP,"348","Petit Mars - Nantes","",3,,E40134,FFFFFF
+ALEOP:349,ALEOP,"349","Trans-sur-Erdre  -  Nort-sur-Erdre","",3,,831F82,FFFFFF
+ALEOP:350,ALEOP,"350","Savenay - Nantes","",3,,FDC300,000000
+ALEOP:359,ALEOP,"359","Saint Etienne de Montluc - Nantes","",3,,4F304E,FFFFFF
+ALEOP:360,ALEOP,"360","Saint-Mars-la-Jaille - Nantes","",3,,768F53,FFFFFF
+ALEOP:362,ALEOP,"362","Vieillevigne - Nantes","",3,,E40134,FFFFFF
+ALEOP:371,ALEOP,"371","Blain - Nantes","",3,,EA5B0C,FFFFFF
+ALEOP:401,ALEOP,"401","Angers - Segré - Châteaubriant","",3,,C0087F,FFFFFF
+ALEOP:401-B,ALEOP,"401-B","Angers-Le Lion-d’Angers - Azé","",3,,C0087F,FFFFFF
+ALEOP:401-M,ALEOP,"401-M","Segré - Saint-Martin-du-Bois","",3,,C0087F,FFFFFF
+ALEOP:402,ALEOP,"402","Angers - Seiches - La Flèche","",3,,F3975D,FFFFFF
+ALEOP:402-B,ALEOP,"402-B","Angers - Noyant","",3,,F3975D,FFFFFF
+ALEOP:403,ALEOP,"403","Angers  - Beaufort-en-Anjou","",3,,FDC300,000000
+ALEOP:404,ALEOP,"404","Angers - Saint-Mathurin - Gennes-Val-de-Loire - Saumur","",3,,D3D800,000000
+ALEOP:405,ALEOP,"405","Angers - Doué-la-Fontaine - Montreuil-Bellay","",3,,C4A856,FFFFFF
+ALEOP:406,ALEOP,"406","Cholet - Vihiers - Doué-la-Fontaine - Saumur","",3,,EA5B0C,FFFFFF
+ALEOP:407,ALEOP,"407","Angers - Chemillé - Cholet","",3,,76B82A,FFFFFF
+ALEOP:408,ALEOP,"408","Cholet - Beaupréau - Ancenis","",3,,F3975D,FFFFFF
+ALEOP:409,ALEOP,"409","Angers - Bécon-Les-Granits - Candé - Chateaubriant","",3,,768F53,FFFFFF
+ALEOP:410,ALEOP,"410","Angers - Saint-Georges-sur-Loire - La Pommeraye","",3,,E40134,FFFFFF
+ALEOP:411,ALEOP,"411","Angers - Châteauneuf - Miré","",3,,589DD6,FFFFFF
+ALEOP:412,ALEOP,"412","Angers - Tiercé - Juvardeil","",3,,164194,FFFFFF
+ALEOP:414,ALEOP,"414","Angers - Bois d'Anjou","",3,,A5A756,FFFFFF
+ALEOP:415,ALEOP,"415","Saumur - Longué - Beaufort-en-Anjou","",3,,009E3D,FFFFFF
+ALEOP:416,ALEOP,"416","Saumur - Noyant","",3,,831F82,FFFFFF
+ALEOP:417,ALEOP,"417","Angers - Juigné - Gennes - Saumur","",3,,C0087F,FFFFFF
+ALEOP:418,ALEOP,"418","Angers - Saint-Melaine - Aubance - Martigné - Briand - Vihiers","",3,,4F304E,FFFFFF
+ALEOP:419,ALEOP,"419","Angers - Thouarcé - Faveraye - Machelles","",3,,9B567E,FFFFFF
+ALEOP:420,ALEOP,"420","Angers - Beaulieu-sur-Layon - Valanjou","",3,,E40134,FFFFFF
+ALEOP:421,ALEOP,"421","Geste - Villedieu-la-Blouère - Saint-Macaire-en-Mauges - Saint-André-de-la-Marche - Cholet","",3,,C0087F,FFFFFF
+ALEOP:422,ALEOP,"422","Angers - Chalonnes - Beaupréau - Montigné-sur-Moine","",3,,D8161C,FFFFFF
+ALEOP:423,ALEOP,"423","Angers - Chalonnes-sur-Loire","",3,,F3975D,FFFFFF
+ALEOP:424,ALEOP,"424","Angers - Saint-Augustin-des-Bois - Ingrandes","",3,,FDC300,000000
+ALEOP:424-M,ALEOP,"424-M","Saint-Florent-le-Vieil - Ancenis","",3,,FDC300,000000
+ALEOP:425,ALEOP,"425","Angers - Vern-d'Anjou - Brain-sur-Longuenée","",3,,D3D800,000000
+ALEOP:426,ALEOP,"426","Baugé-en-Anjou - Brion - Beaufort-en-Anjou","",3,,589DD6,FFFFFF
+ALEOP:430,ALEOP,"430","Cholet - La Jubaudière - Jallais - Le-Pin-en-Mauges - La Chapelle-Rousselin","",3,,0075BF,FFFFFF
+ALEOP:509,ALEOP,"509","La Roche-sur-Yon / Grosbreuil / Les Sables d'Olonne","",3,,E40134,FFFFFF
+ALEOP:510,ALEOP,"510","Cholet / Les Essarts / La Roche-sur-Yon","",3,,EA5B0C,FFFFFF
+ALEOP:520,ALEOP,"520","La Roche-sur-Yon / Sainte Hermine / Fontenay-le-Comte","",3,,F3975D,FFFFFF
+ALEOP:540,ALEOP,"540","Luçon / La Rochelle","",3,,D3D800,000000
+ALEOP:550,ALEOP,"550","Les Sables d'Olonne / La Tranche-sur-Mer / Luçon","",3,,0075BF,FFFFFF
+ALEOP:555,ALEOP,"555","La Roche-sur-Yon / Moutiers-les-Mauxfaits / L'Aiguillon-sur-Mer","",3,,76B82A,FFFFFF
+ALEOP:568,ALEOP,"568","La Barre de Monts / Saint-Gilles-Croix-de-Vie / Les Sables d'Olonne","",3,,768F53,FFFFFF
+ALEOP:571,ALEOP,"571","Challans / La Barre de Monts / Noirmoutier","",3,,AA216E,FFFFFF
+ALEOP:572,ALEOP,"572","La Roche-sur-Yon / Saint-Gilles-Croix-de-Vie / Saint-Jean-de-Monts","",3,,365E3C,FFFFFF
+ALEOP:T5,ALEOP,"T5","Saint-Nazaire - Saint-Nicolas-de-Redon","",3,,EE756D,FFFFFF
+ALEOP:T5 ESAT,ALEOP,"T5 AT","Saint-Nazaire - esat Pontchateau","",3,,009E3D,FFFFFF
+ALEOP:Vxp,ALEOP,"Vxp","Vendexpress","",3,,164194,FFFFFF
+OLEANE:8871,OLEANE,"LIGNE 16","VAIRE - HAVRE D'OLONNE","",3,,808040,FFFFFF
+OLEANE:8872,OLEANE,"LIGNE 17","ST MATHURIN - HAVRE D'OLONNE","",3,,408080,FFFFFF
+OLEANE:8873,OLEANE,"LIGNE 18","SAINTE FOY - YLIUM","",3,,808000,FFFFFF
+ALEOP:102-AD,ALEOP,"102-AD","Ambrières - Mayenne - Laval / A la demande","",3,,76B82A,FFFFFF
+ALEOP:109-AD,ALEOP,"109-AD","Sablé-sur-Sarthe - Meslay-du-Maine - Laval / A la demande","",3,,831F82,FFFFFF
+ALEOP:109E,ALEOP,"109E","Sablé-sur-Sarthe - Meslay-du-Maine - Laval / Express","",3,,831F82,FFFFFF
+ALEOP:113-AD,ALEOP,"113-AD","Saint-Pierre-des-Nids - Alençon - Villaines-la-Juhel - Mayenne / A la demande","",3,,E40134,FFFFFF
+ALEOP:140E,ALEOP,"140E","Craon - Cossé-le-Vivien - Laval  / Express","",3,,589DD6,FFFFFF
+ALEOP:145E,ALEOP,"145E","Ernée – Laval / Express","",3,,365E3C,FFFFFF
+ALEOP:07,ALEOP,"07","Nantes - Poitiers","",3,,009BB9,FFFFFF
+ALEOP:12,ALEOP,"12","St Jean de Monts - Challans - Nantes","",3,,009BB9,FFFFFF
+ALEOP:13,ALEOP,"13","Nantes - Noirmoutier","",3,,009BB9,FFFFFF
+ALEOP:15,ALEOP,"15","La Roche sur Yon - Luçon - Fontenay le Comte","",3,,009BB9,FFFFFF
+ALEOP:16,ALEOP,"16","Fontenay le Comte - Niort","",3,,009BB9,FFFFFF
+ALEOP:17,ALEOP,"17","Fontenay le Comte - La Rochelle","",3,,009BB9,FFFFFF
+ALEOP:26,ALEOP,"26","Le Mans - La Flèche - Saumur","",3,,009BB9,FFFFFF
+TAN:105-0,TAN,"105","Collège Sainte Anne - Centre de Thouaré","",3,,FFFFFF,E53138
+TAN:118-0,TAN,"118","Pirmil - Saint-Léger-Les-Vignes","",3,,FFFFFF,E53138
+TAN:135-0,TAN,"135","Petits Champs Blancs - Collège Sainte-Anne","",3,,FFFFFF,E53138
+TAN:38-0,TAN,"38","Greneraie - Aéroport","",3,,009640,FFFFFF
+RESO:313,RESO,"Ligne régulière","Gastines - Tuilerie","",3,,640043,FFFFFF
+OLEANE:11615,OLEANE,"LIGNE 6.","GRANDS ROCHER - BOURGENAY PAR TONNELLE","",3,,FF8080,000000
+ALEOP:580,ALEOP,"580","La Roche-sur-Yon / Les Lucs sur Boulogne / St Philbert de Bouaine","",3,,4F304E,FFFFFF
+ALEOP:370,ALEOP,"370","Les Herbiers - Nantes","",3,,C0087F,FFFFFF
+ALEOP:380,ALEOP,"380","Rocheservière - Nantes","",3,,4F304E,FFFFFF
+ALEOP:590,ALEOP,"590","Chantonnay / Montaigu-Vendée","",3,,692E55,FFFFFF
+TAN:141-0,TAN,"141","Sainte Philomène - La Ferme","",3,,FFFFFF,E53138
+ALEOP:YEU,ALEOP,"YEU","Fromentine - Île d'Yeu","",4,,1F527B,FFFFFF
+SETRAM:M,SETRAM,"M","La Mancelle","",3,,E7303A,FFFFFF
+ALEOP:221,ALEOP,"221","La Ferté Bernard - Bessé sur Braye","",3,,009E3D,000000
+SETRAM:CHM,SETRAM,"CHM","Centre Hospitalier du Mans","",3,,16B4E2,000000
+OLEANE:15697,OLEANE,"M1","MARINETTE CENTRE VILLE - PLAGE","",3,,FF80FF,000000
+OLEANE:15698,OLEANE,"M2","MARINETTE LA CHAUME","",3,,FF00FF,000000
+SNCF:2447,SNCF,"","Loches - Tours","",2,,,
+SNCF:1419,SNCF,"","Geneve - Evian - Annecy - Valence - Avignon","",2,,,
+SETRAM:Résa+,SETRAM,"Résa+","Résa+ Monne","",3,,29A9D9,FFFFFF
+SNCF:1150,SNCF,"","Cars Grenoble - Chamonix (cars)","",3,,,
+SNCF:1151,SNCF,"","Cars Grenoble - Annemasse - Evian (cars)","",3,,,
+SNCF:1152,SNCF,"","Cars Lyon - Chamonix (cars)","",3,,,
+SNCF:1153,SNCF,"","Cars Grenoble - Annonay (cars)","",3,,,
+SNCF:1154,SNCF,"","Cars Modane - Grenoble (cars)","",3,,,
+SNCF:1155,SNCF,"","Cars Bourg-St-Maurice - Grenoble (cars)","",3,,,
+SNCF:1156,SNCF,"","Cars Chambéry - Chamonix (cars)","",3,,,
+SNCF:1157,SNCF,"","Cars Chambéry - Annecy - Evians (cars)","",3,,,
+SNCF:1158,SNCF,"","Cars Lyon - Oyonnax - St-Claude - Morez (cars)","",3,,,
+SNCF:1159,SNCF,"","Cars Bourg-en-Bresse - Chambéry (cars)","",3,,,
+SNCF:1166,SNCF,"","ligne routière Alès Nîmes (cars)","",3,,,
+SNCF:1172,SNCF,"","Cars Lyon - Lozanne - Paray-Le-Monial (cars)","",3,,,
+SNCF:1184,SNCF,"","Cars Brive / St Denis Près Martel / Aurillac (cars)","",3,,,
+SNCF:1223,SNCF,"","Cars Lyon - Annecy (cars)","",3,,,
+SNCF:1224,SNCF,"","Cars Lyon - Ambérieu - St Rambert en B (cars)","",3,,,
+SNCF:1225,SNCF,"","Cars Roanne - St-Etienne (cars)","",3,,,
+SNCF:1226,SNCF,"","Cars Macon - Bourg-en-Bresse (cars)","",3,,,
+SNCF:1228,SNCF,"","Cars Ambérieu - Chambéry (cars)","",3,,,
+SNCF:1229,SNCF,"","Cars Lyon - (LTP - AMB) - Chambéry (cars)","",3,,,
+SNCF:1230,SNCF,"","Cars Roanne - Lyon (cars)","",3,,,
+SNCF:1232,SNCF,"","Cars Clermont-Fd - Montbrison - St-Etienne (cars)","",3,,,
+SNCF:1233,SNCF,"","Firminy - St-Etienne - Lyon","",2,,,
+SNCF:1244,SNCF,"","Cars Aix Chambéry - Modane (cars)","",3,,,
+SNCF:1245,SNCF,"","Cars (Aix) - Chambéry- Bourg-St-Maurice (cars)","",3,,,
+SNCF:1246,SNCF,"","Lyon - St-André-le-Gaz - Grenoble Gières","",2,,,
+SNCF:1247,SNCF,"","SAG - Rives - Grenoble Gières - Chambéry","",2,,,
+SNCF:1248,SNCF,"","Cars Lyon - Grenoble (cars)","",3,,,
+SNCF:1252,SNCF,"","Romans Valence Die","",2,,,
+SNCF:1257,SNCF,"","Cars Lyon - Bourg-en-Bresse (via Villars) (cars)","",3,,,
+SNCF:1301,SNCF,"","Lyon - (LTP - AMB) - Chambéry","",2,,,
+SNCF:1302,SNCF,"","Lyon - (LTP) - Chambéry - Bourg-St-Maurice","",2,,,
+SNCF:1305,SNCF,"","Cars Lyon St-Paul - Sain Bel (cars)","",3,,,
+SNCF:1323,SNCF,"","St-Etienne - Lyon - Ambérieu","",2,,,
+SNCF:1336,SNCF,"","Roanne - St-Etienne","",2,,,
+SNCF:1338,SNCF,"","Macon - Bourg-en-Bresse - Ambérieu","",2,,,
+SNCF:1343,SNCF,"","Lyon - Grenoble","",2,,,
+SNCF:1347,SNCF,"","Cars Mâcon - Lyon (cars)","",3,,,
+SNCF:1350,SNCF,"","Lyon St-Paul - Sain Bel","",2,,,
+SNCF:1352,SNCF,"","Lyon St-Paul - Brignais","",2,,,
+SNCF:1354,SNCF,"","Vallorcine - St-Gervais","",2,,,
+SNCF:1359,SNCF,"","Cars Grenoble - Valence (cars)","",3,,,
+SNCF:1360,SNCF,"","Cars Grenoble - Chambery (cars)","",3,,,
+SNCF:1362,SNCF,"","Cars Valence - St-Etienne (cars)","",3,,,
+SNCF:1372,SNCF,"","Saarbrücken-Forbach-Metz","",2,,,
+SNCF:1437,SNCF,"","Annecy - Chambéry","",2,,,
+SNCF:1442,SNCF,"","Cars Grenoble - Aubenas (cars)","",3,,,
+SNCF:1445,SNCF,"","Lyon - Genève","",2,,,
+SNCF:1448,SNCF,"","Lyon - Annecy","",2,,,
+SNCF:1459,SNCF,"","St-Claude - Oyonnax - Bourg - Lyon Perrache","",2,,,
+SNCF:1461,SNCF,"","Lyon - Bourg-en-Bresse (via Villars)","",2,,,
+SNCF:1500,SNCF,"","Cars Aubenas - Valence TGV (cars)","",3,,,
+SNCF:1502,SNCF,"","Cars Annonay - Le Péage de Roussillon - Lyon (cars)","",3,,,
+SNCF:1541,SNCF,"","Car METZ - LONGWY (cars)","",3,,,
+SNCF:1543,SNCF,"","Car BITCHE - SARREGUEMINES (cars)","",3,,,
+SNCF:1545,SNCF,"","Car METZ - VERDUN (cars)","",3,,,
+SNCF:1560,SNCF,"","Ambérieu - Chambéry","",2,,,
+SNCF:1605,SNCF,"","Lyon - (LTP) - Chambéry - Modane","",2,,,
+SNCF:1627,SNCF,"","Chambéry - St Marcellin - Valence","",2,,,
+SNCF:1773,SNCF,"","Cars travaux SGB -VLO-HTF (cars)","",3,,,
+SNCF:1787,SNCF,"","Cars Valence - Die (cars)","",3,,,
+SNCF:3166,SNCF,"","Cars TER Bellegarde - Annecy (cars)","",3,,,
+SNCF:3167,SNCF,"","Cars Chambery - Aix-Les-Bains - Annecy (cars)","",3,,,
+SNCF:3225,SNCF,"","Nantes - Rennes","",2,,,
+SNCF:3723,SNCF,"","Laval - Rennes","",2,,,
+SNCF:3903,SNCF,"","Cars travaux LY - GE (01-62) (cars)","",3,,,
+SNCF:4155,SNCF,"","Cars travaux ACY - GE - VCE (02,60,50) sillon alpin (cars)","",3,,,
+SNCF:4156,SNCF,"","Cars travaux LY - AV (05) (cars)","",3,,,
+SNCF:4239,SNCF,"","La Roche-sur-Yon - Tours","",2,,,
+SNCF:4708,SNCF,"","Cars EMB St Gervais - Chamonix (cars)","",3,,,
+SNCF:4848,SNCF,"","Paris-compiègne-St quentin-Maubeuge-Cambrai","",2,,,
+SNCF:5133,SNCF,"","Tours - Port-de-Piles","",2,,,
+SNCF:5208,SNCF,"","Cars travaux LYD - CR - BSM (cars)","",3,,,
+SNCF:5241,SNCF,"","Cars travaux LYD - CR - MOD (Maurienne) (cars)","",3,,,
+SNCF:5427,SNCF,"","Tours - Le Mans","",2,,,
+SNCF:5561,SNCF,"","Cars St-Priest - St-Pierre de Chandieu (cars)","",3,,,
+SNCF:5562,SNCF,"","Cars Communay - Sérézin (cars)","",3,,,
+SNCF:5912,SNCF,"","Metz - Sarrebourg","",3,,,
+SNCF:6136,SNCF,"","CARS - LILLE - BETHUNE - ST POL","",2,,,
+SNCF:6137,SNCF,"","CARS - ARRAS - ST POL - ETAPLES - BOULOGNE","",2,,,
+SNCF:7389,SNCF,"","Maubeuge-Charleroi","",2,,,
+SNCF:7391,SNCF,"","Cars Mommenheim-Buswiller (cars)","",3,,,
+SNCF:7392,SNCF,"","Cars Lyon - St Etienne - Le Puy (cars)","",3,,,
+SNCF:7394,SNCF,"","CAR TER EPERNAY - CHALONS-EN-CHAMPAGNE (cars)","",3,,,
+SNCF:7395,SNCF,"","CAR TER REIMS - CHARLEVILLE (cars)","",3,,,
+SNCF:7396,SNCF,"","CAR TER CHALONS-EN-CHAMPAGNE - TROYES (cars)","",3,,,
+SNCF:7398,SNCF,"","Toulouse - Luchon Pau (cars)","",3,,,
+SNCF:7399,SNCF,"","Castelsarrasin Agen (cars)","",3,,,
+SNCF:7400,SNCF,"","Toulouse Ax - Foix Tarascon Latour de Carol (cars)","",3,,,
+SNCF:7401,SNCF,"","Toulouse Albi Carmaux Rodez (cars)","",3,,,
+SNCF:7404,SNCF,"","CARS CREIL - ST QUENTIN (cars)","",3,,,
+SNCF:7405,SNCF,"","Châtellerault-Poitiers","",2,,,
+SNCF:7406,SNCF,"","Niort-Royan","",2,,,
+SNCF:7409,SNCF,"","CARS TRAVAUX STRASBOURG-KEHL (cars)","",3,,,
+SNCF:7412,SNCF,"","CARS TRAVAUX STRASBOURG-SARREGUEMINES-SARREBRUCK (cars)","",3,,,
+SNCF:7414,SNCF,"","CARS TRAVAUX COLMAR-METZERAL (cars)","",3,,,
+SNCF:7416,SNCF,"","CARS TRAVAUX STRASBOURG-ROTHAU-SAALES-ST DIE-EPINAL (cars)","",3,,,
+SNCF:7418,SNCF,"","CARS TRAVAUX STRASBOURG-MULHOUSE-BALE (cars)","",3,,,
+SNCF:7420,SNCF,"","CARS TRAVAUX  MULHOUSE-THANN-KRUTH (cars)","",3,,,
+SNCF:7422,SNCF,"","Sarlat-Bordeaux","",2,,,
+SNCF:7424,SNCF,"","Coutras-Libourne-Bordeaux","",2,,,
+SNCF:7425,SNCF,"","Hendaye-Bayonne-Tarbes","",2,,,
+SNCF:7427,SNCF,"","Montluçon / Commentry / Gannat / Clermont Fd","",2,,,
+SNCF:7428,SNCF,"","Thiers / Clermont","",2,,,
+SNCF:7429,SNCF,"","Nevers / Moulins / St Germain / Clermont","",2,,,
+SNCF:7430,SNCF,"","Clermont Fd / Nimes","",2,,,
+SNCF:7432,SNCF,"","CARS TRAVAUX REIMS / FISMES (cars)","",3,,,
+SNCF:7433,SNCF,"","Montluçon-Gueret-Limoges","",2,,,
+SNCF:7434,SNCF,"","Felletin-Guéret","",2,,,
+SNCF:7435,SNCF,"","Châteauroux-Limoges","",2,,,
+SNCF:7436,SNCF,"","Ussel-Limoges","",2,,,
+SNCF:7437,SNCF,"","Luxembourg-Longwy","",2,,,
+SNCF:7438,SNCF,"","Longwy-Nancy","",2,,,
+SNCF:7441,SNCF,"","CARS PARIS AMIENS CALAIS (cars)","",3,,,
+SNCF:7443,SNCF,"","CARS CREIL - AMIENS (cars)","",3,,,
+SNCF:7451,SNCF,"","STRASBOURG-LAUTERBOURG-WOERTH","",2,,,
+SNCF:7452,SNCF,"","LAUTERBOURG-WOERTH","",2,,,
+SNCF:7453,SNCF,"","WISSEMBOURG-NEUSTADT","",2,,,
+SNCF:7455,SNCF,"","STRASBOURG-METZ","",2,,,
+SNCF:7456,SNCF,"","MULHOUSE-BELFORT","",2,,,
+SNCF:7457,SNCF,"","STRASBOURG-HAGUENAU","",2,,,
+SNCF:7458,SNCF,"","STRASBOURG-WISSEMBOURG","",2,,,
+SNCF:7459,SNCF,"","STRASBOURG-MOLSHEIM","",2,,,
+SNCF:7460,SNCF,"","STRASBOURG-SARREGUEMINES","",2,,,
+SNCF:7462,SNCF,"","MULHOUSE-COLMAR OMNIBUS","",2,,,
+SNCF:7463,SNCF,"","COLMAR-METZERAL","",2,,,
+SNCF:7464,SNCF,"","MULHOUSE-KRUTH","",2,,,
+SNCF:7465,SNCF,"","STRASBOURG-SELESTAT VIA MOLSHEIM","",2,,,
+SNCF:7466,SNCF,"","STRASBOURG-ROTHAU-SAALES-ST DIE-EPINAL","",2,,,
+SNCF:7467,SNCF,"","SELESTAT-STRASBOURG-SAVERNE","",2,,,
+SNCF:7468,SNCF,"","STRASBOURG-MULHOUSE-BALE","",2,,,
+SNCF:7469,SNCF,"","TRAM MULHOUSE GARE CENTRALE - LUTTERBACH","",0,,,
+SNCF:7470,SNCF,"","TRAM-TRAIN MULHOUSE GARE CENTRALE-THANN ST JACQUES","",0,,,
+SNCF:7471,SNCF,"","STRASBOURG-NIEDERBRONN","",2,,,
+SNCF:7472,SNCF,"","STRASBOURG-NANCY","",2,,,
+SNCF:7479,SNCF,"","Amiens - Rouen Rive Droite","",2,,,
+SNCF:7481,SNCF,"","Tours - Caen","",2,,,
+SNCF:7483,SNCF,"","Tours - Nantes","",2,,,
+SNCF:7484,SNCF,"","Tours - La Roche-sur-Yon","",2,,,
+SNCF:7485,SNCF,"","Angers Saint-Laud - Thouars","",2,,,
+SNCF:7486,SNCF,"","Chartres - Angers Saint-Laud","",2,,,
+SNCF:7488,SNCF,"","Périgueux-Sarlat","",2,,,
+SNCF:7489,SNCF,"","Coutras-Bordeaux-Arcachon","",2,,,
+SNCF:7490,SNCF,"","Poitiers-Limoges","",2,,,
+SNCF:7492,SNCF,"","Toulouse-Narbonne-Perpignan-Port Bou","",2,,,
+SNCF:7493,SNCF,"","Toulouse-Narbonne-Nîmes","",2,,,
+SNCF:7494,SNCF,"","Clermont Fd / Durtol / Volvic","",2,,,
+SNCF:7495,SNCF,"","Clermont Fd / Vic / Issoire / Brioude","",2,,,
+SNCF:7496,SNCF,"","Clermont Fd / Le Puy","",2,,,
+SNCF:7497,SNCF,"","Clermont Fd / Aurillac","",2,,,
+SNCF:7498,SNCF,"","Neussargues / Aurillac / Brive","",2,,,
+SNCF:7499,SNCF,"","STRASBOURG-OFFENBOURG","",2,,,
+SNCF:7500,SNCF,"","MULHOUSE-FREIBURG","",2,,,
+SNCF:7503,SNCF,"","Narbonne-Marseille","",2,,,
+SNCF:7504,SNCF,"","MARSEILLE / MONTPELLIER / NARBONNE","",2,,,
+SNCF:7505,SNCF,"","Nîmes-Avignon-Pont St Esprit","",2,,,
+SNCF:7506,SNCF,"","Montpellier-St Chély","",2,,,
+SNCF:7512,SNCF,"","MULHOUSE-BALE OMNIBUS","",2,,,
+SNCF:7173,SNCF,"","Sarrebourg - Metz (cars)","",3,,,
+SNCF:7549,SNCF,"","Tours - Angers Saint-Laud","",2,,,
+SNCF:7553,SNCF,"","Lyon Perrache - Tours","",2,,,
+SNCF:5529,SNCF,"","CARS - DUNKERQUE - CALAIS (cars)","",3,,,
+SNCF:5826,SNCF,"","Tours - Poitiers","",2,,,
+SNCF:5975,SNCF,"","Orléans - Le Croisic","",2,,,
+SNCF:7569,SNCF,"","Tours - Alençon","",2,,,
+SNCF:7576,SNCF,"","Quimper - Nantes","",2,,,
+SNCF:7578,SNCF,"","TRAINS SPECIAUX","",2,,,
+SNCF:7239,SNCF,"","CARS - MAUBEUGE - CHARLEROI - NAMUR (cars)","",3,,,
+SNCF:7582,SNCF,"","Saumur - Angers Saint-Laud","",2,,,
+SNCF:5530,SNCF,"","CARS - LILLE - LIBERCOURT - LENS (cars)","",3,,,
+SNCF:4229,SNCF,"","Nantes - Quimper","",2,,,
+SETRAM:25EX,SETRAM,"25EX","République - Fatines","",3,,8DB5B4,000000
+SNCF:7595,SNCF,"","CARS TRAVAUX MULHOUSE-MULLHEIM (cars)","",3,,,
+SNCF:7608,SNCF,"","Tours - Bressuire","",2,,,
+SNCF:1351,SNCF,"","Lyon St-Paul - Lozanne","",2,,,
+SNCF:5425,SNCF,"","Vierzon - Montluçon","",2,,,
+SNCF:7612,SNCF,"","CARS TRAVAUX MULHOUSE-BALE (cars)","",3,,,
+SNCF:7613,SNCF,"","Cars travaux ACY-SGB/GCO (cars)","",3,,,
+SNCF:4973,SNCF,"","BUS TX  CGV - SEDAN (cars)","",3,,,
+SNCF:1775,SNCF,"","Cars travaux CLE - MOB - SE (cars)","",3,,,
+SNCF:7625,SNCF,"","CARS TRAVAUX REIMS / LAON (cars)","",3,,,
+SNCF:7627,SNCF,"","Tours - Thouars","",2,,,
+SNCF:3326,SNCF,"","Le Mans - Tours","",2,,,
+SNCF:4114,SNCF,"","Chartres - Le Mans","",2,,,
+SNCF:3289,SNCF,"","Port-de-Piles - Tours","",2,,,
+SNCF:5903,SNCF,"","Amiens - Abancourt","",2,,,
+SNCF:5974,SNCF,"","Tours - Le Croisic","",2,,,
+SNCF:7349,SNCF,"","Orléans - Nantes","",2,,,
+SNCF:7643,SNCF,"","Lyon Perrache - Nevers","",2,,,
+SNCF:7734,SNCF,"","Limoges Bénédictins - Orléans","",2,,,
+SNCF:7735,SNCF,"","Tours - Châtellerault","",2,,,
+SNCF:7736,SNCF,"","Châtellerault - Poitiers","",2,,,
+SETRAM:123,SETRAM,"123","La Pointe Fatines - Col. Wilbur Wright","",3,,9FBF8F,000000
+SETRAM:124,SETRAM,"124","La Bodinière Fatines - Col. Wilbur Wright","",3,,F2B794,000000
+SETRAM:125,SETRAM,"125","La Baronnière Fatines - Col. Wilbur Wright","",3,,B495C5,000000
+SNCF:6244,SNCF,"","Alès - Nîmes Centre","",2,,,
+SNCF:6270,SNCF,"","Nîmes Centre - Alès","",2,,,
+SNCF:6285,SNCF,"","Génolhac - Alès (cars)","",3,,,
+SNCF:6372,SNCF,"","Génolhac - Nîmes Centre (cars)","",3,,,
+SNCF:7352,SNCF,"","Rennes - Nantes","",2,,,
+SNCF:7920,SNCF,"","Versailles Chantiers - Le Mans","",2,,,
+SNCF:7922,SNCF,"","Versailles Chantiers - Nogent-le-Rotrou","",2,,,
+SNCF:4214,SNCF,"","Chartres - Nogent-le-Rotrou","",2,,,
+SNCF:7929,SNCF,"","Nogent-le-Rotrou - Chartres (cars)","",3,,,
+SNCF:5178,SNCF,"","CARS PERSAN-BEAUVAIS (cars)","",3,,,
+SNCF:7932,SNCF,"","Narbonne - Béziers","",2,,,
+SNCF:4023,SNCF,"","Alès - Génolhac","",2,,,
+SNCF:5145,SNCF,"","Tours - Loches","",2,,,
+SNCF:1099,SNCF,"","Villefranche - Lyon - Vienne","",2,,,
+SNCF:1160,SNCF,"","ligne routière Mende Clermont Ferrand (cars)","",3,,,
+SNCF:1162,SNCF,"","ligne routière Mende Marvejols St chély (cars)","",3,,,
+SNCF:1163,SNCF,"","ligne routière La Bastide Langogne Mende (cars)","",3,,,
+SNCF:1164,SNCF,"","ligne routière Mende Le Puy (cars)","",3,,,
+SNCF:1235,SNCF,"","Cars Villefranche - Lyon - Vienne (cars)","",3,,,
+SNCF:1243,SNCF,"","Macon - Valence - (Pierrelatte)","",2,,,
+SNCF:1337,SNCF,"","Montbrison - St-Etienne","",2,,,
+SNCF:1441,SNCF,"","Lyon - Bellegarde - Evian - St-Gervais","",2,,,
+SNCF:1529,SNCF,"","Annecy - St Gervais","",2,,,
+SNCF:2292,SNCF,"","Caen - Le Mans","",2,,,
+SNCF:2307,SNCF,"","Argentan - Caen","",2,,,
+SNCF:3172,SNCF,"","Cars Grenoble - Gap - Briançon (cars)","",3,,,
+SNCF:4940,SNCF,"","Lyon - Avignon - Marseille","",2,,,
+SNCF:5061,SNCF,"","Agen-Auch (cars)","",3,,,
+SNCF:7980,SNCF,"","\"TOURS-ST PIERRE \"\"NAVETTES TGV\"\"\","",2,,,
+SNCF:7987,SNCF,"","CAR TER  LANGRES - IS SUR TILLE (cars)","",3,,,
+SNCF:7988,SNCF,"","CAR TER LAON-REIMS (cars)","",3,,,
+SNCF:8005,SNCF,"","CARS TRAVAUX SELESTAT-STRASBOURG-SAVERNE (cars)","",3,,,
+SNCF:8006,SNCF,"","CARS TRAVAUX TRAM TRAINS MULHOUSE GARE CENTRALE - THANN ST JACQUES (cars)","",3,,,
+SNCF:8007,SNCF,"","Nevers-Cosne","",2,,,
+SNCF:8024,SNCF,"","Montauban-Auch (cars)","",3,,,
+SNCF:8066,SNCF,"","Rouen Rive Droite - Lille Flandres","",2,,,
+SNCF:8069,SNCF,"","Royan-Saintes-Bordeaux","",2,,,
+SNCF:8070,SNCF,"","\"  Toulouse / Figeac / Aurillac / Clermont\","",2,,,
+SNCF:8071,SNCF,"","Toulouse / Agen","",2,,,
+SNCF:8072,SNCF,"","Nîmes-Clermont-Fd","",2,,,
+SNCF:8073,SNCF,"","Le Puy - Saint-Etienne","",2,,,
+SNCF:2450,SNCF,"","Chinon - Tours","",2,,,
+SNCF:5829,SNCF,"","Tours - Chinon","",2,,,
+SNCF:1774,SNCF,"","Cars travaux LPU - FNY - SE - LY (cars)","",3,,,
+SNCF:5137,SNCF,"","Cars travaux MAC - VIS - LY (cars)","",3,,,
+SNCF:8134,SNCF,"","Narbonne - Nîmes Centre","",2,,,
+SNCF:8151,SNCF,"","Arras - Amiens","",2,,,
+TAN:NGG-0,TAN,"NGG","Gachet - Grimaudière","",4,,2581C4,FFFFFF
+ALEOP:427,ALEOP,"427","Sèvremoine (Tillières) - Cholet","",3,,FDC300,000000
+ALEOP:428,ALEOP,"428","Sèvremoine (Le Longeron) - Torfou - Cholet","",3,,009E3D,FFFFFF
+SNCF:1731,SNCF,"","Cars Reguliers L 12  (Nantes - St Jean de Monts) (cars)","",3,,,
+SETRAM:114,SETRAM,"114","Ruaudin - Collège Bollée","",3,,698C64,FFFFFF
+TAN:NC-0,TAN,"NC","Chantrerie Grandes Ecoles - Ligne de nuit Chantrerie","",3,,FFFFFF,242D77
+TAN:NN-0,TAN,"NN","Hangar à Bananes - Ligne de nuit Nord","",3,,F91AFF,FFFFFF
+TAN:NO-0,TAN,"NO","Hangar à Bananes - Ligne de nuit Ouest","",3,,FFFA3E,242D77
+TAN:NS-0,TAN,"NS","Hangar à Bananes - Ligne de nuit Sud","",3,,00FFC2,242D77
+SNCF:1335,SNCF,"","Roanne - Lyon","",2,,,
+SNCF:5827,SNCF,"","Bourges - Montluçon - Commentry","",2,,,
+SNCF:7159,SNCF,"","Limoges Bénédictins - Châteauroux","",2,,,
+SNCF:8233,SNCF,"","Angoulème-Bordeaux","",2,,,
+SNCF:8234,SNCF,"","Orléans - Vierzon - Châteauroux - Argenton - Limoges","",2,,,
+SNCF:8235,SNCF,"","Tours - Vendôme - Châteaudun - Paris Austerlitz","",2,,,
+SNCF:8236,SNCF,"","Paris - Chartres - Nogent","",2,,,
+SNCF:8237,SNCF,"","CARS TRAVAUX PARIS / TROYES / DIJON / MULHOUSE (cars)","",3,,,
+SNCF:8238,SNCF,"","Angoulème-Limoges","",2,,,
+SNCF:8239,SNCF,"","CARS LUX MZ NY (cars)","",3,,,
+SNCF:8240,SNCF,"","CARS - LILLE - DON - LENS (cars)","",3,,,
+SNCF:8241,SNCF,"","Le Croisic-Nantes-Angers-Tours","",2,,,
+SNCF:8242,SNCF,"","Royan-Angoulème","",2,,,
+SNCF:8243,SNCF,"","BAYEUX LISON ST L?? COUTANCES FOLLIGNY GRANVILLE PONTORSON car region (cars)","",3,,,
+SNCF:8248,SNCF,"","Paris - St-Just-en-chaussée - Amiens","",2,,,
+SNCF:8249,SNCF,"","Rennes - Le Mans","",2,,,
+SNCF:8250,SNCF,"","Limoges Bénédictins - Vierzon","",2,,,
+SNCF:8251,SNCF,"","Châtellerault-Poitiers-Angoulème","",2,,,
+SNCF:8252,SNCF,"","Poitiers-Angoulème","",2,,,
+SNCF:8253,SNCF,"","La Rochelle Porte Dauphine-Angoulème","",2,,,
+SNCF:8254,SNCF,"","Narbonne - Marseille Saint-Charles","",2,,,
+SNCF:8255,SNCF,"","Montpellier Saint-Roch - Marseille Saint-Charles","",2,,,
+SNCF:3148,SNCF,"","REGIO EXPRESS CFF","",2,,,
+SNCF:5767,SNCF,"","Beauvais - Abancourt - Le Tréport","",2,,,
+SNCF:8265,SNCF,"","lille - Douai - Arras - Amiens","",2,,,
+SNCF:8266,SNCF,"","Paris - Beauvais","",2,,,
+SNCF:8267,SNCF,"","Creil - Beauvais - Abancourt","",2,,,
+SNCF:8268,SNCF,"","Albert - Amiens - Abbeville","",2,,,
+SNCF:8269,SNCF,"","Amiens - St-Quentin - Tergnier - Laon","",2,,,
+SNCF:8270,SNCF,"","Creil - Amiens","",2,,,
+SNCF:8271,SNCF,"","NANTES - CHATEAUBRIANT","",0,,,
+SNCF:8272,SNCF,"","NANTES - CLISSON TT","",2,,,
+SNCF:8273,SNCF,"","LAC / VIN","",2,,,
+SNCF:8274,SNCF,"","Paris - Les Aubrais - Orléans","",2,,,
+SNCF:8275,SNCF,"","Paris - Les Aubrais - Tours","",2,,,
+SNCF:8276,SNCF,"","NICE BREIL TENDE","",2,,,
+SNCF:8278,SNCF,"","Limoges Bénédictins - Les Aubrais","",2,,,
+TAN:168-0,TAN,"168","St Jean de Boiseau - Lycée d'Orbigny","",3,,000000,FF8080
+SNCF:8334,SNCF,"","Tours - Sainte-Maure - Noyant (cars)","",3,,,
+SNCF:8338,SNCF,"","Montpellier Saint-Roch - Nîmes Centre","",2,,,
+SNCF:1910,SNCF,"","Charleville-Mézières - Lille Flandres","",2,,,
+SNCF:4224,SNCF,"","Brest - Nantes","",2,,,
+SNCF:5162,SNCF,"","Clermont-Ferrand - Lyon Perrache","",2,,,
+SNCF:5221,SNCF,"","Le Mans - Paris Montparnasse Hall 1 &2","",2,,,
+SNCF:5230,SNCF,"","Paris Montparnasse Hall 1 &2 - Le Mans","",2,,,
+SNCF:8359,SNCF,"","Paris Montparnasse Hall 1 &2 - Nogent-le-Rotrou","",2,,,
+SNCF:8360,SNCF,"","Tours - Paray - Lyon","",2,,,
+SNCF:8361,SNCF,"","Paris - Bourges - Montluçon","",2,,,
+SNCF:8362,SNCF,"","IC NUIT Paris-Vienne-Berlin","",2,,,
+SNCF:8363,SNCF,"","Valençay - Luçay le Male (cars) (cars)","",3,,,
+SNCF:8364,SNCF,"","Paris - Orléans (omnibus)","",2,,,
+SNCF:8366,SNCF,"","CARS ALBERT - AMIENS - ABBEVILLE (cars)","",3,,,
+SNCF:8367,SNCF,"","CARS LAON - HIRSON - AULNOYE (cars)","",3,,,
+SNCF:8368,SNCF,"","CARS BEAUVAIS - ABANCOURT - LE TREPORT (cars)","",3,,,
+SNCF:8369,SNCF,"","CARS CREIL - BEAUVAIS - ABANCOURT (cars)","",3,,,
+SNCF:8370,SNCF,"","CARS LILLE - DOUAI - ARRAS - AMIENS (cars)","",3,,,
+SNCF:8372,SNCF,"","Tours - Château du Loir - Le Mans","",2,,,
+SNCF:8374,SNCF,"","Paris Montparnasse Hall 1 &2 - Chartres","",2,,,
+SNCF:8392,SNCF,"","Trains classiques Europe","",2,,,
+SNCF:4199,SNCF,"","Amiens - Laon","",2,,,
+SNCF:5940,SNCF,"","Amiens - Saint-Quentin","",3,,,
+SNCF:8402,SNCF,"","Saint-Quentin - Amiens (cars)","",3,,,
+SNCF:2106,SNCF,"","Laon - Tergnier","",2,,,
+SNCF:8406,SNCF,"","Tergnier - Laon (cars)","",3,,,
+SNCF:8409,SNCF,"","Limoges Bénédictins - La Souterraine","",2,,,
+SNCF:8410,SNCF,"","Le Mans - Versailles Chantiers","",2,,,
+SNCF:8411,SNCF,"","Rennes - Laval","",2,,,
+SNCF:8413,SNCF,"","Tours - Argentan","",2,,,
+SNCF:2306,SNCF,"","Argentan - Le Mans","",2,,,
+SNCF:8418,SNCF,"","Paris Montparnasse Vaugirard - Le Mans","",2,,,
+SNCF:8431,SNCF,"","Sète - Nîmes Centre","",2,,,
+SNCF:8432,SNCF,"","Caen - Argentan (cars)","",3,,,
+SNCF:2745,SNCF,"","Nevers - Tours","",2,,,
+SNCF:3660,SNCF,"","Orléans - Tours","",2,,,
+SNCF:4242,SNCF,"","Saumur - Tours","",2,,,
+SNCF:6258,SNCF,"","Bléré - la Croix - Tours","",2,,,
+SNCF:8436,SNCF,"","Saint-Pierre-des-Corps - Lyon Perrache","",2,,,
+SNCF:8437,SNCF,"","Saint-Pierre-des-Corps - Orléans","",2,,,
+SNCF:8438,SNCF,"","Tours - Orléans","",2,,,
+SNCF:8439,SNCF,"","Orléans - Saint-Pierre-des-Corps","",2,,,
+SNCF:8440,SNCF,"","Saint-Pierre-des-Corps - Les Aubrais","",2,,,
+SNCF:8441,SNCF,"","Les Aubrais - Saint-Pierre-des-Corps","",2,,,
+SNCF:8442,SNCF,"","Blois - Chambord - Tours","",2,,,
+SNCF:8444,SNCF,"","Saint-Pierre-des-Corps - Paris Austerlitz","",2,,,
+SNCF:8445,SNCF,"","Paris Austerlitz - Saint-Pierre-des-Corps","",2,,,
+SNCF:8448,SNCF,"","Tours - Bléré - la Croix","",2,,,
+SNCF:8449,SNCF,"","Tours - Saint-Aignan - Noyers","",2,,,
+SNCF:8450,SNCF,"","Saint-Aignan - Noyers - Tours","",2,,,
+SNCF:8451,SNCF,"","Saint-Pierre-des-Corps - Vierzon","",2,,,
+SNCF:8452,SNCF,"","Saint-Pierre-des-Corps - Bourges","",2,,,
+SNCF:8453,SNCF,"","Bourges - Saint-Pierre-des-Corps","",2,,,
+SNCF:8454,SNCF,"","Vierzon - Saint-Pierre-des-Corps","",2,,,
+SNCF:8455,SNCF,"","Saint-Pierre-des-Corps - Nevers","",2,,,
+SNCF:8456,SNCF,"","Nevers - Saint-Pierre-des-Corps","",2,,,
+SNCF:8457,SNCF,"","Saint-Pierre-des-Corps - Le Mans","",2,,,
+SNCF:8458,SNCF,"","Saint-Pierre-des-Corps - Alençon","",2,,,
+SNCF:8459,SNCF,"","Saint-Pierre-des-Corps - Nantes","",2,,,
+SNCF:8460,SNCF,"","Saint-Pierre-des-Corps - Angers Saint-Laud","",2,,,
+SNCF:8461,SNCF,"","Saumur - Saint-Pierre-des-Corps","",2,,,
+SNCF:8462,SNCF,"","Saint-Pierre-des-Corps - Saumur","",2,,,
+SNCF:8463,SNCF,"","Saint-Pierre-des-Corps - Bressuire","",2,,,
+SNCF:8464,SNCF,"","Tours - Blois - Chambord","",2,,,
+SNCF:8465,SNCF,"","Blois - Chambord - Orléans","",2,,,
+SNCF:8466,SNCF,"","Chinon - Joué-lès-Tours","",2,,,
+SNCF:8467,SNCF,"","Joué-lès-Tours - Chinon","",2,,,
+SNCF:8468,SNCF,"","Saint-Pierre-des-Corps - Chinon","",2,,,
+SNCF:8469,SNCF,"","Chinon - Saint-Pierre-des-Corps","",2,,,
+SNCF:8470,SNCF,"","Loches - Joué-lès-Tours","",2,,,
+SNCF:8471,SNCF,"","Joué-lès-Tours - Loches","",2,,,
+SNCF:8472,SNCF,"","Loches - Saint-Pierre-des-Corps","",2,,,
+SNCF:8473,SNCF,"","Saint-Pierre-des-Corps - Loches","",2,,,
+SNCF:8474,SNCF,"","Vendôme - Saint-Pierre-des-Corps","",2,,,
+SNCF:8475,SNCF,"","Chartres - Saint-Pierre-des-Corps","",2,,,
+SNCF:8476,SNCF,"","Châteaudun - Saint-Pierre-des-Corps","",2,,,
+SNCF:8477,SNCF,"","Saint-Pierre-des-Corps - Châteaudun","",2,,,
+SNCF:8478,SNCF,"","Saint-Pierre-des-Corps - Vendôme","",2,,,
+SNCF:8479,SNCF,"","Saint-Pierre-des-Corps - Chartres","",2,,,
+SNCF:8480,SNCF,"","Saint-Pierre-des-Corps - Poitiers","",2,,,
+SNCF:8481,SNCF,"","Port-de-Piles - Saint-Pierre-des-Corps","",2,,,

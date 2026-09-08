@@ -1,0 +1,12 @@
+mon_env/
+__pycache__/
+*.log
+
+# Fichiers volumineux conservés localement
+pays-de-la-loire-*.osm.pbf
+stop_times.txt
+stop_times_clean.csv
+shapes.txt
+
+# Copie locale éventuelle du dépôt GitHub
+PROJET-FINAL-PATRICK/
