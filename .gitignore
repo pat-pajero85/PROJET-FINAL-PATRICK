@@ -11,3 +11,4 @@ shapes.txt
 # Copie locale éventuelle du dépôt GitHub
 PROJET-FINAL-PATRICK/
 gtfs_pays_loire.sqlite
+gtfs_pays_loire.corrupt.sqlite
