@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "name": "GTFS Pays de la Loire",
+            "driver": "SQLite",
+            "database": "${workspaceFolder}/gtfs_pays_loire.sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
