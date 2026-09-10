@@ -85,12 +85,14 @@ def main() -> None:
     with weather_file.open(encoding="utf-8-sig", newline="") as file:
         weather_reader = csv.DictReader(file)
         weather_location = next(weather_reader)
+        weather_observations = sum(1 for row in weather_reader if row.get("time"))
 
     diagnostic["weather_source"] = {
         "latitude": float(weather_location["latitude"]),
         "longitude": float(weather_location["longitude"]),
         "timezone": weather_location["timezone"],
-        "status": "incoherent_with_pays_de_la_loire",
+        "observation_count": weather_observations,
+        "status": "regional_reference_point_one_day",
     }
 
     output = ROOT / "diagnostic_initial.json"

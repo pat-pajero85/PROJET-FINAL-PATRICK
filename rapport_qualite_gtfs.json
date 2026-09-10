@@ -22,7 +22,10 @@
   },
   "stop_times": {
     "rows_read": 4000625,
-    "rows_written": 4000625
+    "rows_written": 4000625,
+    "trips_with_stop_times": 182725,
+    "trips_with_fewer_than_two_stops": 0,
+    "trips_without_stop_times": 0
   },
   "rules": {
     "coordinate_bbox": [
@@ -34,5 +37,9 @@
     "outside_coordinates_are_flagged_not_deleted": true,
     "gtfs_time_is_stored_as_seconds_after_midnight": true,
     "hours_over_24_are_accepted": true
+  },
+  "interpretation": {
+    "outside_pdl_bbox": "kept_for_interregional_service_review",
+    "trip_with_fewer_than_two_stops": "reported_not_deleted"
   }
 }

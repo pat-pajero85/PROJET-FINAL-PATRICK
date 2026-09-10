@@ -1,12 +1,14 @@
 """Charge les CSV nettoyés puis exécute tout le traitement SQL."""
 
 import csv
+import json
 import sqlite3
 from pathlib import Path
 
 
 ROOT = Path(__file__).parent
 DATABASE = ROOT / "gtfs_pays_loire.sqlite"
+VALIDATION_REPORT = ROOT / "04_resultats_validation_bdd.json"
 
 
 FILES = {
@@ -66,6 +68,86 @@ def insert_weather(connection: sqlite3.Connection) -> None:
     )
 
 
+def build_validation_report(connection: sqlite3.Connection) -> dict:
+    table_pairs = {
+        "agency": "stg_agency",
+        "route": "stg_routes",
+        "stop": "stg_stops",
+        "service_date": "stg_calendar_dates",
+        "trip": "stg_trips",
+        "stop_time": "stg_stop_times",
+        "transfer": "stg_transfers",
+        "weather_observation": "stg_weather",
+    }
+    counts = {}
+    for final_table, staging_table in table_pairs.items():
+        counts[final_table] = {
+            "staging": connection.execute(
+                f"SELECT COUNT(*) FROM {staging_table}"
+            ).fetchone()[0],
+            "final": connection.execute(
+                f"SELECT COUNT(*) FROM {final_table}"
+            ).fetchone()[0],
+        }
+
+    orphan_checks = connection.execute(
+        "SELECT 'orphan_route_agency', COUNT(*) FROM route AS r "
+        "LEFT JOIN agency AS a ON a.agency_id = r.agency_id "
+        "WHERE a.agency_id IS NULL UNION ALL "
+        "SELECT 'orphan_trip_route', COUNT(*) FROM trip AS t "
+        "LEFT JOIN route AS r ON r.route_id = t.route_id "
+        "WHERE r.route_id IS NULL UNION ALL "
+        "SELECT 'orphan_trip_service', COUNT(*) FROM trip AS t "
+        "LEFT JOIN service AS s ON s.service_id = t.service_id "
+        "WHERE s.service_id IS NULL UNION ALL "
+        "SELECT 'orphan_stop_time_trip', COUNT(*) FROM stop_time AS st "
+        "LEFT JOIN trip AS t ON t.trip_id = st.trip_id "
+        "WHERE t.trip_id IS NULL UNION ALL "
+        "SELECT 'orphan_stop_time_stop', COUNT(*) FROM stop_time AS st "
+        "LEFT JOIN stop AS s ON s.stop_id = st.stop_id "
+        "WHERE s.stop_id IS NULL UNION ALL "
+        "SELECT 'orphan_transfer_from_stop', COUNT(*) FROM transfer AS tr "
+        "LEFT JOIN stop AS s ON s.stop_id = tr.from_stop_id "
+        "WHERE s.stop_id IS NULL UNION ALL "
+        "SELECT 'orphan_transfer_to_stop', COUNT(*) FROM transfer AS tr "
+        "LEFT JOIN stop AS s ON s.stop_id = tr.to_stop_id "
+        "WHERE s.stop_id IS NULL"
+    ).fetchall()
+    active_weather_dates = connection.execute(
+        "SELECT COUNT(DISTINCT substr(observed_at, 1, 10)) "
+        "FROM weather_observation AS w "
+        "WHERE EXISTS (SELECT 1 FROM service_date AS sd "
+        "WHERE sd.service_date = replace(substr(w.observed_at, 1, 10), '-', '') "
+        "AND sd.exception_type = 1)"
+    ).fetchone()[0]
+    return {
+        "integrity_check": connection.execute(
+            "PRAGMA integrity_check"
+        ).fetchone()[0],
+        "foreign_key_anomaly_count": connection.execute(
+            "SELECT COUNT(*) FROM pragma_foreign_key_check"
+        ).fetchone()[0],
+        "orphan_checks": dict(orphan_checks),
+        "counts": counts,
+        "service_date_exception_types": dict(connection.execute(
+            "SELECT exception_type, COUNT(*) FROM service_date "
+            "GROUP BY exception_type"
+        ).fetchall()),
+        "weather_active_service_dates": active_weather_dates,
+        "analytical_views": {
+            "departures_by_stop_day": connection.execute(
+                "SELECT COUNT(*) FROM v_departures_by_stop_day"
+            ).fetchone()[0],
+            "departures_by_stop_period": connection.execute(
+                "SELECT COUNT(*) FROM v_departures_by_stop_period"
+            ).fetchone()[0],
+            "departures_by_route_day": connection.execute(
+                "SELECT COUNT(*) FROM v_departures_by_route_day"
+            ).fetchone()[0],
+        },
+    }
+
+
 def main() -> None:
     connection = sqlite3.connect(DATABASE)
     connection.execute("PRAGMA foreign_keys = ON")
@@ -83,6 +165,10 @@ def main() -> None:
         ("-- BEGIN_TRANSFORM" + transform_sql).replace("COMMIT;", "")
     )
     connection.commit()
+    VALIDATION_REPORT.write_text(
+        json.dumps(build_validation_report(connection), ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
     print(f"Base SQLite créée : {DATABASE.name}")
     for table in ["agency", "route", "stop", "service", "trip", "stop_time", "transfer", "weather_observation"]:
         count = connection.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
@@ -108,6 +194,7 @@ def main() -> None:
         connection.execute("SELECT COUNT(*) FROM v_departures_by_stop_day").fetchone()[0],
         "lignes",
     )
+    print(f"Rapport de validation écrit : {VALIDATION_REPORT.name}")
     connection.close()
 
 
