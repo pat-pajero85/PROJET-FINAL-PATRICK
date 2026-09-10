@@ -3,6 +3,7 @@ PRAGMA foreign_keys = ON;
 BEGIN TRANSACTION;
 
 DROP VIEW IF EXISTS v_departures_by_stop_day;
+DROP VIEW IF EXISTS v_departures_by_stop_period;
 DROP VIEW IF EXISTS v_departures_by_route_day;
 DROP TABLE IF EXISTS weather_observation;
 DROP TABLE IF EXISTS transfer;
@@ -308,5 +309,31 @@ JOIN route AS r ON r.route_id = t.route_id
 JOIN stop_time AS st ON st.trip_id = t.trip_id
 WHERE sd.exception_type = 1
 GROUP BY sd.service_date, r.route_id, route_name;
+
+CREATE VIEW v_departures_by_stop_period AS
+SELECT sd.service_date,
+       st.stop_id,
+       s.stop_name,
+       s.coordinate_status,
+       CASE
+           WHEN st.departure_seconds < 6 * 3600 THEN 'night'
+           WHEN st.departure_seconds < 9 * 3600 THEN 'morning_peak'
+           WHEN st.departure_seconds < 12 * 3600 THEN 'morning'
+           WHEN st.departure_seconds < 14 * 3600 THEN 'midday'
+           WHEN st.departure_seconds < 17 * 3600 THEN 'afternoon'
+           WHEN st.departure_seconds < 20 * 3600 THEN 'evening_peak'
+           ELSE 'night_service'
+       END AS time_period,
+       COUNT(*) AS planned_departures,
+       COUNT(DISTINCT t.route_id) AS route_count,
+       MIN(st.departure_seconds) AS first_departure_seconds,
+       MAX(st.departure_seconds) AS last_departure_seconds
+FROM service_date AS sd
+JOIN trip AS t ON t.service_id = sd.service_id
+JOIN stop_time AS st ON st.trip_id = t.trip_id
+JOIN stop AS s ON s.stop_id = st.stop_id
+WHERE sd.exception_type = 1
+GROUP BY sd.service_date, st.stop_id, s.stop_name,
+         s.coordinate_status, time_period;
 
 COMMIT;

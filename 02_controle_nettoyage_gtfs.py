@@ -95,6 +95,8 @@ def clean_stop_times(
     output = ROOT / "stop_times_clean.csv"
     counters = Counter()
     previous_sequences = {}
+    trip_stop_counts = Counter()
+    trips_seen = set()
     fields = [
         "trip_id", "service_id", "route_id", "shape_id", "stop_id",
         "stop_sequence", "arrival_seconds", "departure_seconds",
@@ -139,6 +141,8 @@ def clean_stop_times(
                     continue
 
                 previous_sequences[trip_id] = sequence
+                trip_stop_counts[trip_id] += 1
+                trips_seen.add(trip_id)
                 writer.writerow({
                     "trip_id": trip_id,
                     "service_id": trip["service_id"],
@@ -152,6 +156,11 @@ def clean_stop_times(
                     "drop_off_type": (row.get("drop_off_type") or "").strip(),
                 })
                 counters["rows_written"] += 1
+    counters["trips_with_stop_times"] = len(trips_seen)
+    counters["trips_with_fewer_than_two_stops"] = sum(
+        trip_stop_counts[trip_id] < 2 for trip_id in trips
+    )
+    counters["trips_without_stop_times"] = len(set(trips) - trips_seen)
     return dict(counters)
 
 
@@ -186,6 +195,10 @@ def main() -> None:
             "outside_coordinates_are_flagged_not_deleted": True,
             "gtfs_time_is_stored_as_seconds_after_midnight": True,
             "hours_over_24_are_accepted": True,
+        },
+        "interpretation": {
+            "outside_pdl_bbox": "kept_for_interregional_service_review",
+            "trip_with_fewer_than_two_stops": "reported_not_deleted",
         },
     }
     (ROOT / "rapport_qualite_gtfs.json").write_text(

@@ -168,6 +168,7 @@
     "latitude": 47.41652,
     "longitude": -0.7377014,
     "timezone": "Europe/Paris",
-    "status": "incoherent_with_pays_de_la_loire"
+    "observation_count": 0,
+    "status": "regional_reference_point_one_day"
   }
 }
