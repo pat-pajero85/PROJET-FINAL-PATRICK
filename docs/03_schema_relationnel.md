@@ -2,7 +2,7 @@
 
 ## Choix de SQLite
 
-SQLite est adapté à ce projet de formation : la base est un fichier local, sans serveur à administrer, et accepte les clés étrangères, contraintes, index, transactions et vues SQL. Le nettoyage et les transformations sont exécutés par `03_schema_gtfs.sql`. Le script Python ne sert qu'à importer les CSV, car SQLite ne possède pas nativement de commande SQL portable pour lire directement un fichier CSV.
+SQLite est adapté à ce projet de formation : la base est un fichier local, sans serveur à administrer, et accepte les clés étrangères, contraintes, index, transactions et vues SQL. Le nettoyage et les transformations sont exécutés par `sql/03_schema_gtfs.sql`. Le script Python ne sert qu'à importer les CSV, car SQLite ne possède pas nativement de commande SQL portable pour lire directement un fichier CSV.
 
 ## Schéma retenu
 
@@ -46,10 +46,10 @@ Cette structure respecte également les usages futurs :
 ## Exécution
 
 ```powershell
-python .\03_charger_bdd_gtfs.py
+python .\src\03_charger_bdd_gtfs.py
 ```
 
-La base produite est `gtfs_pays_loire.sqlite`. Les requêtes finales peuvent ensuite être exécutées directement dans SQLite :
+La base produite est `data/database/gtfs_pays_loire.sqlite`. Les requêtes finales peuvent ensuite être exécutées directement dans SQLite :
 
 ```sql
 SELECT * FROM v_departures_by_stop_day LIMIT 20;

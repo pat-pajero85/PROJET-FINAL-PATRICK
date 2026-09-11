@@ -4,11 +4,11 @@ __pycache__/
 
 # Fichiers volumineux conservés localement
 pays-de-la-loire-*.osm.pbf
-stop_times.txt
-stop_times_clean.csv
-shapes.txt
+data/raw/gtfs/stop_times.txt
+data/processed/stop_times_clean.csv
+data/raw/gtfs/shapes.txt
 
 # Copie locale éventuelle du dépôt GitHub
 PROJET-FINAL-PATRICK/
-gtfs_pays_loire.sqlite
-gtfs_pays_loire.corrupt.sqlite
+data/database/gtfs_pays_loire.sqlite
+data/database/gtfs_pays_loire.corrupt.sqlite

@@ -21,7 +21,7 @@ La source principale est un export GTFS publié par DESTINEO :
 - `transfers.txt` : correspondances ;
 - `agency.txt` et `feed_info.txt` : métadonnées du feed.
 
-Une série météo Open-Meteo est disponible dans [open-meteo-47.42N0.74W45m.csv](open-meteo-47.42N0.74W45m.csv). Elle correspond à une maille située au centre régional : `47.41652, -0.7377014`, fuseau `Europe/Paris`.
+Une série météo Open-Meteo est disponible dans [data/raw/external/open-meteo-47.42N0.74W45m.csv](data/raw/external/open-meteo-47.42N0.74W45m.csv). Elle correspond à une maille située au centre régional : `47.41652, -0.7377014`, fuseau `Europe/Paris`.
 
 Le fichier OSM `.pbf` est conservé localement pour un enrichissement géographique ultérieur.
 
@@ -62,33 +62,30 @@ La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 servic
 - 11 862 arrêts dans l'emprise indicative des Pays de la Loire ;
 - 8 308 arrêts signalés hors emprise et conservés pour analyse métier.
 
-## Fichiers principaux
+## Organisation du projet
 
-- [01_cadrage_diagnostic.md](01_cadrage_diagnostic.md) : problématique, processus de collecte, limites et conclusions ;
-- [01_diagnostic_initial.py](01_diagnostic_initial.py) : inventaire et diagnostic initial ;
-- [02_controle_nettoyage_gtfs.py](02_controle_nettoyage_gtfs.py) : contrôles des clés, horaires et coordonnées ;
-- [diagnostic_initial.json](diagnostic_initial.json) : résultats du diagnostic initial ;
-- [rapport_qualite_gtfs.json](rapport_qualite_gtfs.json) : rapport des contrôles qualité ;
-- [03_schema_gtfs.sql](03_schema_gtfs.sql) : staging, tables normalisées, contraintes, index et vues ;
-- [03_charger_bdd_gtfs.py](03_charger_bdd_gtfs.py) : import technique des CSV puis exécution du SQL ;
-- [03_schema_relationnel.md](03_schema_relationnel.md) : justification du modèle relationnel ;
-- [04_validation_bdd.sql](04_validation_bdd.sql) : requêtes de contrôle et indicateurs métier ;
-- `stops_clean.csv` : arrêts normalisés et statut géographique ;
-- `stop_times_clean.csv` : passages normalisés avec horaires en secondes.
+- [src](src) : scripts Python de diagnostic, nettoyage, chargement SQLite et analyse ;
+- [data/raw/gtfs](data/raw/gtfs) : export GTFS source inchangé ;
+- [data/raw/external](data/raw/external) : fichiers météo et OSM ;
+- [data/processed](data/processed) : fichiers GTFS nettoyés ;
+- [data/database](data/database) : bases SQLite locales ;
+- [sql](sql) : schéma relationnel et requêtes de validation ;
+- [reports](reports) : résultats JSON et journaux d'exécution ;
+- [docs](docs) : cadrage, méthode et documentation du schéma.
 
 ## Reproduire les contrôles
 
 Depuis la racine du projet :
 
 ```powershell
-python .\01_diagnostic_initial.py
-python .\02_controle_nettoyage_gtfs.py
-python .\03_charger_bdd_gtfs.py
+python .\src\01_diagnostic_initial.py
+python .\src\02_controle_nettoyage_gtfs.py
+python .\src\03_charger_bdd_gtfs.py
 ```
 
 Les scripts utilisent uniquement la bibliothèque standard Python pour les contrôles actuels. Les dépendances de l'environnement sont listées dans [requirements.txt](requirements.txt).
 
-Le traitement de nettoyage et de structuration est réalisé en SQL dans [03_schema_gtfs.sql](03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
+Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03_schema_gtfs.sql](sql/03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
 
 ## Limites actuelles
 

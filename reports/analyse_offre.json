@@ -1,0 +1,167 @@
+{
+  "grain": "stop_date_time_period",
+  "time_periods": [
+    "night",
+    "morning_peak",
+    "morning",
+    "midday",
+    "afternoon",
+    "evening_peak",
+    "night_service"
+  ],
+  "observation_count": 4340584,
+  "date_count": 731,
+  "date_min": "20250402",
+  "date_max": "20270402",
+  "train_date_count": 584,
+  "test_date_count": 147,
+  "baseline": {
+    "name": "mean_by_stop_and_period_with_period_fallback",
+    "test_observation_count": 588,
+    "fallback_observation_count": 0,
+    "mae": 0.7059,
+    "rmse": 0.7069
+  },
+  "lowest_average_offer": [
+    {
+      "stop_id": "ALEOP:1230",
+      "stop_name": "Stade",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1248",
+      "stop_name": "Saint Jean de Corcou\u00e9",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1302",
+      "stop_name": "Mairie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1302",
+      "stop_name": "Mairie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "night_service",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1321",
+      "stop_name": "La B\u00e9nate",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1401",
+      "stop_name": "Passay",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1459",
+      "stop_name": "Perri\u00e8res",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "night_service",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:1612",
+      "stop_name": "Passay Rue du Lac",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17MARAaligA",
+      "stop_name": "Marquis d'Aligr\u00e9",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "evening_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17MARAaligR",
+      "stop_name": "Marquis d'Aligr\u00e9",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17MARAaligR",
+      "stop_name": "Marquis d'Aligr\u00e9",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHhopiA",
+      "stop_name": "H\u00f4pital",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "evening_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHhopiR",
+      "stop_name": "H\u00f4pital",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHjoffU",
+      "stop_name": "Boulevard Joffre",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "evening_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHjoffU",
+      "stop_name": "Boulevard Joffre",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHpattA",
+      "stop_name": "Patte d'Oie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "evening_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHpattA",
+      "stop_name": "Patte d'Oie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHpattA",
+      "stop_name": "Patte d'Oie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHpattA",
+      "stop_name": "Patte d'Oie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "morning_peak",
+      "average_departures": 1.0
+    },
+    {
+      "stop_id": "ALEOP:17ROCHpattR",
+      "stop_name": "Patte d'Oie",
+      "coordinate_status": "within_pdl_bbox",
+      "time_period": "midday",
+      "average_departures": 1.0
+    }
+  ]
+}

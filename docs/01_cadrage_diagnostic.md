@@ -35,7 +35,7 @@ La cible prédictive pourra être le nombre de départs d'un arrêt pour une dat
 
 ## 3. Premier diagnostic du périmètre actuel
 
-Le diagnostic est généré par `01_diagnostic_initial.py` et sauvegardé dans `diagnostic_initial.json`. Les premiers constats sont :
+Le diagnostic est généré par `src/01_diagnostic_initial.py` et sauvegardé dans `reports/diagnostic_initial.json`. Les premiers constats sont :
 
 - le feed est publié par DESTINEO et couvre théoriquement du `2023-09-01` au `2027-04-02` selon `feed_info` ;
 - `calendar_dates` contient des dates de service du `2025-04-02` au `2027-04-02` et uniquement des exceptions de type `1` ;
@@ -56,7 +56,7 @@ Le diagnostic est généré par `01_diagnostic_initial.py` et sauvegardé dans `
 
 ### Résultats du premier nettoyage
 
-Le script `02_controle_nettoyage_gtfs.py` produit `rapport_qualite_gtfs.json`, `stops_clean.csv` et `stop_times_clean.csv`. Les contrôles effectués donnent les résultats suivants :
+Le script `src/02_controle_nettoyage_gtfs.py` produit `reports/rapport_qualite_gtfs.json`, `data/processed/stops_clean.csv` et `data/processed/stop_times_clean.csv`. Les contrôles effectués donnent les résultats suivants :
 
 - aucune clé primaire dupliquée dans `routes`, `stops` et `trips` ;
 - les identifiants répétés de `calendar_dates.service_id` et `shapes.shape_id` sont conservés car ils sont attendus par le modèle GTFS ;
