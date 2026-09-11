@@ -6,25 +6,28 @@ import sqlite3
 from pathlib import Path
 
 
-ROOT = Path(__file__).parent
-DATABASE = ROOT / "gtfs_pays_loire.sqlite"
-VALIDATION_REPORT = ROOT / "04_resultats_validation_bdd.json"
+ROOT = Path(__file__).resolve().parent.parent
+GTFS_DIR = ROOT / "data" / "raw" / "gtfs"
+EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
+PROCESSED_DATA_DIR = ROOT / "data" / "processed"
+DATABASE = ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"
+VALIDATION_REPORT = ROOT / "reports" / "04_resultats_validation_bdd.json"
+SCHEMA_FILE = ROOT / "sql" / "03_schema_gtfs.sql"
 
 
 FILES = {
-    "stg_agency": ("agency.txt", None),
-    "stg_routes": ("routes.txt", None),
-    "stg_stops": ("stops_clean.csv", None),
-    "stg_calendar_dates": ("calendar_dates.txt", None),
-    "stg_trips": ("trips.txt", None),
-    "stg_stop_times": ("stop_times_clean.csv", None),
-    "stg_transfers": ("transfers.txt", None),
-    "stg_weather": ("open-meteo-47.42N0.74W45m.csv", "weather"),
+    "stg_agency": (GTFS_DIR / "agency.txt", None),
+    "stg_routes": (GTFS_DIR / "routes.txt", None),
+    "stg_stops": (PROCESSED_DATA_DIR / "stops_clean.csv", None),
+    "stg_calendar_dates": (GTFS_DIR / "calendar_dates.txt", None),
+    "stg_trips": (GTFS_DIR / "trips.txt", None),
+    "stg_stop_times": (PROCESSED_DATA_DIR / "stop_times_clean.csv", None),
+    "stg_transfers": (GTFS_DIR / "transfers.txt", None),
+    "stg_weather": (EXTERNAL_DATA_DIR / "open-meteo-47.42N0.74W45m.csv", "weather"),
 }
 
 
-def insert_csv(connection: sqlite3.Connection, table: str, filename: str) -> None:
-    path = ROOT / filename
+def insert_csv(connection: sqlite3.Connection, table: str, path: Path) -> None:
     with path.open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         columns = reader.fieldnames or []
@@ -41,7 +44,7 @@ def insert_csv(connection: sqlite3.Connection, table: str, filename: str) -> Non
 
 
 def insert_shapes(connection: sqlite3.Connection) -> None:
-    with (ROOT / "trips.txt").open(encoding="utf-8-sig", newline="") as source:
+    with (GTFS_DIR / "trips.txt").open(encoding="utf-8-sig", newline="") as source:
         rows = {(row.get("shape_id") or "").strip() for row in csv.DictReader(source)}
     connection.executemany(
         "INSERT INTO stg_shapes (shape_id) VALUES (?)",
@@ -50,7 +53,7 @@ def insert_shapes(connection: sqlite3.Connection) -> None:
 
 
 def insert_weather(connection: sqlite3.Connection) -> None:
-    with (ROOT / FILES["stg_weather"][0]).open(encoding="utf-8-sig", newline="") as source:
+    with FILES["stg_weather"][0].open(encoding="utf-8-sig", newline="") as source:
         rows = list(csv.reader(source))
     metadata = dict(zip(rows[0], rows[1]))
     observation_header_index = next(index for index, row in enumerate(rows) if row and row[0] == "time")
@@ -151,7 +154,7 @@ def build_validation_report(connection: sqlite3.Connection) -> dict:
 def main() -> None:
     connection = sqlite3.connect(DATABASE)
     connection.execute("PRAGMA foreign_keys = ON")
-    schema = (ROOT / "03_schema_gtfs.sql").read_text(encoding="utf-8")
+    schema = SCHEMA_FILE.read_text(encoding="utf-8")
     staging_sql, transform_sql = schema.split("-- BEGIN_TRANSFORM", 1)
     connection.executescript(staging_sql.replace("BEGIN TRANSACTION;", ""))
 

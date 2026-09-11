@@ -6,14 +6,17 @@ from collections import Counter
 from pathlib import Path
 
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent.parent
+GTFS_DIR = ROOT / "data" / "raw" / "gtfs"
+PROCESSED_DATA_DIR = ROOT / "data" / "processed"
+REPORTS_DIR = ROOT / "reports"
 PDL_BBOX = (46.0, 48.6, -2.4, 0.5)
 
 
 def read_ids(filename: str, column: str) -> tuple[set[str], int]:
     values = set()
     duplicates = 0
-    with (ROOT / filename).open(encoding="utf-8-sig", newline="") as file:
+    with (GTFS_DIR / filename).open(encoding="utf-8-sig", newline="") as file:
         for row in csv.DictReader(file):
             value = (row.get(column) or "").strip()
             if value in values:
@@ -39,7 +42,7 @@ def parse_gtfs_time(value: str) -> int | None:
 def load_trips() -> tuple[dict[str, dict[str, str]], int]:
     trips = {}
     duplicates = 0
-    with (ROOT / "trips.txt").open(encoding="utf-8-sig", newline="") as file:
+    with (GTFS_DIR / "trips.txt").open(encoding="utf-8-sig", newline="") as file:
         for row in csv.DictReader(file):
             trip_id = (row.get("trip_id") or "").strip()
             if trip_id in trips:
@@ -54,9 +57,9 @@ def load_trips() -> tuple[dict[str, dict[str, str]], int]:
 
 
 def clean_stops(stop_ids: set[str]) -> dict[str, int]:
-    output = ROOT / "stops_clean.csv"
+    output = PROCESSED_DATA_DIR / "stops_clean.csv"
     counters = Counter()
-    with (ROOT / "stops.txt").open(encoding="utf-8-sig", newline="") as source:
+    with (GTFS_DIR / "stops.txt").open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         with output.open("w", encoding="utf-8", newline="") as target:
             fields = ["stop_id", "stop_name", "stop_lat", "stop_lon", "location_type", "wheelchair_boarding", "coordinate_status"]
@@ -92,7 +95,7 @@ def clean_stop_times(
     service_ids: set[str],
     shape_ids: set[str],
 ) -> dict[str, int]:
-    output = ROOT / "stop_times_clean.csv"
+    output = PROCESSED_DATA_DIR / "stop_times_clean.csv"
     counters = Counter()
     previous_sequences = {}
     trip_stop_counts = Counter()
@@ -102,7 +105,7 @@ def clean_stop_times(
         "stop_sequence", "arrival_seconds", "departure_seconds",
         "pickup_type", "drop_off_type",
     ]
-    with (ROOT / "stop_times.txt").open(encoding="utf-8-sig", newline="") as source:
+    with (GTFS_DIR / "stop_times.txt").open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         with output.open("w", encoding="utf-8", newline="") as target:
             writer = csv.DictWriter(target, fieldnames=fields)
@@ -201,7 +204,7 @@ def main() -> None:
             "trip_with_fewer_than_two_stops": "reported_not_deleted",
         },
     }
-    (ROOT / "rapport_qualite_gtfs.json").write_text(
+    (REPORTS_DIR / "rapport_qualite_gtfs.json").write_text(
         json.dumps(report, ensure_ascii=True, indent=2),
         encoding="utf-8",
     )

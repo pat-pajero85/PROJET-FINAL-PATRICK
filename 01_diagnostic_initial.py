@@ -6,7 +6,10 @@ from collections import Counter
 from pathlib import Path
 
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent.parent
+GTFS_DIR = ROOT / "data" / "raw" / "gtfs"
+EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
+REPORTS_DIR = ROOT / "reports"
 GTFS_FILES = [
     "agency.txt",
     "calendar_dates.txt",
@@ -77,11 +80,11 @@ def inspect_table(path: Path) -> dict:
 
 def main() -> None:
     diagnostic = {
-        filename: inspect_table(ROOT / filename)
+        filename: inspect_table(GTFS_DIR / filename)
         for filename in GTFS_FILES
     }
 
-    weather_file = ROOT / "open-meteo-47.42N0.74W45m.csv"
+    weather_file = EXTERNAL_DATA_DIR / "open-meteo-47.42N0.74W45m.csv"
     with weather_file.open(encoding="utf-8-sig", newline="") as file:
         weather_reader = csv.DictReader(file)
         weather_location = next(weather_reader)
@@ -95,7 +98,7 @@ def main() -> None:
         "status": "regional_reference_point_one_day",
     }
 
-    output = ROOT / "diagnostic_initial.json"
+    output = REPORTS_DIR / "diagnostic_initial.json"
     output.write_text(
         json.dumps(diagnostic, ensure_ascii=True, indent=2),
         encoding="utf-8",
