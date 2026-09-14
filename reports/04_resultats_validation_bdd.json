@@ -1,0 +1,56 @@
+{
+  "integrity_check": "ok",
+  "foreign_key_anomaly_count": 0,
+  "orphan_checks": {
+    "orphan_route_agency": 0,
+    "orphan_trip_route": 0,
+    "orphan_trip_service": 0,
+    "orphan_stop_time_trip": 0,
+    "orphan_stop_time_stop": 0,
+    "orphan_transfer_from_stop": 0,
+    "orphan_transfer_to_stop": 0
+  },
+  "counts": {
+    "agency": {
+      "staging": 14,
+      "final": 14
+    },
+    "route": {
+      "staging": 1029,
+      "final": 1029
+    },
+    "stop": {
+      "staging": 20170,
+      "final": 20170
+    },
+    "service_date": {
+      "staging": 142340,
+      "final": 142340
+    },
+    "trip": {
+      "staging": 182725,
+      "final": 182725
+    },
+    "stop_time": {
+      "staging": 4000625,
+      "final": 4000625
+    },
+    "transfer": {
+      "staging": 22286,
+      "final": 22286
+    },
+    "weather_observation": {
+      "staging": 24,
+      "final": 24
+    }
+  },
+  "service_date_exception_types": {
+    "1": 142340
+  },
+  "weather_active_service_dates": 1,
+  "analytical_views": {
+    "departures_by_stop_day": 1008881,
+    "departures_by_stop_period": 4340584,
+    "departures_by_route_day": 67865
+  }
+}
