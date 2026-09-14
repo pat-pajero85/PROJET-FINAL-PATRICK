@@ -72,6 +72,7 @@ La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 servic
 - [sql](sql) : schéma relationnel et requêtes de validation ;
 - [reports](reports) : résultats JSON et journaux d'exécution ;
 - [docs](docs) : cadrage, méthode et documentation du schéma.
+- [api](api) : API FastAPI locale de consultation et de gestion.
 
 ## Reproduire les contrôles
 
@@ -87,6 +88,48 @@ Les scripts utilisent uniquement la bibliothèque standard Python pour les contr
 
 Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03_schema_gtfs.sql](sql/03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
 
+## Étape 3 : API locale FastAPI
+
+L'API expose la base SQLite et les indicateurs d'offre sans dépendre d'une plateforme cloud. Elle est construite avec FastAPI, Pydantic et Uvicorn.
+
+### Lancer l'API
+
+Depuis la racine du projet :
+
+```powershell
+.\mon_env\Scripts\python.exe -m uvicorn api.main:app --host 127.0.0.1 --port 4000
+```
+
+Les URLs utiles sont alors :
+
+- API : http://127.0.0.1:4000 ;
+- documentation interactive Swagger : http://127.0.0.1:4000/docs ;
+- schéma OpenAPI : http://127.0.0.1:4000/openapi.json ;
+- état de santé : http://127.0.0.1:4000/health.
+
+### Routes disponibles
+
+Les arrêts sont la ressource exposée en CRUD complet :
+
+| Méthode | Endpoint                  | Fonction                           |
+| ------- | ------------------------- | ---------------------------------- |
+| GET     | `/api/v1/stops`           | Lister et filtrer les arrêts       |
+| GET     | `/api/v1/stops/{stop_id}` | Consulter un arrêt précis          |
+| POST    | `/api/v1/stops`           | Créer un arrêt validé par Pydantic |
+| PUT     | `/api/v1/stops/{stop_id}` | Remplacer un arrêt                 |
+| PATCH   | `/api/v1/stops/{stop_id}` | Modifier certains champs           |
+| DELETE  | `/api/v1/stops/{stop_id}` | Supprimer un arrêt non référencé   |
+
+Les référentiels GTFS et les indicateurs sont disponibles en lecture seule :
+
+- `GET /api/v1/routes` : lignes de transport ;
+- `GET /api/v1/agencies` : opérateurs ;
+- `GET /api/v1/analytics/departures-by-stop-day` : départs planifiés par arrêt et par jour.
+
+Les paramètres de chemin et de requête sont validés par FastAPI. Les corps JSON sont contrôlés avec Pydantic. Les requêtes SQL sont paramétrées et les mutations peuvent être protégées par la variable d'environnement `GTFS_API_KEY` envoyée dans l'en-tête `X-API-Key`.
+
+La documentation détaillée et les exemples Python avec `requests` sont disponibles dans [docs/04_api.md](docs/04_api.md).
+
 ## Limites actuelles
 
 Le GTFS décrit l'offre planifiée, pas la mobilité réellement observée. Le projet ne dispose pas encore de fréquentation, de validations, de retards, de suppressions ou de taux de remplissage. Les coordonnées hors emprise peuvent correspondre à des dessertes interrégionales et ne sont donc pas supprimées automatiquement.
@@ -95,6 +138,8 @@ La météo ne couvre pour l'instant qu'un point régional et une journée. L'OSM
 
 Les fichiers très volumineux, notamment `stop_times.txt`, `shapes.txt` et le fichier OSM `.pbf`, sont exclus du dépôt GitHub par [.gitignore](.gitignore) et restent disponibles localement.
 
-## Prochaine étape
+## Suite du projet
 
-Construire la table analytique des départs par arrêt, date, ligne et période horaire, puis établir une baseline avant de tester un modèle prédictif avec une séparation temporelle entre entraînement et test.
+L'étape 3 fournit une API locale FastAPI documentée dans [docs/04_api.md](docs/04_api.md). Elle expose les données GTFS et les indicateurs analytiques, avec un CRUD complet sur les arrêts.
+
+L'étape suivante consistera à construire la table analytique des départs par arrêt, date, ligne et période horaire, puis à établir une baseline avant de tester un modèle prédictif avec une séparation temporelle entre entraînement et test.

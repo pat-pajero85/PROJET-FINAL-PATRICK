@@ -22,6 +22,7 @@ debugpy==1.8.21
 defusedxml==0.7.1
 executing==2.2.1
 fastapi==0.141.1
+uvicorn[standard]==0.35.0
 fastjsonschema==2.22.2
 fonttools==4.64.0
 fqdn==1.5.1
