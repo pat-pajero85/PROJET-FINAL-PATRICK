@@ -83,6 +83,18 @@ print(r.status_code, r.json())
 
 La documentation interactive est disponible sur `http://127.0.0.1:8000/docs`, comme dans le cours. Elle permet de voir les schémas Pydantic, les paramètres `Path`/`Query` et de tester chaque endpoint avec **Try it out**.
 
+## Tests automatises
+
+La suite [tests/test_api.py](../tests/test_api.py) utilise `TestClient` et une copie temporaire de la base SQLite. Elle couvre les endpoints systeme, les catalogues, la validation des parametres, le CRUD des arrets et la protection des ecritures par cle API.
+
+Depuis la racine du projet :
+
+```powershell
+.\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
+```
+
+Le endpoint analytique est volontairement teste ici sur la validation de sa date : l'agregation complete de la vue SQLite porte sur plusieurs millions de passages et doit rester un controle d'integration separe, pas un test rapide execute a chaque modification.
+
 Exemple de création :
 
 ```powershell

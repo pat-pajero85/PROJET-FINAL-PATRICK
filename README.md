@@ -72,7 +72,10 @@ La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 servic
 - [sql](sql) : schéma relationnel et requêtes de validation ;
 - [reports](reports) : résultats JSON et journaux d'exécution ;
 - [docs](docs) : cadrage, méthode et documentation du schéma.
+- [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) : validation du jalon API fonctionnelle.
+- [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md) : rapport complet de contrôle de l'étape 3.
 - [api](api) : API FastAPI locale de consultation et de gestion.
+- [tests](tests) : tests automatisés des endpoints de l'API.
 
 ## Reproduire les contrôles
 
@@ -91,6 +94,8 @@ Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03
 ## Étape 3 : API locale FastAPI
 
 L'API expose la base SQLite et les indicateurs d'offre sans dépendre d'une plateforme cloud. Elle est construite avec FastAPI, Pydantic et Uvicorn.
+
+**Statut du jalon : validé pour démonstration et soutenance.** La checklist est disponible dans [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) et le contrôle détaillé dans [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md).
 
 ### Lancer l'API
 
@@ -130,6 +135,16 @@ Les paramètres de chemin et de requête sont validés par FastAPI. Les corps JS
 
 La documentation détaillée et les exemples Python avec `requests` sont disponibles dans [docs/04_api.md](docs/04_api.md).
 
+### Tester l'API
+
+Les tests utilisent `FastAPI TestClient` et une copie temporaire de la base SQLite. Ils couvrent les endpoints système, les référentiels, la validation des paramètres, le CRUD des arrêts et la protection par clé API, sans modifier la base de référence.
+
+```powershell
+.\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
+```
+
+Résultat de référence : **6 tests réussis**. Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
+
 ## Limites actuelles
 
 Le GTFS décrit l'offre planifiée, pas la mobilité réellement observée. Le projet ne dispose pas encore de fréquentation, de validations, de retards, de suppressions ou de taux de remplissage. Les coordonnées hors emprise peuvent correspondre à des dessertes interrégionales et ne sont donc pas supprimées automatiquement.
@@ -138,8 +153,10 @@ La météo ne couvre pour l'instant qu'un point régional et une journée. L'OSM
 
 Les fichiers très volumineux, notamment `stop_times.txt`, `shapes.txt` et le fichier OSM `.pbf`, sont exclus du dépôt GitHub par [.gitignore](.gitignore) et restent disponibles localement.
 
+Pour une utilisation au-delà du contexte local, trois points restent à traiter : optimiser la vue analytique des départs, refuser proprement les valeurs `null` dans les modifications partielles et renforcer le contrôle de disponibilité de la base dans `/health`.
+
 ## Suite du projet
 
 L'étape 3 fournit une API locale FastAPI documentée dans [docs/04_api.md](docs/04_api.md). Elle expose les données GTFS et les indicateurs analytiques, avec un CRUD complet sur les arrêts.
 
-L'étape suivante consistera à construire la table analytique des départs par arrêt, date, ligne et période horaire, puis à établir une baseline avant de tester un modèle prédictif avec une séparation temporelle entre entraînement et test.
+La suite prioritaire consiste à fiabiliser ces trois points, puis à construire la table analytique des départs par arrêt, date, ligne et période horaire avant d'établir une baseline et de tester un modèle prédictif avec une séparation temporelle entre entraînement et test.
