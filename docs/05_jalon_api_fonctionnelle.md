@@ -38,7 +38,7 @@ La suite de validation se lance avec :
 .\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
 ```
 
-Resultat de reference : `6 passed`.
+Resultat de reference : `8 passed`.
 
 ## Perimetre et limites
 

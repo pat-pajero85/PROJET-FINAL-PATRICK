@@ -6,11 +6,12 @@ import hmac
 import os
 import sqlite3
 from collections.abc import Generator
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Path as FastAPIPath, Query, Response, status
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ROOT = Path(__file__).resolve().parent.parent
 DATABASE = Path(os.getenv("GTFS_DATABASE", ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"))
@@ -66,6 +67,12 @@ class StopPatch(BaseModel):
         default=None,
         pattern="^(within_pdl_bbox|outside_pdl_bbox|invalid_coordinate)$",
     )
+
+    @model_validator(mode="after")
+    def reject_explicit_nulls(self) -> "StopPatch":
+        if any(value is None for value in self.model_dump(exclude_unset=True).values()):
+            raise ValueError("Les champs envoyes dans un PATCH ne peuvent pas etre nuls.")
+        return self
 
 
 class Stop(StopCreate):
@@ -147,7 +154,14 @@ def root() -> dict[str, str]:
 
 @app.get("/health", tags=["system"])
 def health() -> dict[str, str]:
-    """Verifie que l API repond et que la base cible est connue."""
+    """Verifie que l API repond et que SQLite est disponible."""
+    if not DATABASE.exists():
+        raise HTTPException(status_code=503, detail="La base SQLite est introuvable.")
+    try:
+        with sqlite3.connect(DATABASE, timeout=2) as connection:
+            connection.execute("SELECT 1").fetchone()
+    except sqlite3.Error as error:
+        raise HTTPException(status_code=503, detail="La base SQLite est indisponible.") from error
     return {"status": "ok", "database": DATABASE.name}
 
 
@@ -318,20 +332,36 @@ def departures_by_stop_day(
     offset: int = Query(default=0, ge=0),
     connection: sqlite3.Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
+    if service_date is None and stop_id is None:
+        raise HTTPException(
+            status_code=422,
+            detail="Fournir service_date ou stop_id pour limiter la requete analytics.",
+        )
+    if service_date:
+        try:
+            datetime.strptime(service_date, "%Y%m%d")
+        except ValueError as error:
+            raise HTTPException(status_code=422, detail="Date de service invalide.") from error
     clauses: list[str] = []
     parameters: list[Any] = []
     if service_date:
-        clauses.append("service_date = ?")
+        clauses.append("sd.service_date = ?")
         parameters.append(service_date)
     if stop_id:
-        clauses.append("stop_id = ?")
+        clauses.append("st.stop_id = ?")
         parameters.append(stop_id)
-    where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
     rows = connection.execute(
-        "SELECT service_date, stop_id, stop_name, planned_departures, route_count, "
-        "first_departure_seconds, last_departure_seconds "
-        f"FROM v_departures_by_stop_day {where} "
-        "ORDER BY service_date, stop_id LIMIT ? OFFSET ?",
+        "SELECT sd.service_date, st.stop_id, s.stop_name, COUNT(*) AS planned_departures, "
+        "COUNT(DISTINCT t.route_id) AS route_count, MIN(st.departure_seconds) "
+        "AS first_departure_seconds, MAX(st.departure_seconds) AS last_departure_seconds "
+        "FROM service_date AS sd "
+        "JOIN trip AS t ON t.service_id = sd.service_id "
+        "JOIN stop_time AS st ON st.trip_id = t.trip_id "
+        "JOIN stop AS s ON s.stop_id = st.stop_id "
+        "WHERE sd.exception_type = 1 "
+        + ("AND " + " AND ".join(clauses) if clauses else "")
+        + " GROUP BY sd.service_date, st.stop_id, s.stop_name "
+        "ORDER BY sd.service_date, st.stop_id LIMIT ? OFFSET ?",
         [*parameters, limit, offset],
     ).fetchall()
     return [row_as_dict(row) for row in rows]

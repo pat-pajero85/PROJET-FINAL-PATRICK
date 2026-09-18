@@ -46,6 +46,16 @@ def test_system_and_openapi_endpoints(client: TestClient) -> None:
     assert "/api/v1/stops" in openapi.json()["paths"]
 
 
+def test_health_returns_503_when_database_is_unavailable(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(main, "DATABASE", Path("missing-test-database.sqlite"))
+
+    response = client.get("/health")
+
+    assert response.status_code == 503
+
+
 def test_catalogue_endpoints(client: TestClient) -> None:
     assert client.get("/api/v1/routes?limit=1").status_code == 200
     assert client.get("/api/v1/agencies").status_code == 200
@@ -58,6 +68,20 @@ def test_analytics_query_validation(client: TestClient) -> None:
     )
 
     assert response.status_code == 422
+
+    unfiltered = client.get("/api/v1/analytics/departures-by-stop-day")
+    assert unfiltered.status_code == 422
+
+
+def test_analytics_valid_response(client: TestClient) -> None:
+    response = client.get(
+        "/api/v1/analytics/departures-by-stop-day",
+        params={"service_date": "20250402", "limit": 1},
+    )
+
+    assert response.status_code == 200
+    assert len(response.json()) == 1
+    assert response.json()[0]["service_date"] == "20250402"
 
 
 def test_stops_filters_and_validation(client: TestClient) -> None:
@@ -84,6 +108,12 @@ def test_stop_crud_isolated_from_reference_database(client: TestClient) -> None:
     )
     assert patched.status_code == 200
     assert patched.json()["stop_name"] == "Arret API modifie"
+
+    null_patch = client.patch(
+        "/api/v1/stops/API-TEST-001",
+        json={"stop_name": None},
+    )
+    assert null_patch.status_code == 422
 
     replacement_payload = stop_payload()
     replacement_payload.pop("stop_id")
