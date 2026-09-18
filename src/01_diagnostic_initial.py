@@ -24,6 +24,7 @@ GTFS_FILES = [
 
 
 def inspect_table(path: Path) -> dict:
+    """Produit un diagnostic generique d'un fichier GTFS tabulaire."""
     row_count = 0
     blank_counts = Counter()
     unique_values = {"service_id": set(), "route_type": set()}
@@ -40,6 +41,8 @@ def inspect_table(path: Path) -> dict:
                 if value is None or not value.strip():
                     blank_counts[column] += 1
 
+            # Ces colonnes permettent de repérer rapidement les valeurs de référence
+            # utiles aux contrôles relationnels des étapes suivantes.
             for column in unique_values:
                 value = (row.get(column) or "").strip()
                 if value:
@@ -51,6 +54,8 @@ def inspect_table(path: Path) -> dict:
                 max_date = date if max_date is None or date > max_date else max_date
 
             if path.name == "stops.txt":
+                # Les coordonnées sont signalées, pas supprimées : une ligne
+                # interrégionale peut légitimement sortir de l'emprise régionale.
                 try:
                     latitude = float(row["stop_lat"])
                     longitude = float(row["stop_lon"])
@@ -79,6 +84,8 @@ def inspect_table(path: Path) -> dict:
 
 
 def main() -> None:
+    # Le diagnostic est exécuté sur les fichiers bruts afin de conserver une
+    # photographie de la qualité avant tout nettoyage.
     diagnostic = {
         filename: inspect_table(GTFS_DIR / filename)
         for filename in GTFS_FILES
@@ -87,6 +94,7 @@ def main() -> None:
     weather_file = EXTERNAL_DATA_DIR / "open-meteo-47.42N0.74W45m.csv"
     with weather_file.open(encoding="utf-8-sig", newline="") as file:
         weather_reader = csv.DictReader(file)
+        # Open-Meteo place les métadonnées de localisation avant les observations.
         weather_location = next(weather_reader)
         weather_observations = sum(1 for row in weather_reader if row.get("time"))
 

@@ -28,6 +28,7 @@ FILES = {
 
 
 def insert_csv(connection: sqlite3.Connection, table: str, path: Path) -> None:
+    """Insere un CSV dans une table de staging par lots pour limiter la memoire."""
     with path.open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         columns = reader.fieldnames or []
@@ -37,6 +38,7 @@ def insert_csv(connection: sqlite3.Connection, table: str, path: Path) -> None:
         for row in reader:
             batch.append([value if value != "" else None for value in row.values()])
             if len(batch) == 10_000:
+            # executemany réduit le coût des écritures répétées sur les gros fichiers.
                 connection.executemany(sql, batch)
                 batch.clear()
         if batch:
@@ -44,6 +46,7 @@ def insert_csv(connection: sqlite3.Connection, table: str, path: Path) -> None:
 
 
 def insert_shapes(connection: sqlite3.Connection) -> None:
+    """Charge les identifiants de formes derives du fichier trips."""
     with (GTFS_DIR / "trips.txt").open(encoding="utf-8-sig", newline="") as source:
         rows = {(row.get("shape_id") or "").strip() for row in csv.DictReader(source)}
     connection.executemany(
@@ -53,6 +56,7 @@ def insert_shapes(connection: sqlite3.Connection) -> None:
 
 
 def insert_weather(connection: sqlite3.Connection) -> None:
+    """Extrait les metadonnees et observations du format CSV Open-Meteo."""
     with FILES["stg_weather"][0].open(encoding="utf-8-sig", newline="") as source:
         rows = list(csv.reader(source))
     metadata = dict(zip(rows[0], rows[1]))
@@ -72,6 +76,7 @@ def insert_weather(connection: sqlite3.Connection) -> None:
 
 
 def build_validation_report(connection: sqlite3.Connection) -> dict:
+    """Compare staging et tables finales et controle les references orphelines."""
     table_pairs = {
         "agency": "stg_agency",
         "route": "stg_routes",
@@ -93,6 +98,8 @@ def build_validation_report(connection: sqlite3.Connection) -> dict:
             ).fetchone()[0],
         }
 
+    # Chaque contrôle recherche une clé étrangère présente dans la table enfant
+    # mais absente de la table parent.
     orphan_checks = connection.execute(
         "SELECT 'orphan_route_agency', COUNT(*) FROM route AS r "
         "LEFT JOIN agency AS a ON a.agency_id = r.agency_id "
@@ -152,6 +159,8 @@ def build_validation_report(connection: sqlite3.Connection) -> dict:
 
 
 def main() -> None:
+    # Les fichiers sont d'abord chargés en staging, puis le SQL applique les
+    # nettoyages, contraintes et transformations du schéma final.
     connection = sqlite3.connect(DATABASE)
     connection.execute("PRAGMA foreign_keys = ON")
     schema = SCHEMA_FILE.read_text(encoding="utf-8")
@@ -164,6 +173,7 @@ def main() -> None:
         else:
             insert_csv(connection, table, filename)
     insert_shapes(connection)
+    # La seconde partie du schéma transforme les staging tables en tables métier.
     connection.executescript(
         ("-- BEGIN_TRANSFORM" + transform_sql).replace("COMMIT;", "")
     )

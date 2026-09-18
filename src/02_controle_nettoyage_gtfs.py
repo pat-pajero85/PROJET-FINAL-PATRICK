@@ -14,6 +14,7 @@ PDL_BBOX = (46.0, 48.6, -2.4, 0.5)
 
 
 def read_ids(filename: str, column: str) -> tuple[set[str], int]:
+    """Charge les identifiants et compte les doublons de clé primaire."""
     values = set()
     duplicates = 0
     with (GTFS_DIR / filename).open(encoding="utf-8-sig", newline="") as file:
@@ -27,6 +28,7 @@ def read_ids(filename: str, column: str) -> tuple[set[str], int]:
 
 
 def parse_gtfs_time(value: str) -> int | None:
+    """Convertit une heure GTFS en secondes depuis minuit, y compris au-delà de 24 h."""
     parts = value.strip().split(":")
     if len(parts) != 3:
         return None
@@ -40,6 +42,7 @@ def parse_gtfs_time(value: str) -> int | None:
 
 
 def load_trips() -> tuple[dict[str, dict[str, str]], int]:
+    """Construit un index des trajets pour contrôler les références de stop_times."""
     trips = {}
     duplicates = 0
     with (GTFS_DIR / "trips.txt").open(encoding="utf-8-sig", newline="") as file:
@@ -62,6 +65,8 @@ def clean_stops(stop_ids: set[str]) -> dict[str, int]:
     with (GTFS_DIR / "stops.txt").open(encoding="utf-8-sig", newline="") as source:
         reader = csv.DictReader(source)
         with output.open("w", encoding="utf-8", newline="") as target:
+            # Le statut conserve les arrêts hors emprise pour permettre l'analyse
+            # des dessertes interrégionales au lieu de les supprimer.
             fields = ["stop_id", "stop_name", "stop_lat", "stop_lon", "location_type", "wheelchair_boarding", "coordinate_status"]
             writer = csv.DictWriter(target, fieldnames=fields)
             writer.writeheader()
@@ -116,6 +121,8 @@ def clean_stop_times(
                 stop_id = (row.get("stop_id") or "").strip()
                 trip = trips.get(trip_id)
                 missing_reference = (
+                    # Un passage n'est conservé que si son trajet et ses
+                    # référentiels associés existent dans les tables contrôlées.
                     trip is None
                     or stop_id not in stop_ids
                     or trip["route_id"] not in route_ids
@@ -139,6 +146,7 @@ def clean_stop_times(
                     counters["rows_with_arrival_after_departure"] += 1
                     continue
                 previous = previous_sequences.get(trip_id)
+                # Les séquences doivent progresser pour conserver l'ordre des arrêts.
                 if previous is not None and sequence <= previous:
                     counters["rows_with_non_increasing_sequence"] += 1
                     continue
@@ -168,6 +176,8 @@ def clean_stop_times(
 
 
 def main() -> None:
+    # Les identifiants de référence sont chargés avant le nettoyage des fichiers
+    # volumineux afin d'effectuer les contrôles en mémoire pendant la lecture.
     route_ids, duplicate_routes = read_ids("routes.txt", "route_id")
     stop_ids, duplicate_stops = read_ids("stops.txt", "stop_id")
     service_ids, _ = read_ids("calendar_dates.txt", "service_id")
@@ -194,6 +204,7 @@ def main() -> None:
         "stops": clean_stops(stop_ids),
         "stop_times": clean_stop_times(stop_ids, trips, route_ids, service_ids, shape_ids),
         "rules": {
+            # Ces règles rendent les choix de nettoyage explicites dans le rapport JSON.
             "coordinate_bbox": PDL_BBOX,
             "outside_coordinates_are_flagged_not_deleted": True,
             "gtfs_time_is_stored_as_seconds_after_midnight": True,

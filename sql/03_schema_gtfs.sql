@@ -1,3 +1,4 @@
+-- Les contraintes de références doivent être actives pendant le chargement.
 PRAGMA foreign_keys = ON;
 
 BEGIN TRANSACTION;
@@ -107,6 +108,7 @@ CREATE TABLE stg_weather (
     timezone TEXT
 );
 
+-- Le schéma final normalise les référentiels GTFS et porte les contraintes métier.
 -- BEGIN_FINAL_SCHEMA
 CREATE TABLE agency (
     agency_id TEXT PRIMARY KEY,
@@ -199,6 +201,8 @@ CREATE TABLE weather_observation (
         timezone TEXT NOT NULL
 );
 
+-- Nettoyage et chargement : les valeurs vides sont converties en NULL et
+-- les lignes orphelines sont écartées avant insertion dans le schéma final.
 -- BEGIN_TRANSFORM
 INSERT INTO agency
 SELECT DISTINCT NULLIF(TRIM(agency_id), ''), NULLIF(TRIM(agency_name), ''), NULLIF(TRIM(agency_url), ''),
@@ -273,6 +277,7 @@ SELECT DISTINCT observed_at, temperature_c, latitude, longitude, timezone
 FROM stg_weather
 WHERE observed_at IS NOT NULL;
 
+-- Index nécessaires aux jointures fréquentes de l'API et des analyses.
 CREATE INDEX idx_route_agency ON route(agency_id);
 CREATE INDEX idx_stop_time_stop ON stop_time(stop_id);
 CREATE INDEX idx_stop_time_trip ON stop_time(trip_id);
@@ -281,6 +286,7 @@ CREATE INDEX idx_trip_service ON trip(service_id);
 CREATE INDEX idx_service_date_date ON service_date(service_date);
 CREATE INDEX idx_transfer_to_stop ON transfer(to_stop_id);
 
+-- Agrégat quotidien utilisé par l'API et les contrôles de l'offre.
 CREATE VIEW v_departures_by_stop_day AS
 SELECT sd.service_date,
        st.stop_id,
@@ -296,6 +302,7 @@ JOIN stop AS s ON s.stop_id = st.stop_id
 WHERE sd.exception_type = 1
 GROUP BY sd.service_date, st.stop_id, s.stop_name;
 
+-- Agrégat quotidien par ligne pour les analyses de couverture du réseau.
 CREATE VIEW v_departures_by_route_day AS
 SELECT sd.service_date,
        r.route_id,
@@ -310,6 +317,7 @@ JOIN stop_time AS st ON st.trip_id = t.trip_id
 WHERE sd.exception_type = 1
 GROUP BY sd.service_date, r.route_id, route_name;
 
+-- Découpage horaire commun aux analyses H1 et H3 de l'étape 4.
 CREATE VIEW v_departures_by_stop_period AS
 SELECT sd.service_date,
        st.stop_id,
