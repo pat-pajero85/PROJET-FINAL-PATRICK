@@ -23,10 +23,12 @@ TIME_PERIODS = [
 
 
 def mean(values: list[float]) -> float:
+    """Calcule une moyenne avec une valeur de repli pour une liste vide."""
     return sum(values) / len(values) if values else 0.0
 
 
 def load_rows(connection: sqlite3.Connection) -> list[sqlite3.Row]:
+    """Charge le niveau d'offre au grain arrêt-date-période."""
     rows = connection.execute(
         "SELECT service_date, stop_id, stop_name, coordinate_status, "
         "time_period, planned_departures "
@@ -39,9 +41,12 @@ def load_rows(connection: sqlite3.Connection) -> list[sqlite3.Row]:
 
 
 def split_dates(rows: list[sqlite3.Row]) -> tuple[set[str], set[str]]:
+    """Sépare chronologiquement les dates en entraînement et test."""
     dates = sorted({row["service_date"] for row in rows})
     if len(dates) < 2:
         raise RuntimeError("Le jeu de données ne contient pas assez de dates pour un split train/test.")
+    # Une séparation temporelle évite de donner au modèle des dates futures
+    # pendant l'entraînement, contrairement à un échantillonnage aléatoire.
     split_index = max(1, math.floor(len(dates) * 0.8))
     train_dates = set(dates[:split_index])
     test_dates = set(dates[split_index:])
@@ -51,6 +56,7 @@ def split_dates(rows: list[sqlite3.Row]) -> tuple[set[str], set[str]]:
 
 
 def build_baseline(rows: list[sqlite3.Row], train_dates: set[str], test_dates: set[str]) -> tuple[dict, int]:
+    """Construit une baseline par arrêt et période avec repli global."""
     train_rows = [row for row in rows if row["service_date"] in train_dates]
     test_rows = [row for row in rows if row["service_date"] in test_dates]
 
@@ -69,10 +75,12 @@ def build_baseline(rows: list[sqlite3.Row], train_dates: set[str], test_dates: s
         if values:
             prediction = mean([float(value) for value in values])
         else:
+            # Le repli par période permet de prédire même un arrêt absent de l'historique.
             if row["time_period"] not in by_period:
                 raise RuntimeError(f"Aucune donnée historique pour la période {row['time_period']}.")
             prediction = mean([float(value) for value in by_period[row["time_period"]]])
             fallback_count += 1
+        # MAE mesure l'erreur moyenne absolue ; RMSE pénalise davantage les gros écarts.
         error = prediction - float(row["planned_departures"])
         errors.append((abs(error), error * error))
 
@@ -92,11 +100,13 @@ def main() -> None:
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
 
+    # La vue SQL centralise l'indicateur d'offre utilisé par la baseline.
     rows = load_rows(connection)
     train_dates, test_dates = split_dates(rows)
     baseline, _ = build_baseline(rows, train_dates, test_dates)
 
     dates = sorted({row["service_date"] for row in rows})
+    # Cette sélection sert à repérer les zones où l'offre moyenne est la plus faible.
     low_service = connection.execute(
         "SELECT stop_id, stop_name, coordinate_status, time_period, "
         "ROUND(AVG(planned_departures), 2) AS average_departures "

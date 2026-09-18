@@ -56,6 +56,7 @@ class StopUpdate(StopPayload):
 
 
 class StopPatch(BaseModel):
+    # Les champs restent optionnels pour permettre un PATCH partiel.
     model_config = ConfigDict(extra="forbid")
 
     stop_name: str | None = Field(default=None, min_length=1, max_length=255)
@@ -70,6 +71,8 @@ class StopPatch(BaseModel):
 
     @model_validator(mode="after")
     def reject_explicit_nulls(self) -> "StopPatch":
+        # Une valeur absente signifie "ne pas modifier" ; null ne doit pas
+        # être transmis aux colonnes SQLite qui sont obligatoires.
         if any(value is None for value in self.model_dump(exclude_unset=True).values()):
             raise ValueError("Les champs envoyes dans un PATCH ne peuvent pas etre nuls.")
         return self
@@ -112,6 +115,7 @@ def get_connection() -> Generator[sqlite3.Connection, None, None]:
         raise HTTPException(status_code=503, detail="La base SQLite est introuvable.")
     connection = sqlite3.connect(DATABASE, timeout=10)
     connection.row_factory = sqlite3.Row
+    # SQLite désactive les clés étrangères par connexion : on les réactive ici.
     connection.execute("PRAGMA foreign_keys = ON")
     try:
         yield connection
@@ -158,6 +162,7 @@ def health() -> dict[str, str]:
     if not DATABASE.exists():
         raise HTTPException(status_code=503, detail="La base SQLite est introuvable.")
     try:
+        # Un SELECT 1 distingue une base réellement accessible d'un simple fichier présent.
         with sqlite3.connect(DATABASE, timeout=2) as connection:
             connection.execute("SELECT 1").fetchone()
     except sqlite3.Error as error:
@@ -173,6 +178,7 @@ def list_stops(
     offset: int = Query(default=0, ge=0, description="Nombre de resultats a ignorer."),
     connection: sqlite3.Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
+    # Les valeurs utilisateur restent dans parameters pour éviter l'injection SQL.
     clauses: list[str] = []
     parameters: list[Any] = []
     if name:
@@ -244,6 +250,7 @@ def replace_stop(
     if connection.execute("SELECT 1 FROM stop WHERE stop_id = ?", (stop_id,)).fetchone() is None:
         raise HTTPException(status_code=404, detail="Arret introuvable.")
     values = payload.model_dump()
+    # PUT remplace l'ensemble des attributs modifiables, contrairement au PATCH.
     connection.execute(
         "UPDATE stop SET stop_name = ?, stop_lat = ?, stop_lon = ?, location_type = ?, "
         "wheelchair_boarding = ?, coordinate_status = ? WHERE stop_id = ?",
@@ -270,6 +277,7 @@ def patch_stop(
     if not values:
         raise HTTPException(status_code=422, detail="Aucun champ a modifier.")
     assignments = ", ".join(f"{field} = ?" for field in values)
+    # Les noms de colonnes viennent du modèle Pydantic ; seules les valeurs sont paramétrées.
     connection.execute(
         f"UPDATE stop SET {assignments} WHERE stop_id = ?",
         (*values.values(), stop_id),
@@ -332,6 +340,7 @@ def departures_by_stop_day(
     offset: int = Query(default=0, ge=0),
     connection: sqlite3.Connection = Depends(get_connection),
 ) -> list[dict[str, Any]]:
+    # Une requête sans filtre déclencherait l'agrégation de plusieurs millions de passages.
     if service_date is None and stop_id is None:
         raise HTTPException(
             status_code=422,
@@ -351,6 +360,7 @@ def departures_by_stop_day(
         clauses.append("st.stop_id = ?")
         parameters.append(stop_id)
     rows = connection.execute(
+        # Les filtres sont appliqués avant GROUP BY pour limiter le coût de l'agrégation.
         "SELECT sd.service_date, st.stop_id, s.stop_name, COUNT(*) AS planned_departures, "
         "COUNT(DISTINCT t.route_id) AS route_count, MIN(st.departure_seconds) "
         "AS first_departure_seconds, MAX(st.departure_seconds) AS last_departure_seconds "

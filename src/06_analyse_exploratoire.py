@@ -16,6 +16,7 @@ REPORTS = ROOT / "reports"
 def load_summaries() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Calcule les indicateurs en SQLite sans charger toute la vue."""
     with sqlite3.connect(DATABASE) as connection:
+        # Les agrégations restent côté SQLite pour éviter de transférer 4 millions de lignes.
         h1 = pd.read_sql_query(
             """
             SELECT time_period,
@@ -83,6 +84,8 @@ def analyse_h2(data: pd.DataFrame) -> pd.DataFrame:
 
 def analyse_h3(data: pd.DataFrame) -> dict[str, float]:
     """Mesure la correlation entre lignes desservantes et departs."""
+    # Le regroupement SQL fournit un effectif par couple de valeurs : il faut donc
+    # pondérer les moyennes et covariances par le nombre d'observations.
     weights = data["observation_count"]
     route_counts = data["route_count"]
     departures = data["planned_departures"]
@@ -96,6 +99,7 @@ def analyse_h3(data: pd.DataFrame) -> dict[str, float]:
     departure_variance = (weights * (departures - departure_mean) ** 2).sum() / total
     pearson = covariance / (route_variance * departure_variance) ** 0.5
     ranked = data.copy()
+    # Le classement des valeurs regroupées permet d'obtenir une approximation pondérée de Spearman.
     ranked["route_rank"] = ranked["route_count"].rank(method="average")
     ranked["departure_rank"] = ranked["planned_departures"].rank(method="average")
     rank_route_mean = (ranked["route_rank"] * weights).sum() / total
@@ -162,6 +166,7 @@ def plot_h2(result: pd.DataFrame) -> None:
 def plot_h3(data: pd.DataFrame) -> None:
     """Produit un nuage de points entre lignes et departs."""
     figure, axis = plt.subplots(figsize=(8, 5))
+    # La taille des points représente le nombre d'observations regroupées.
     axis.scatter(
         data["route_count"],
         data["planned_departures"],

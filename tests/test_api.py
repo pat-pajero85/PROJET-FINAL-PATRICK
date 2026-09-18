@@ -11,6 +11,7 @@ from api import main
 
 @pytest.fixture(scope="session")
 def test_database(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    # Les tests CRUD travaillent sur une copie pour ne jamais modifier la base de référence.
     test_database = tmp_path_factory.mktemp("api") / "gtfs_test.sqlite"
     shutil.copy2(main.DATABASE, test_database)
     return test_database
@@ -18,6 +19,7 @@ def test_database(tmp_path_factory: pytest.TempPathFactory) -> Path:
 
 @pytest.fixture
 def client(test_database: Path, monkeypatch: pytest.MonkeyPatch):
+    # Chaque test reçoit la base temporaire et une API sans clé pour tester le comportement nominal.
     monkeypatch.setattr(main, "DATABASE", test_database)
     monkeypatch.setattr(main, "API_KEY", None)
     with TestClient(main.app) as test_client:
@@ -74,6 +76,7 @@ def test_analytics_query_validation(client: TestClient) -> None:
 
 
 def test_analytics_valid_response(client: TestClient) -> None:
+    # Cette date connue vérifie le contrat de réponse sans lancer une requête non filtrée.
     response = client.get(
         "/api/v1/analytics/departures-by-stop-day",
         params={"service_date": "20250402", "limit": 1},
@@ -98,6 +101,7 @@ def test_stops_filters_and_validation(client: TestClient) -> None:
 
 
 def test_stop_crud_isolated_from_reference_database(client: TestClient) -> None:
+    # Le cycle création-modification-remplacement-suppression vérifie le CRUD complet.
     created = client.post("/api/v1/stops", json=stop_payload())
     assert created.status_code == 201
     assert created.json()["stop_id"] == "API-TEST-001"
