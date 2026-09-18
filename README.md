@@ -107,10 +107,10 @@ Depuis la racine du projet :
 
 Les URLs utiles sont alors :
 
-- API : http://127.0.0.1:4000 ;
-- documentation interactive Swagger : http://127.0.0.1:4000/docs ;
-- schéma OpenAPI : http://127.0.0.1:4000/openapi.json ;
-- état de santé : http://127.0.0.1:4000/health.
+- API : [http://127.0.0.1:4000](http://127.0.0.1:4000) ;
+- documentation interactive Swagger : [http://127.0.0.1:4000/docs](http://127.0.0.1:4000/docs) ;
+- schéma OpenAPI : [http://127.0.0.1:4000/openapi.json](http://127.0.0.1:4000/openapi.json) ;
+- état de santé : [http://127.0.0.1:4000/health](http://127.0.0.1:4000/health).
 
 ### Routes disponibles
 
@@ -143,7 +143,7 @@ Les tests utilisent `FastAPI TestClient` et une copie temporaire de la base SQLi
 .\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
 ```
 
-Résultat de référence : **6 tests réussis**. Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
+Résultat de référence : **8 tests réussis**. Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
 
 ## Limites actuelles
 

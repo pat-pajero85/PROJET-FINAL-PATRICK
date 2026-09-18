@@ -36,7 +36,7 @@ $env:GTFS_DATABASE = "C:\chemin\vers\gtfs_pays_loire.sqlite"
 | GET     | `/api/v1/agencies`                         | Consulter les opérateurs                      |
 | GET     | `/api/v1/analytics/departures-by-stop-day` | Consulter la vue analytique des départs       |
 
-Les réponses d'erreur utilisent les statuts HTTP usuels : `404` si la ressource est absente, `409` en cas de conflit d'intégrité ou de suppression d'une ressource encore référencée, et `422` si le corps ne respecte pas le contrat de données.
+Les réponses d'erreur utilisent les statuts HTTP usuels : `404` si la ressource est absente, `409` en cas de conflit d'intégrité ou de suppression d'une ressource encore référencée, et `422` si le corps ne respecte pas le contrat de données. L'endpoint analytics exige au moins un filtre `service_date` ou `stop_id` afin d'éviter une agrégation complète non maîtrisée.
 
 ## Mise en pratique du cours FastAPI
 
@@ -93,7 +93,9 @@ Depuis la racine du projet :
 .\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
 ```
 
-Le endpoint analytique est volontairement teste ici sur la validation de sa date : l'agregation complete de la vue SQLite porte sur plusieurs millions de passages et doit rester un controle d'integration separe, pas un test rapide execute a chaque modification.
+Le endpoint analytique est testé avec une date valide et avec une date invalide. L'agrégation complète de la vue SQLite porte sur plusieurs millions de passages : l'API refuse donc les requêtes analytics sans filtre `service_date` ou `stop_id`.
+
+Le endpoint `/health` vérifie également l'existence et l'ouverture de la base SQLite avec une requête minimale. Il renvoie `503` si cette dépendance n'est pas disponible.
 
 Exemple de création :
 

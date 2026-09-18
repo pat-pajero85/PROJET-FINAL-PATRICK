@@ -16,7 +16,7 @@ performance.
 
 **Etape 3 validee pour une demonstration et un usage pedagogique local.**
 
-La suite automatisee passe avec 6 tests reussis. L'API expose une documentation
+La suite automatisee passe avec 8 tests reussis. L'API expose une documentation
 OpenAPI, des endpoints de consultation des donnees GTFS et un CRUD complet sur
 les arrets. Les requetes SQL utilisent des parametres pour les valeurs fournies
 par le client et les mutations peuvent etre protegees par `GTFS_API_KEY`.
@@ -34,7 +34,7 @@ Commande executee :
 .\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
 ```
 
-Resultat : **6 passed en 5,20 secondes**.
+Resultat : **8 passed en 11,35 secondes**.
 
 Les tests couvrent :
 
@@ -82,16 +82,13 @@ executees dans une transaction puis validees par `commit()`.
 
 ## 4. Anomalies et risques
 
-### Priorite haute - PATCH avec valeurs nulles
+### Correction appliquee - PATCH avec valeurs nulles
 
-`StopPatch` autorise par exemple `{"stop_name": null}` car ses champs sont
-optionnels et nullable. Le code transmet ensuite cette valeur a SQLite, alors
-que plusieurs colonnes de `stop` sont `NOT NULL`. Le client peut donc obtenir
-une erreur serveur au lieu d'une reponse de validation propre.
+`StopPatch` conserve des champs optionnels pour permettre les modifications
+partielles, mais les valeurs explicitement envoyees a `null` sont maintenant
+refusees par Pydantic avec une reponse `422` avant l'ecriture SQLite.
 
-**Correction recommandee :** refuser explicitement les valeurs `null` pour les
-champs presents dans un PATCH, ou convertir l'erreur d'integrite en `422`.
-Ajouter un test de regression.
+**Validation :** un test de regression couvre le PATCH avec `{"stop_name": null}`.
 
 ### Priorite haute - performance de l'analytics
 
@@ -103,22 +100,20 @@ millions de passages, meme avec une petite limite de resultat.
 analytique dediee ou imposer un filtre de date/arret avant execution. Ajouter
 un controle de temps de reponse avec un budget explicite.
 
-### Priorite moyenne - endpoint `/health` trop optimiste
+### Correction appliquee - endpoint `/health`
 
-`/health` verifie que l'application repond et renvoie le nom du fichier, mais
-n'ouvre pas la base et n'execute pas `SELECT 1`. Une base absente, inaccessible
-ou corrompue peut donc laisser apparaitre un statut `200`.
+`/health` verifie maintenant l'existence de la base, ouvre une connexion et
+execute `SELECT 1`. Une base absente ou indisponible renvoie `503`.
 
-**Correction recommandee :** ouvrir la base, executer une requete minimale et
-retourner `503` si la dependance SQLite est indisponible.
+**Validation :** un test couvre l'absence de la base.
 
-### Priorite moyenne - couverture analytics incomplete
+### Correction appliquee - couverture analytics
 
-Les tests verifient uniquement qu'une date mal formee renvoie `422`. Ils ne
-verifient pas le schema ni le contenu d'une reponse analytics valide.
+Les tests vérifient maintenant une date mal formée, le refus d'une requête sans
+filtre et une réponse valide sur la date `20250402`.
 
-**Correction recommandee :** utiliser une petite base SQLite de test ou une
-vue de test pour verifier une reponse positive sans parcourir la base complete.
+La requête sans filtre est refusée avec `422`, ce qui évite de déclencher une
+agrégation complète de la vue SQLite depuis l'API.
 
 ### Priorite basse - validations de filtres perfectibles
 
@@ -151,17 +146,15 @@ doivent etre presentes dans toute soutenance ou documentation de projet.
 
 ## 6. Plan d'action priorise
 
-1. Ajouter le refus des valeurs `null` dans PATCH et son test.
-2. Rendre `/health` dependant d'un vrai controle SQLite.
-3. Optimiser ou materialiser l'agregation analytics.
-4. Ajouter un test positif de l'endpoint analytics sur une base minimale.
-5. Renforcer la validation des statuts geographiques et des dates.
-6. Conserver la cle API locale et documenter ses limites de securite.
+1. Materialiser ou optimiser davantage l'agregation analytics si le volume
+   augmente.
+2. Renforcer les validations des statuts geographiques.
+3. Conserver la cle API locale et documenter ses limites de securite.
 
 ## 7. Conclusion
 
 L'etape 3 repond aux attentes du brief de formation : l'API demarre, expose un
-contrat documente, valide les entrees, fournit un CRUD et passe sa suite de six
+contrat documente, valide les entrees, fournit un CRUD et passe sa suite de huit
 tests automatises.
 
 Le resultat est donc **presentable pour la soutenance et la demonstration
