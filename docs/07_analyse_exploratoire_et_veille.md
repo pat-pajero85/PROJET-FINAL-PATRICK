@@ -56,7 +56,6 @@ et non d'une mesure directe des comportements des voyageurs.
 ## 4. Hypothèse H2 : jours ouvrés et week-end
 
 L'offre moyenne atteint environ 7,8 départs planifiés par observation les jours
-
 ouvrés, contre environ 6,0 le week-end.
 
 L'hypothèse H2 est confirmée : l'offre théorique est plus importante les jours
