@@ -105,6 +105,22 @@ détaillés, les métriques et les risques de données, de modèle, de déploiem
 et d'éthique sont enregistrés dans
 `reports/etape6_modeles_risques.json`.
 
+#### Réponse à la question d'analyse de l'étape 6
+
+L'étape 6 répond à la question sur le périmètre de l'offre théorique : elle
+permet d'identifier les arrêts et créneaux faiblement desservis à partir du
+nombre de départs planifiés, puis de prévoir le niveau d'offre attendu pour
+des dates futures. Le Random Forest est meilleur que la baseline par moyenne
+de période sur les trois fenêtres temporelles évaluées.
+
+La réponse reste toutefois partielle pour une décision métier complète. Le
+GTFS décrit une offre planifiée, et non la fréquentation, la demande, les
+retards ou les suppressions réelles. Le modèle ne prédit donc pas directement
+le besoin de mobilité. Il constitue une aide au repérage des secteurs à
+examiner, mais ses résultats doivent être complétés par des données de
+fréquentation et validés par une analyse territoriale et métier avant toute
+décision de renforcement de desserte.
+
 ### Résultats du diagnostic
 
 - 1 029 lignes ;
