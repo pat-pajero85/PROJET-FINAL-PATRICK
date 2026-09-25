@@ -1,0 +1,133 @@
+{
+  "grain": "stop_date_time_period",
+  "target": "planned_departures",
+  "features": [
+    "stop_lat",
+    "stop_lon",
+    "route_count",
+    "first_departure_hours",
+    "last_departure_hours",
+    "day_of_week",
+    "day_of_month",
+    "month",
+    "time_period",
+    "coordinate_status"
+  ],
+  "observation_count": 10588,
+  "train_rows_used": 10000,
+  "test_rows": 120,
+  "date_min": "20250402",
+  "date_max": "20270402",
+  "split_date": "20270304",
+  "models": [
+    {
+      "name": "random_forest",
+      "best_params": {
+        "model__max_depth": 18,
+        "model__n_estimators": 60
+      },
+      "cv_mae": 0.5625,
+      "test_mae": 0.0083,
+      "test_rmse": 0.0488,
+      "test_r2": 0.0
+    },
+    {
+      "name": "hist_gradient_boosting",
+      "best_params": {
+        "model__max_iter": 120,
+        "model__max_leaf_nodes": 15
+      },
+      "cv_mae": 0.6449,
+      "test_mae": 0.0098,
+      "test_rmse": 0.0114,
+      "test_r2": 0.0
+    }
+  ],
+  "selected_model": "random_forest",
+  "temporal_evaluation": {
+    "method": "trois fenetres futures successives de dix pour cent des dates, avec entrainement uniquement sur les dates precedentes",
+    "windows": [
+      {
+        "window": 1,
+        "train_date_max": "20270201",
+        "test_date_min": "20270202",
+        "test_date_max": "20270215",
+        "train_rows": 10000,
+        "test_rows": 56,
+        "random_forest": {
+          "mae": 0.0036,
+          "rmse": 0.0257,
+          "r2": 0.0
+        },
+        "baseline_period_mean": {
+          "mae": 1.6522,
+          "rmse": 1.815,
+          "r2": 0.0
+        }
+      },
+      {
+        "window": 2,
+        "train_date_max": "20270216",
+        "test_date_min": "20270217",
+        "test_date_max": "20270302",
+        "train_rows": 10000,
+        "test_rows": 56,
+        "random_forest": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "r2": 1.0
+        },
+        "baseline_period_mean": {
+          "mae": 1.6335,
+          "rmse": 1.7956,
+          "r2": 0.0
+        }
+      },
+      {
+        "window": 3,
+        "train_date_max": "20270303",
+        "test_date_min": "20270304",
+        "test_date_max": "20270317",
+        "train_rows": 10000,
+        "test_rows": 56,
+        "random_forest": {
+          "mae": 0.0,
+          "rmse": 0.0,
+          "r2": 1.0
+        },
+        "baseline_period_mean": {
+          "mae": 1.6125,
+          "rmse": 1.7751,
+          "r2": 0.0
+        }
+      }
+    ]
+  },
+  "selection_justification": "Le modele retenu minimise d'abord la MAE sur les dates futures, puis la RMSE en cas d'egalite. La MAE est directement interpretable en nombre de departs.",
+  "risks": [
+    {
+      "category": "qualite_et_biais_des_donnees",
+      "risk": "Le GTFS decrit une offre planifiee, avec des arrets hors emprise et des champs facultatifs incomplets.",
+      "impact": "Une prediction peut etre precise sur le planning sans representer la desserte reellement assuree ni la demande.",
+      "mitigation": "Controler les cles et les dates a chaque import, conserver les statuts geographiques, segmenter les resultats par territoire et completer avec frequentation et donnees temps reel."
+    },
+    {
+      "category": "risque_modele",
+      "risk": "Les variables de calendrier et de planning expliquent l'offre mais ne prouvent pas un besoin de mobilite; un changement de reseau peut rendre le modele obsolete.",
+      "impact": "Risque de generalisation faible et de priorisation injustifiee des secteurs faiblement desservis.",
+      "mitigation": "Comparer au modele retenu (random_forest) une baseline, utiliser un split temporel, suivre MAE/RMSE par periode et recalibrer a chaque nouveau feed."
+    },
+    {
+      "category": "deploiement",
+      "risk": "Un modele entraine sur un feed local peut recevoir des colonnes, des dates ou des modalites inconnues en production.",
+      "impact": "Predictions silencieusement degradees ou service indisponible.",
+      "mitigation": "Versionner le schema et le modele, valider les types et distributions en entree, journaliser les erreurs, tester la prediction sur un jeu de reference et prevoir un repli baseline."
+    },
+    {
+      "category": "ethique",
+      "risk": "Un indicateur de faible offre peut concentrer les arbitrages sur des territoires deja moins desservis sans mesurer les populations concernees.",
+      "impact": "Renforcement d'inegalites territoriales et decision publique difficilement explicable.",
+      "mitigation": "Utiliser le modele comme aide a la decision, publier les limites, analyser les erreurs par zone et accessibilite, puis faire valider les arbitrages par les acteurs locaux."
+    }
+  ]
+}
