@@ -4,21 +4,21 @@
   "features": [
     "stop_lat",
     "stop_lon",
-    "route_count",
-    "first_departure_hours",
-    "last_departure_hours",
     "day_of_week",
-    "day_of_month",
     "month",
     "time_period",
     "coordinate_status"
   ],
-  "observation_count": 10588,
-  "train_rows_used": 10000,
-  "test_rows": 120,
+  "feature_policy": "Aucune variable agregee a partir des departs de la meme date n'est utilisee; stop_id ne sert qu'a la baseline historique.",
+  "selection_rule": "Le meilleur candidat (deux modeles et baseline historique) est choisi sur la MAE moyenne des trois validations chronologiques; le holdout final ne participe pas a la selection.",
+  "observation_count": 5157,
+  "train_rows_used": 4569,
+  "test_rows": 588,
+  "train_date_count": 80,
+  "test_date_count": 147,
   "date_min": "20250402",
   "date_max": "20270402",
-  "split_date": "20270304",
+  "split_date": "20261107",
   "models": [
     {
       "name": "random_forest",
@@ -26,9 +26,14 @@
         "model__max_depth": 18,
         "model__n_estimators": 60
       },
-      "cv_mae": 0.5625,
-      "test_mae": 0.0083,
-      "test_rmse": 0.0488,
+      "cv_mae": 0.7641,
+      "cv_fold_mae": [
+        0.416,
+        0.8499,
+        1.0264
+      ],
+      "test_mae": 0.3162,
+      "test_rmse": 0.6279,
       "test_r2": 0.0
     },
     {
@@ -37,73 +42,74 @@
         "model__max_iter": 120,
         "model__max_leaf_nodes": 15
       },
-      "cv_mae": 0.6449,
-      "test_mae": 0.0098,
-      "test_rmse": 0.0114,
+      "cv_mae": 0.9106,
+      "cv_fold_mae": [
+        0.9151,
+        1.0304,
+        0.7863
+      ],
+      "test_mae": 0.3294,
+      "test_rmse": 0.439,
       "test_r2": 0.0
     }
   ],
-  "selected_model": "random_forest",
+  "selected_model": "historical_baseline",
+  "selected_cv_mae": 0.5168,
+  "baseline_cv": {
+    "fold_mae": [
+      0.9275,
+      0.3819,
+      0.2409
+    ],
+    "mean_mae": 0.5168
+  },
+  "baseline_holdout": {
+    "name": "historical_mean_by_stop_and_period",
+    "mae": 0.1724,
+    "rmse": 0.183,
+    "r2": null
+  },
+  "holdout_target_summary": {
+    "minimum": 1.0,
+    "maximum": 1.0,
+    "mean": 1.0,
+    "unique_values": 1,
+    "value_counts": {
+      "1": 588
+    }
+  },
   "temporal_evaluation": {
-    "method": "trois fenetres futures successives de dix pour cent des dates, avec entrainement uniquement sur les dates precedentes",
+    "method": "trois validations chronologiques expansives par date, puis un holdout final reserve a l'evaluation",
     "windows": [
       {
         "window": 1,
-        "train_date_max": "20270201",
-        "test_date_min": "20270202",
-        "test_date_max": "20270215",
-        "train_rows": 10000,
-        "test_rows": 56,
-        "random_forest": {
-          "mae": 0.0036,
-          "rmse": 0.0257,
-          "r2": 0.0
-        },
-        "baseline_period_mean": {
-          "mae": 1.6522,
-          "rmse": 1.815,
-          "r2": 0.0
-        }
+        "train_date_max": "20260114",
+        "validation_date_min": "20260122",
+        "validation_date_max": "20260420",
+        "validation_rows": 52,
+        "selected_model_mae": 0.9275
       },
       {
         "window": 2,
-        "train_date_max": "20270216",
-        "test_date_min": "20270217",
-        "test_date_max": "20270302",
-        "train_rows": 10000,
-        "test_rows": 56,
-        "random_forest": {
-          "mae": 0.0,
-          "rmse": 0.0,
-          "r2": 1.0
-        },
-        "baseline_period_mean": {
-          "mae": 1.6335,
-          "rmse": 1.7956,
-          "r2": 0.0
-        }
+        "train_date_max": "20260420",
+        "validation_date_min": "20260428",
+        "validation_date_max": "20260725",
+        "validation_rows": 52,
+        "selected_model_mae": 0.3819
       },
       {
         "window": 3,
-        "train_date_max": "20270303",
-        "test_date_min": "20270304",
-        "test_date_max": "20270317",
-        "train_rows": 10000,
-        "test_rows": 56,
-        "random_forest": {
-          "mae": 0.0,
-          "rmse": 0.0,
-          "r2": 1.0
-        },
-        "baseline_period_mean": {
-          "mae": 1.6125,
-          "rmse": 1.7751,
-          "r2": 0.0
-        }
+        "train_date_max": "20260725",
+        "validation_date_min": "20260802",
+        "validation_date_max": "20261106",
+        "validation_rows": 56,
+        "selected_model_mae": 0.2409
       }
-    ]
+    ],
+    "holdout_date_min": "20261107",
+    "holdout_date_max": "20270402"
   },
-  "selection_justification": "Le modele retenu minimise d'abord la MAE sur les dates futures, puis la RMSE en cas d'egalite. La MAE est directement interpretable en nombre de departs.",
+  "selection_justification": "Le candidat retenu minimise la MAE moyenne de validation parmi les deux modeles et la baseline historique. Les scores du holdout sont rapportes apres selection, sans ajustement ulterieur.",
   "risks": [
     {
       "category": "qualite_et_biais_des_donnees",
@@ -115,7 +121,7 @@
       "category": "risque_modele",
       "risk": "Les variables de calendrier et de planning expliquent l'offre mais ne prouvent pas un besoin de mobilite; un changement de reseau peut rendre le modele obsolete.",
       "impact": "Risque de generalisation faible et de priorisation injustifiee des secteurs faiblement desservis.",
-      "mitigation": "Comparer au modele retenu (random_forest) une baseline, utiliser un split temporel, suivre MAE/RMSE par periode et recalibrer a chaque nouveau feed."
+      "mitigation": "Comparer le modele historical_baseline a une baseline sur des validations chronologiques, garder un holdout final intact, puis recalibrer a chaque nouveau feed."
     },
     {
       "category": "deploiement",
