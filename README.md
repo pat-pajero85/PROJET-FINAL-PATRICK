@@ -95,9 +95,11 @@ de test, cette baseline obtient une MAE de `0,7059` et une RMSE de `0,7069`.
 ### Étape 6 : modélisation et risques
 
 Le script `src/07_modelisation_risques.py` compare un
-`RandomForestRegressor` et un `HistGradientBoostingRegressor`. La cible est
-`planned_departures`, avec une séparation temporelle entre l'entraînement et
-les dates futures. Le Random Forest est retenu dans l'exécution actuelle.
+`RandomForestRegressor` et un `HistGradientBoostingRegressor`, avec une
+baseline historique. La cible est `planned_departures`, avec une séparation
+temporelle entre l'entraînement et les dates futures. La baseline historique
+est retenue dans l'exécution actuelle (MAE moyenne de validation : `0,5168`,
+contre `0,7641` pour le Random Forest).
 
 Une évaluation complémentaire utilise trois fenêtres temporelles futures et
 compare le modèle à une baseline par moyenne de période horaire. Les résultats
@@ -110,8 +112,8 @@ et d'éthique sont enregistrés dans
 L'étape 6 répond à la question sur le périmètre de l'offre théorique : elle
 permet d'identifier les arrêts et créneaux faiblement desservis à partir du
 nombre de départs planifiés, puis de prévoir le niveau d'offre attendu pour
-des dates futures. Le Random Forest est meilleur que la baseline par moyenne
-de période sur les trois fenêtres temporelles évaluées.
+des dates futures. La baseline historique est meilleure que les deux modèles
+sur les trois fenêtres temporelles évaluées.
 
 La réponse reste toutefois partielle pour une décision métier complète. Le
 GTFS décrit une offre planifiée, et non la fréquentation, la demande, les
