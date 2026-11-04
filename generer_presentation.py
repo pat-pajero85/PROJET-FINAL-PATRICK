@@ -202,8 +202,9 @@ def add_table(slide, headers: list[str], rows: list[list[str]], x: float, y: flo
 
 
 def build_presentation(output: Path) -> None:
-    offer = read_json(REPORTS / "analyse_offre.json")
     model = read_json(REPORTS / "etape6_modeles_risques.json")
+    revision = read_json(REPORTS / "etape7_offre_fenetre_valide.json")
+    window_start, window_end = (value.replace("-", "") for value in revision["prevision"]["fenetre"])
     h1 = read_csv(REPORTS / "etape4_h1_offre_par_periode.csv")
     h2 = read_csv(REPORTS / "etape4_h2_offre_jours_ouvres_weekend.csv")
     h3 = read_csv(REPORTS / "etape4_h3_correlation_lignes_departs.csv")
@@ -236,7 +237,7 @@ def build_presentation(output: Path) -> None:
     )
     add_text(
         slide,
-        f"Période étudiée : {format_date(offer['date_min'])} – {format_date(offer['date_max'])}",
+        f"Fenêtre d’offre complète étudiée : {format_date(window_start)} – {format_date(window_end)}",
         0.9,
         6.55,
         10.5,
@@ -260,8 +261,8 @@ def build_presentation(output: Path) -> None:
         2.4,
         size=17,
     )
-    add_metric_card(slide, 9.0, 2.05, format_number(offer["observation_count"]), "observations arrêt-date-période")
-    add_metric_card(slide, 9.0, 3.65, format_number(offer["date_count"]), "dates de service", accent=ORANGE)
+    add_metric_card(slide, 9.0, 2.05, format_number(revision["perimetre"]["grille_observations"]), "observations arrêt × date × période")
+    add_metric_card(slide, 9.0, 3.65, format_number(revision["faible_desserte"]["arrets_regionaux_actifs"]), "arrêts régionaux actifs", accent=ORANGE)
 
     slide = new_content_slide(prs, "Un socle de données contrôlé")
     add_text(slide, "Chaîne de traitement", 0.9, 1.8, 5.7, 0.4, size=20, color=NAVY, bold=True)
@@ -271,7 +272,7 @@ def build_presentation(output: Path) -> None:
             "Fichiers GTFS : lignes, trajets, arrêts et horaires.",
             "Contrôle et nettoyage, puis structuration relationnelle dans SQLite.",
             "Vues analytiques pour agréger les départs par arrêt et période.",
-            "Exploration, baseline temporelle et comparaison de modèles.",
+            "Exploration, puis révision sur la fenêtre complète du feed et comparaison de méthodes de prévision.",
         ],
         0.9,
         2.35,
@@ -284,7 +285,7 @@ def build_presentation(output: Path) -> None:
     add_metric_card(slide, 10.7, 2.4, "20 170", "arrêts")
     add_metric_card(slide, 7.7, 4.0, "182 725", "trajets planifiés", accent=ORANGE)
     add_metric_card(slide, 10.7, 4.0, "1 029", "lignes")
-    add_text(slide, f"Couverture analytique : {format_date(offer['date_min'])} au {format_date(offer['date_max'])}.", 7.75, 5.8, 4.8, 0.55, size=13, color=MUTED)
+    add_text(slide, f"Fenêtre analysée : {format_date(window_start)} au {format_date(window_end)}.", 7.75, 5.8, 4.8, 0.55, size=13, color=MUTED)
 
     slide = new_content_slide(prs, "L’offre varie selon l’heure et le type de jour")
     add_picture(slide, "etape4_h1_offre_par_periode.png", 0.75, 1.7, 6.0, 3.35)
@@ -326,29 +327,86 @@ def build_presentation(output: Path) -> None:
     add_metric_card(slide, 7.65, 3.55, format_number(float(correlation["spearman_correlation"]), 4), "corrélation de Spearman", accent=ORANGE)
     add_text(slide, "La relation positive est modérée : plusieurs lignes vont souvent de pair avec davantage de départs, sans démontrer une causalité ni expliquer seules le niveau d’offre.", 7.65, 5.2, 4.5, 1.1, size=16, color=INK)
 
-    slide = new_content_slide(prs, "Prédire : la baseline historique reste la référence")
-    models = {item["name"]: item for item in model["models"]}
-    rows = [
-        ["Baseline historique", format_number(model["baseline_cv"]["mean_mae"], 4), format_number(model["baseline_holdout"]["mae"], 4), format_number(model["baseline_holdout"]["rmse"], 4)],
-        ["Random Forest", format_number(models["random_forest"]["cv_mae"], 4), format_number(models["random_forest"]["test_mae"], 4), format_number(models["random_forest"]["test_rmse"], 4)],
-        ["Hist. Gradient Boosting", format_number(models["hist_gradient_boosting"]["cv_mae"], 4), format_number(models["hist_gradient_boosting"]["test_mae"], 4), format_number(models["hist_gradient_boosting"]["test_rmse"], 4)],
-    ]
-    add_table(slide, ["Candidat", "MAE validation\n(3 fenêtres)", "MAE test final", "RMSE test final"], rows, 0.9, 1.9, 11.5, 2.15)
-    add_text(slide, f"Choix selon la validation chronologique : {model['selected_model']} (MAE moyenne {format_number(model['selected_cv_mae'], 4)}).", 1.0, 4.55, 11.1, 0.55, size=17, color=TEAL, bold=True)
+    horizon = revision["horizon_feed"]
+    perimetre = revision["perimetre"]
+    slide = new_content_slide(prs, "Une fenêtre d’offre complète limitée à avril–juin 2025")
+    add_picture(slide, "etape7_horizon_feed.png", 0.75, 1.7, 7.2, 4.1)
+    add_metric_card(slide, 8.4, 1.9, format_number(horizon["departs_jour_ouvre_median_avril_juin_2025"]), "départs par jour ouvré (T2 2025)")
+    add_metric_card(slide, 8.4, 3.45, format_number(horizon["departs_jour_median_2026"]), "départs par jour en 2026 (médiane)", accent=ORANGE)
     add_text(
         slide,
-        f"Évaluation finale réservée : {format_number(model['test_rows'])} observations, "
-        f"{format_number(model['test_date_count'])} dates, du {format_date(model['temporal_evaluation']['holdout_date_min'])} "
-        f"au {format_date(model['temporal_evaluation']['holdout_date_max'])}. "
-        "La MAE mesure l’écart absolu moyen en départs planifiés ; plus elle est faible, mieux c’est.",
-        1.0,
-        5.25,
-        11.1,
+        f"Le calendrier court jusqu’au {format_date(horizon['date_max_calendar'].replace('-', ''))}, mais l’offre n’est complète que du "
+        f"{format_date(horizon['premiere_date_offre_complete'].replace('-', ''))} au {format_date(horizon['derniere_date_offre_complete'].replace('-', ''))}. "
+        f"La révision travaille sur cette fenêtre, sur les seuls arrêts régionaux ({format_number(perimetre['arrets_hors_pays_de_la_loire'])} arrêts hors région exclus) "
+        f"et sans les {format_number(perimetre['passages_sans_montee_exclus'])} passages sans montée possible.",
+        0.85,
+        6.0,
+        11.7,
         0.9,
+        size=14,
+        color=INK,
+    )
+
+    desserte = revision["faible_desserte"]
+    slide = new_content_slide(prs, "Où l’offre est-elle la plus faible ?")
+    add_picture(slide, "etape7_carte_offre.png", 0.75, 1.7, 5.4, 4.6)
+    add_metric_card(slide, 6.5, 1.75, f"{format_number(desserte['part_arrets_moins_de_5_departs_jour'] * 100, 0)} %", "arrêts avec < 5 départs/jour ouvré")
+    add_metric_card(slide, 9.55, 1.75, f"{format_number(desserte['part_arrets_sans_depart_pointe_matin'] * 100, 0)} %", "arrêts sans départ 6 h–9 h", accent=ORANGE)
+    networks = [row for row in desserte["par_reseau"] if row["arrets"] >= 100]
+    add_table(
+        slide,
+        ["Réseau", "Arrêts", "Départs/jour\n(médiane)", "< 5 départs"],
+        [
+            [row["reseau"], format_number(row["arrets"]), format_number(row["departs_jour_median"], 1), f"{format_number(row['part_moins_de_5_departs'] * 100, 0)} %"]
+            for row in networks
+        ],
+        6.5,
+        3.35,
+        5.9,
+        2.6,
+    )
+
+    prevision = revision["prevision"]
+    labels = {
+        "baseline_v1_arret_periode": "Baseline v1 (arrêt × période)",
+        "baseline_calendrier": "Profil calendaire",
+        "baseline_calendrier_recent": "Profil calendaire récent",
+        "baseline_calendrier_recent_ponts": "Profil récent + ponts",
+        "hist_gradient_boosting": "Hist. Gradient Boosting",
+    }
+    slide = new_content_slide(prs, "Prédire : un profil calendaire récent divise l’erreur par 11")
+    add_table(
+        slide,
+        ["Méthode", "MAE", "RMSE", "MAE fériés / ponts", "MAE jours normaux"],
+        [
+            [
+                labels.get(name, name) + (" ✔" if name == prevision["modele_retenu"] else ""),
+                format_number(scores["mae"], 3),
+                format_number(scores["rmse"], 3),
+                format_number(scores["mae_feries_ponts"], 3),
+                format_number(scores["mae_jours_normaux"], 3),
+            ]
+            for name, scores in prevision["modeles"].items()
+        ],
+        0.9,
+        1.85,
+        11.5,
+        2.9,
+    )
+    add_text(
+        slide,
+        f"Entraînement du {format_date(prevision['entrainement'][0].replace('-', ''))} au {format_date(prevision['entrainement'][1].replace('-', ''))}, "
+        f"test du {format_date(prevision['test'][0].replace('-', ''))} au {format_date(prevision['test'][1].replace('-', ''))} : "
+        f"{format_number(prevision['observations_test'])} observations arrêt × date × période, dont "
+        f"{format_number(prevision['part_creneaux_sans_depart_test'] * 100, 0)} % de créneaux sans départ.",
+        1.0,
+        5.0,
+        11.1,
+        0.8,
         size=15,
         color=INK,
     )
-    add_text(slide, "Le choix du modèle est fondé sur la validation, et non sur l’optimisation a posteriori du test final.", 1.0, 6.3, 11.1, 0.45, size=13, color=MUTED)
+    add_text(slide, "La MAE mesure l’écart absolu moyen en départs planifiés ; plus elle est faible, mieux c’est. La première évaluation (étape 6) portait sur des dates où le feed était presque vide et a été remplacée.", 1.0, 6.0, 11.1, 0.7, size=13, color=MUTED)
 
     slide = new_content_slide(prs, "Limites et pistes pour la décision")
     risks = model["risks"]

@@ -166,7 +166,7 @@ def main() -> None:
     # nettoyages, contraintes et transformations du schéma final.
     DATABASE.parent.mkdir(parents=True, exist_ok=True)
     print(f"Base SQLite : {DATABASE}")
-    connection = sqlite3.connect(DATABASE)
+    connection = sqlite3.connect(DATABASE, timeout=30)
     connection.execute("PRAGMA foreign_keys = ON")
     schema = SCHEMA_FILE.read_text(encoding="utf-8")
     staging_sql, transform_sql = schema.split("-- BEGIN_TRANSFORM", 1)

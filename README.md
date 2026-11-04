@@ -88,10 +88,7 @@ La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 servic
 ### Étape 3 : API locale
 
 L'API FastAPI expose les arrêts en CRUD, les référentiels lignes/agences et les
-indicateurs de départs. Les entrées sont validées par Pydantic, les requêtes
-SQL sont paramétrées et les écritures peuvent être protégées par `GTFS_API_KEY`.
-Les tests utilisent une copie temporaire de la base pour ne pas modifier la
-référence.
+indicateurs de départs (détails dans la section [API locale FastAPI](#api-locale-fastapi)).
 
 ### Étape 4 : analyse exploratoire et veille
 
@@ -176,20 +173,33 @@ Le script `src/08_offre_fenetre_valide.py` reprend l'analyse directement depuis 
 
 ## Organisation du projet
 
-- [src](src) : scripts Python de diagnostic, nettoyage, chargement SQLite et analyse ;
-- [data/raw/gtfs](data/raw/gtfs) : export GTFS source inchangé ;
-- [data/raw/external](data/raw/external) : fichiers météo et OSM ;
-- [data/processed](data/processed) : fichiers GTFS nettoyés ;
-- [data/database](data/database) : bases SQLite locales ;
-- [sql](sql) : schéma relationnel et requêtes de validation ;
-- [reports](reports) : résultats JSON et journaux d'exécution ;
-- [docs](docs) : cadrage, méthode et documentation du schéma.
-- [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) : validation du jalon API fonctionnelle.
-- [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md) : rapport complet de contrôle de l'étape 3.
-- [docs/07_analyse_exploratoire_et_veille.md](docs/07_analyse_exploratoire_et_veille.md) : résultats de l'étape 4 et sources de veille.
-- [docs/08_rapport_checkup_etape_4.md](docs/08_rapport_checkup_etape_4.md) : contrôle qualité de l'étape 4.
-- [api](api) : API FastAPI locale de consultation et de gestion.
-- [tests](tests) : tests automatisés des endpoints de l'API.
+```text
+src/                    scripts numérotés de la chaîne (01 → 08)
+sql/                    schéma relationnel (03) et requêtes de validation (04)
+api/                    API FastAPI locale
+tests/                  tests de l'API (étape 3) et des étapes 6 et 7
+data/raw/gtfs/          export GTFS source, inchangé
+data/raw/external/      météo Open-Meteo et OSM (.pbf, local)
+data/processed/         fichiers GTFS nettoyés
+data/database/          base SQLite locale (non versionnée)
+reports/                rapports JSON/CSV, graphiques, tableau de bord Power BI, présentation
+docs/                   documentation par étape (voir tableau ci-dessous)
+generer_presentation.py génération de reports/presentation_analyse_mobilite.pptx
+```
+
+| Document | Contenu |
+|---|---|
+| [docs/01_cadrage_diagnostic.md](docs/01_cadrage_diagnostic.md) | Étape 1 : cadrage, collecte et diagnostic |
+| [docs/03_schema_relationnel.md](docs/03_schema_relationnel.md) | Étape 2 : schéma relationnel SQLite |
+| [docs/04_api.md](docs/04_api.md) | Étape 3 : documentation de l'API et exemples |
+| [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) | Étape 3 : validation du jalon API |
+| [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md) | Étape 3 : rapport de contrôle |
+| [docs/07_analyse_exploratoire_et_veille.md](docs/07_analyse_exploratoire_et_veille.md) | Étape 4 : résultats et sources de veille |
+| [docs/08_rapport_checkup_etape_4.md](docs/08_rapport_checkup_etape_4.md) | Étape 4 : contrôle qualité (instantané avant la révision de l'étape 7) |
+| [docs/09_revision_methodologique.md](docs/09_revision_methodologique.md) | Étape 7 : révision méthodologique et résultats de référence |
+
+Correspondance scripts / étapes : `01`-`02` → étape 1, `03` → étape 2, `06` → étape 4,
+`05` → étape 5, `07` → étape 6, `08` → étape 7.
 
 ## Reproduire les contrôles
 
@@ -246,7 +256,7 @@ $env:GTFS_DB_PATH = "C:\data\gtfs_pays_loire.sqlite"            # pour la sessio
 setx GTFS_DB_PATH "C:\data\gtfs_pays_loire.sqlite"              # pour les prochaines sessions
 ```
 
-## Étape 3 : API locale FastAPI
+## API locale FastAPI
 
 L'API expose la base SQLite et les indicateurs d'offre sans dépendre d'une plateforme cloud. Elle est construite avec FastAPI, Pydantic et Uvicorn.
 
@@ -304,18 +314,30 @@ Les tests des étapes 6 et 7 n'ont besoin ni de la base ni du GTFS complet :
 
 ```powershell
 .\mon_env\Scripts\python.exe -m pytest tests/test_modelisation_risques.py tests/test_offre_fenetre_valide.py -q
-``` Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
+```
+
+Pour lancer toute la suite : `.\mon_env\Scripts\python.exe -m pytest tests -q`.
 
 ## Parcours de vérification recommandé
 
 1. Vérifier la présence de `data/raw/gtfs`, des fichiers nettoyés et de la base SQLite.
 2. Exécuter les scripts 01 à 03 pour reconstruire les contrôles et la base.
-3. Exécuter les scripts 05 à 07 pour régénérer les analyses et les rapports.
-4. Lancer les tests API avec `.\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q` dans PowerShell.
+3. Exécuter les scripts 05 à 08 pour régénérer les analyses et les rapports.
+4. Lancer les tests avec `.\mon_env\Scripts\python.exe -m pytest tests -q`.
 5. Démarrer l'API et ouvrir `/docs` pour vérifier le contrat OpenAPI.
+6. Régénérer la présentation avec `.\mon_env\Scripts\python.exe .\generer_presentation.py`.
 
-Les fichiers attendus dans `reports/` sont les rapports JSON de diagnostic,
-qualité, analyse d'offre et modélisation, ainsi que les CSV et PNG de l'étape 4.
+Fichiers produits dans `reports/` :
+
+| Étape | Fichiers |
+|---|---|
+| 1 | `diagnostic_initial.json`, `rapport_qualite_gtfs.json` |
+| 2 | `04_resultats_validation_bdd.json` |
+| 4 | `etape4_h1_*`, `etape4_h2_*`, `etape4_h3_*` (CSV et PNG) |
+| 5 | `analyse_offre.json` (première version) |
+| 6 | `etape6_modeles_risques.json` (première version ; risques toujours valables) |
+| 7 | `etape7_offre_fenetre_valide.json`, `etape7_offre_par_arret.csv`, `etape7_*.png` (**résultats de référence**) |
+| Restitution | `presentation_analyse_mobilite.pptx`, `DASHBOARD.pbix` |
 
 ## Limites actuelles
 

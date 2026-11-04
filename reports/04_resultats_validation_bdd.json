@@ -49,8 +49,8 @@
   },
   "weather_active_service_dates": 1,
   "analytical_views": {
-    "departures_by_stop_day": 1008881,
-    "departures_by_stop_period": 4340584,
+    "departures_by_stop_day": 957731,
+    "departures_by_stop_period": 4121618,
     "departures_by_route_day": 67865
   }
 }

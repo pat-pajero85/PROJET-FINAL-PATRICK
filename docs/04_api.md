@@ -17,9 +17,14 @@ L'API est alors accessible à `http://127.0.0.1:8000`.
 Pour utiliser un autre fichier SQLite :
 
 ```powershell
-$env:GTFS_DATABASE = "C:\chemin\vers\gtfs_pays_loire.sqlite"
+$env:GTFS_DB_PATH = "C:\chemin\vers\gtfs_pays_loire.sqlite"
 .\mon_env\Scripts\python.exe -m uvicorn api.main:app --reload
 ```
+
+`GTFS_DATABASE` reste accepté pour compatibilité. Le même paramètre
+`GTFS_DB_PATH` est utilisé par le script de chargement de la base afin de
+pouvoir travailler sur une copie située hors d'un dossier synchronisé par
+OneDrive.
 
 ## Endpoints
 
