@@ -321,6 +321,58 @@ def figure_profil(par_jour: pd.DataFrame) -> None:
     fig.tight_layout(); fig.savefig(REPORTS / "etape7_profil_horaire.png", dpi=120); plt.close(fig)
 
 
+def exporter_powerbi(par_jour: pd.DataFrame, par_arret: pd.DataFrame, profil_table: pd.DataFrame,
+                     resultats: dict, desserte: dict, test: pd.DataFrame) -> None:
+    """Tables prêtes à importer dans Power BI (séparateur « ; », virgule décimale), dans reports/powerbi/."""
+    dossier = REPORTS / "powerbi"
+    dossier.mkdir(exist_ok=True)
+    ecrire = dict(sep=";", decimal=",", index=False, encoding="utf-8-sig")
+
+    a = par_arret.rename(columns={"stop_name": "nom_arret", "stop_lat": "latitude", "stop_lon": "longitude"}).copy()
+    a["classe_desserte"] = pd.cut(a["departs_jour"], [-1, 4.999, 19.999, 49.999, np.inf],
+                                  labels=["1 · Très faible (< 5)", "2 · Faible (5-19)", "3 · Moyenne (20-49)",
+                                          "4 · Forte (50 et +)"]).astype(str)
+    a["sans_depart_pointe_matin"] = np.where(a["departs_pointe_matin"] == 0, "Oui", "Non")
+    a[["departs_jour", "departs_pointe_matin"]] = a[["departs_jour", "departs_pointe_matin"]].round(1)
+    a[["stop_id", "nom_arret", "reseau", "latitude", "longitude", "departs_jour", "departs_pointe_matin",
+       "classe_desserte", "sans_depart_pointe_matin"]].to_csv(dossier / "arrets.csv", **ecrire)
+
+    libelles = {"night": ("Nuit", "0-6 h", 6), "morning_peak": ("Pointe du matin", "6-9 h", 3),
+                "morning": ("Matinée", "9-12 h", 3), "midday": ("Midi", "12-14 h", 2),
+                "afternoon": ("Après-midi", "14-17 h", 3), "evening_peak": ("Pointe du soir", "17-20 h", 3),
+                "night_service": ("Soirée", "20 h et +", 4)}
+    types = {"ouvre": (1, "Jour ouvré"), "samedi": (2, "Samedi"), "dimanche_ferie": (3, "Dimanche et férié")}
+    lignes = []
+    for ordre_p, periode in enumerate(PERIODES, start=1):
+        nom, plage, heures = libelles[periode]
+        for code, (ordre_t, type_jour) in types.items():
+            v = float(profil_table.loc[periode, code])
+            lignes.append({"ordre_periode": ordre_p, "periode": nom, "plage_horaire": plage,
+                           "ordre_type_jour": ordre_t, "type_jour": type_jour,
+                           "departs_par_jour": round(v), "departs_par_heure": round(v / heures)})
+    pd.DataFrame(lignes).to_csv(dossier / "profil_horaire.csv", **ecrire)
+
+    pd.DataFrame(desserte["par_reseau"]).to_csv(dossier / "reseaux.csv", **ecrire)
+
+    noms = {"baseline_v1_arret_periode": (1, "Baseline V1 : moyenne arrêt × période"),
+            "baseline_calendrier": (2, "Calendrier : arrêt × type de jour × période"),
+            "baseline_calendrier_recent": (3, "Calendrier récent (2 dernières semaines)"),
+            "baseline_calendrier_recent_ponts": (4, "Calendrier récent + ponts"),
+            "hist_gradient_boosting": (5, "Gradient boosting (Poisson)")}
+    pd.DataFrame([{"ordre": noms[k][0], "methode": noms[k][1], **v,
+                   "retenue": "Oui" if k == resultats["modele_retenu"] else "Non"}
+                  for k, v in resultats["modeles"].items()]).to_csv(dossier / "modeles.csv", **ecrire)
+
+    jour = test.groupby("date")[["departures", "b_cal_recent_ponts", "b_v1"]].sum().round().astype(int).reset_index()
+    jour.columns = ["date", "offre_reelle", "prevision_retenue", "baseline_v1"]
+    jour.to_csv(dossier / "prevision_par_jour.csv", **ecrire)
+
+    feed = par_jour.rename("departs_planifies").reset_index().rename(columns={"index": "date"})
+    feed["dans_fenetre_retenue"] = np.where(feed["date"].between(pd.Timestamp(FENETRE_DEBUT),
+                                                                 pd.Timestamp(FENETRE_FIN)), "Oui", "Non")
+    feed.to_csv(dossier / "offre_par_jour_feed.csv", **ecrire)
+
+
 def main() -> None:
     stop_times = pd.read_csv(GTFS / "stop_times.txt", usecols=["trip_id", "departure_time", "stop_id", "pickup_type"],
                              dtype={"trip_id": "string", "stop_id": "string", "departure_time": "string"})
@@ -360,6 +412,7 @@ def main() -> None:
     profil, profil_table = profil_offre(g)
     figures(par_jour, par_arret, resultats, test)
     figure_profil(profil_table)
+    exporter_powerbi(par_jour, par_arret, profil_table, resultats, desserte, test)
 
     sortie = {"perimetre": perimetre, "horizon_feed": horizon, "profil_offre": profil, "prevision": resultats,
               "faible_desserte": desserte}

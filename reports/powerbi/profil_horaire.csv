@@ -1,0 +1,22 @@
+﻿ordre_periode;periode;plage_horaire;ordre_type_jour;type_jour;departs_par_jour;departs_par_heure
+1;Nuit;0-6 h;1;Jour ouvré;3146;524
+1;Nuit;0-6 h;2;Samedi;2590;432
+1;Nuit;0-6 h;3;Dimanche et férié;272;45
+2;Pointe du matin;6-9 h;1;Jour ouvré;55160;18386
+2;Pointe du matin;6-9 h;2;Samedi;28102;9367
+2;Pointe du matin;6-9 h;3;Dimanche et férié;5840;1947
+3;Matinée;9-12 h;1;Jour ouvré;41659;13886
+3;Matinée;9-12 h;2;Samedi;34525;11508
+3;Matinée;9-12 h;3;Dimanche et férié;12464;4155
+4;Midi;12-14 h;1;Jour ouvré;31038;15519
+4;Midi;12-14 h;2;Samedi;24632;12316
+4;Midi;12-14 h;3;Dimanche et férié;9140;4570
+5;Après-midi;14-17 h;1;Jour ouvré;46901;15634
+5;Après-midi;14-17 h;2;Samedi;35720;11907
+5;Après-midi;14-17 h;3;Dimanche et férié;14688;4896
+6;Pointe du soir;17-20 h;1;Jour ouvré;58562;19521
+6;Pointe du soir;17-20 h;2;Samedi;37676;12559
+6;Pointe du soir;17-20 h;3;Dimanche et férié;15458;5153
+7;Soirée;20 h et +;1;Jour ouvré;22090;5523
+7;Soirée;20 h et +;2;Samedi;24396;6099
+7;Soirée;20 h et +;3;Dimanche et férié;12997;3249

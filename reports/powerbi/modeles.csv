@@ -1,0 +1,6 @@
+﻿ordre;methode;mae;rmse;mae_feries_ponts;mae_jours_normaux;retenue
+1;Baseline V1 : moyenne arrêt × période;1,272;3,173;1,91;1,213;Non
+2;Calendrier : arrêt × type de jour × période;0,388;1,238;0,641;0,364;Non
+3;Calendrier récent (2 dernières semaines);0,124;0,741;0,455;0,093;Non
+4;Calendrier récent + ponts;0,115;0,672;0,357;0,093;Oui
+5;Gradient boosting (Poisson);0,438;1,788;0,753;0,408;Non

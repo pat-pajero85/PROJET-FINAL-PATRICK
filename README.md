@@ -1,375 +1,90 @@
-# Analyse et prédiction de la mobilité dans le Pays de la Loire
+# Où l'offre de transport collectif est-elle la plus faible en Pays de la Loire ?
 
-Projet final de formation Data Analyst consacré à l'analyse de l'offre de transport collectif dans les Pays de la Loire.
+Projet final de la formation *Concepteur Développeur en IA et Analyse Big Data* (Wild Code School, groupe
+Simplon), réalisé par **Patrick MWANIA MAZEMBE**.
 
-## Problématique métier
+À partir des horaires publiés au format GTFS par DESTINEO (4 millions de passages, 20 170 arrêts, 1 029
+lignes), le projet répond à deux questions :
 
-**Comment identifier les secteurs et créneaux où l'offre théorique de transport collectif est la plus faible, puis prédire le niveau d'offre attendu afin d'aider à prioriser les ajustements de desserte ?**
+1. **Quels arrêts et quels créneaux sont les moins bien desservis ?**
+2. **Peut-on prévoir l'offre attendue par arrêt, jour et période horaire ?**
 
-Le projet commence par l'analyse de l'offre planifiée : nombre de départs par arrêt, ligne, date, mode et période horaire. La prédiction portera d'abord sur le nombre de départs attendus ou sur une classe de niveau d'offre.
+Il s'agit de l'offre **planifiée** : le projet ne mesure ni la fréquentation, ni les retards.
 
 ## Résultats clés
 
-- **Données** : export GTFS DESTINEO (14 agences déclarées, 8 avec des lignes), 4 000 625 passages
-  planifiés, chargés dans une base SQLite normalisée (0 orphelin) et exposés par une API FastAPI testée.
-- **Fenêtre réellement exploitable** : l'offre n'est complète que du 2 avril au 30 juin 2025
-  (≈ 328 000 départs par jour ouvré), alors que le calendrier court jusqu'en 2027.
-- **Faible desserte** : un jour ouvré, **34 % des 7 654 arrêts régionaux** ont moins de 5 départs et
-  **20 %** n'en ont aucun entre 6 h et 9 h, surtout sur le réseau interurbain ALEOP (médiane : 4 départs
-  par jour, contre 51 pour la TAN à Nantes).
-- **Prévision** de l'offre par arrêt, jour et période sur 5 semaines de test (1,9 million d'observations) :
-  la méthode retenue, un profil calendaire récent ajusté pour les ponts, obtient une **MAE de 0,115**
-  départ, contre 1,272 pour la baseline de la première version (erreur divisée par 11). Le gradient
-  boosting fait moins bien (MAE 0,438).
-- **Profil de l'offre** : 258 555 départs régionaux par jour ouvré, −27 % le samedi et −73 % le dimanche ;
-  deux pointes en semaine (6 h-9 h et 17 h-20 h).
+- **Un tiers des arrêts sont très peu desservis.** Un jour ouvré, **34 % des 7 654 arrêts régionaux** ont
+  moins de 5 départs et **20 %** n'en ont aucun entre 6 h et 9 h. C'est surtout le cas du réseau
+  interurbain ALEOP (médiane : 4 départs par jour, contre 51 pour la TAN à Nantes).
+- **L'offre dépend fortement du type de jour.** 258 555 départs un jour ouvré, **−27 %** le samedi et
+  **−73 %** le dimanche, avec deux pointes en semaine (6 h-9 h et 17 h-20 h).
+- **Une prévision simple et bien calée bat le machine learning.** Un profil calendaire récent, ajusté pour
+  les ponts, prévoit l'offre avec une **MAE de 0,115 départ** sur 1,9 million d'observations de test :
+  erreur divisée par 11 par rapport à la première version, et près de 4 fois plus faible qu’avec le gradient boosting.
+- **Un audit qui a changé les conclusions.** Le calendrier du feed court jusqu'en 2027, mais l'offre n'est
+  complète que d'avril à juin 2025. La première évaluation portait sur des dates presque vides
+  (588 observations, toutes égales à 1) : la méthode a été entièrement revue
+  ([révision méthodologique](docs/09_revision_methodologique.md)).
 
-| Horizon du feed | Prévision vs réel (test) |
+| Offre par arrêt un jour ouvré | Prévision et offre réelle (5 semaines de test) |
 |---|---|
-| ![](reports/etape7_horizon_feed.png) | ![](reports/etape7_prevision_vs_reel.png) |
+| ![Carte de l'offre par arrêt](reports/etape7_carte_offre.png) | ![Prévision vs réel](reports/etape7_prevision_vs_reel.png) |
 
-## Vue d'ensemble du parcours
+![Départs par heure selon la période et le type de jour](reports/etape7_profil_horaire.png)
 
-Le projet suit une chaîne complète, de l'audit des fichiers GTFS à la
-consultation par API et à l'évaluation d'un modèle prédictif :
+## Démarche
 
-1. cadrer la question métier et diagnostiquer les fichiers sources ;
-2. contrôler, nettoyer et charger les données dans SQLite ;
-3. exposer la base et les indicateurs avec une API FastAPI ;
-4. analyser les tendances de l'offre et produire les visualisations ;
-5. construire une baseline temporelle et repérer les situations de faible offre ;
-6. comparer deux modèles et mesurer leur stabilité sur plusieurs périodes futures ;
-7. réviser la méthode : fenêtre de validité du feed, créneaux sans départ, périmètre régional
-   ([docs/09_revision_methodologique.md](docs/09_revision_methodologique.md)).
+| Étape | Ce qui a été fait | Livrable |
+|---|---|---|
+| 1. Cadrage et diagnostic | Question métier, indicateur, contrôle qualité des fichiers GTFS | [docs/01](docs/01_cadrage_diagnostic.md) |
+| 2. Base de données | Nettoyage en SQL, base SQLite normalisée (clés, contraintes, vues), 0 orphelin | [schéma](docs/03_schema_relationnel.md), [SQL](sql/03_schema_gtfs.sql) |
+| 3. API | API REST FastAPI : CRUD des arrêts, référentiels, indicateurs, tests automatisés | [docs/04](docs/04_api.md), [api/](api/main.py) |
+| 4. Analyse exploratoire | Hypothèses sur l'offre par période, type de jour et nombre de lignes | [docs/07](docs/07_analyse_exploratoire_et_veille.md) |
+| 5-6. Première prévision | Baseline, Random Forest, gradient boosting (évaluation remplacée à l'étape 7) | [parcours détaillé](docs/00_parcours_detaille.md) |
+| **7. Révision méthodologique** | Fenêtre de service valide, grille complète avec les créneaux à 0, périmètre régional, jours fériés et ponts, 5 méthodes comparées | [docs/09](docs/09_revision_methodologique.md), [script](src/08_offre_fenetre_valide.py) |
+| Restitution | Présentation de 9 diapositives générée à partir des résultats | [présentation](reports/presentation_analyse_mobilite.pptx) |
 
-Le périmètre prédictif porte sur l'offre planifiée GTFS. Il ne s'agit pas d'une
-prédiction de fréquentation ou de demande réelle.
+**Outils** : Python (pandas, scikit-learn, matplotlib), SQL / SQLite, FastAPI et Pydantic, pytest,
+python-pptx.
 
 ## Données
 
-La source principale est un export GTFS publié par DESTINEO :
+Export GTFS « Arrêts, horaires et circuits des lignes de transports en commun en Pays de la Loire
+(DESTINEO, réseaux AOM et ALEOP) », publié sur
+[data.gouv.fr](https://www.data.gouv.fr/datasets/arrets-horaires-et-circuits-des-lignes-de-transports-en-commun-en-pays-de-la-loire-gtfs-destineo-reseaux-aom-aleop-1)
+(feed utilisé : version 15637). Les fichiers volumineux (`stop_times.txt`, `shapes.txt`) ne sont pas
+versionnés : les télécharger et les placer dans `data/raw/gtfs/`.
 
-- `routes.txt` : lignes et modes de transport ;
-- `trips.txt` : trajets planifiés ;
-- `stop_times.txt` : horaires de passage ;
-- `stops.txt` : arrêts et coordonnées ;
-- `calendar_dates.txt` : dates de circulation ;
-- `shapes.txt` : géométries des itinéraires ;
-- `transfers.txt` : correspondances ;
-- `agency.txt` et `feed_info.txt` : métadonnées du feed.
+## Lancer le projet
 
-Une série météo Open-Meteo est disponible dans [data/raw/external/open-meteo-47.42N0.74W45m.csv](data/raw/external/open-meteo-47.42N0.74W45m.csv). Elle correspond à une maille située au centre régional : `47.41652, -0.7377014`, fuseau `Europe/Paris`.
+```bash
+python -m venv mon_env
+mon_env\Scripts\activate                 # Windows (macOS / Linux : source mon_env/bin/activate)
+pip install -r requirements.txt
 
-Le fichier OSM `.pbf` est conservé localement pour un enrichissement géographique ultérieur.
+python src/08_offre_fenetre_valide.py    # analyse et prévision de référence (lit directement le GTFS)
+python generer_presentation.py           # régénère la présentation
+pytest tests -q                          # 20 tests
+```
 
-## État d'avancement
+La chaîne complète (diagnostic, base SQLite, API) et les commandes détaillées sont dans le
+[guide d'exécution](docs/10_guide_execution.md).
 
-### Étape 1 : cadrage, collecte et diagnostic
-
-Cette étape est finalisée :
-
-- problématique métier et indicateur cible définis ;
-- processus de collecte documenté ;
-- source météo remplacée par une source localisée en Pays de la Loire ;
-- diagnostic initial exécuté ;
-- contrôles des clés et nettoyage minimal réalisés ;
-- limites métier et techniques documentées.
-
-### Étape 2 : nettoyage et structuration relationnelle
-
-Cette étape est également réalisée avec SQLite :
-
-- tables de staging conservant les données importées ;
-- schéma relationnel normalisé avec clés primaires, clés étrangères et contraintes ;
-- nettoyage final exécuté par `INSERT ... SELECT` en SQL ;
-- index et vues analytiques pour les départs par arrêt et par ligne ;
-- base locale `gtfs_pays_loire.sqlite` construite et contrôlée.
-
-La base validée contient 14 agences, 1 029 lignes, 20 170 arrêts, 6 090 services, 182 725 trajets, 4 000 625 passages, 22 286 correspondances et 24 observations météo. Les contrôles d'orphelins entre trajets, lignes, passages et arrêts renvoient zéro anomalie.
-
-### Étape 3 : API locale
-
-L'API FastAPI expose les arrêts en CRUD, les référentiels lignes/agences et les
-indicateurs de départs (détails dans la section [API locale FastAPI](#api-locale-fastapi)).
-
-### Étape 4 : analyse exploratoire et veille
-
-Trois hypothèses sont testées sur `v_departures_by_stop_period` :
-
-- l'offre varie selon la période horaire ;
-- elle est plus importante les jours ouvrés que le week-end ;
-- le nombre de lignes desservantes est positivement associé aux départs.
-
-Les résultats confirment H1 et H2. H3 est partiellement confirmée, avec une
-corrélation positive modérée : Pearson `0,4036` et Spearman `0,4319`.
-Les tableaux et graphiques sont produits dans `reports/`.
-
-> Ces chiffres portent sur tout le calendrier du feed et ignorent les créneaux sans départ. L'étape 7
-> recalcule H1 et H2 sur la fenêtre valide avec une grille complète (`profil_offre`,
-> `reports/etape7_profil_horaire.png`) : −27 % le samedi et −73 % le dimanche par rapport à un jour ouvré.
-
-### Étape 5 : baseline et analyse de l'offre
-
-> Résultats de la première version, **remplacés par l'étape 7** : le test portait sur des dates où le feed
-> ne contient presque plus d'offre.
-
-Le script `src/05_analyse_offre.py` travaille au grain arrêt-date-période,
-identifie les niveaux moyens d'offre les plus faibles et évalue une baseline
-fondée sur la moyenne historique par arrêt et période. Sur `588` observations
-de test, cette baseline obtient une MAE de `0,7059` et une RMSE de `0,7069`.
-
-### Étape 6 : modélisation et risques
-
-> Première version, **remplacée par l'étape 7** pour la partie évaluation (holdout de 588 observations
-> toutes égales à 1). L'analyse des risques reste valable.
-
-Le script `src/07_modelisation_risques.py` compare un
-`RandomForestRegressor` et un `HistGradientBoostingRegressor`, avec une
-baseline historique. La cible est `planned_departures`, avec une séparation
-temporelle entre l'entraînement et les dates futures. La baseline historique
-est retenue dans l'exécution actuelle (MAE moyenne de validation : `0,5168`,
-contre `0,7641` pour le Random Forest).
-
-Une évaluation complémentaire utilise trois fenêtres temporelles futures et
-compare le modèle à une baseline par moyenne de période horaire. Les résultats
-détaillés, les métriques et les risques de données, de modèle, de déploiement
-et d'éthique sont enregistrés dans
-`reports/etape6_modeles_risques.json`.
-
-#### Réponse à la question d'analyse de l'étape 6
-
-L'étape 6 répond à la question sur le périmètre de l'offre théorique : elle
-permet d'identifier les arrêts et créneaux faiblement desservis à partir du
-nombre de départs planifiés, puis de prévoir le niveau d'offre attendu pour
-des dates futures. La baseline historique est meilleure que les deux modèles
-sur les trois fenêtres temporelles évaluées.
-
-La réponse reste toutefois partielle pour une décision métier complète. Le
-GTFS décrit une offre planifiée, et non la fréquentation, la demande, les
-retards ou les suppressions réelles. Le modèle ne prédit donc pas directement
-le besoin de mobilité. Il constitue une aide au repérage des secteurs à
-examiner, mais ses résultats doivent être complétés par des données de
-fréquentation et validés par une analyse territoriale et métier avant toute
-décision de renforcement de desserte.
-
-### Étape 7 : révision méthodologique
-
-Le script `src/08_offre_fenetre_valide.py` reprend l'analyse directement depuis les fichiers GTFS :
-
-- fenêtre de 12 semaines où le feed est complet (7 avril → 29 juin 2025) ;
-- grille complète arrêt × date × période (4,5 millions d'observations), **avec les créneaux sans départ**
-  (50 % des créneaux) que la vue SQL ne faisait pas apparaître ;
-- arrêts limités aux Pays de la Loire (4 434 gares SNCF hors région exclues, soit 24 % des départs) ;
-- passages sans montée possible (`pickup_type = 1`) exclus, aussi corrigé dans les vues SQL et l'API ;
-- jours fériés, ponts et vacances scolaires pris en compte ;
-- 5 méthodes comparées sur 5 semaines de test, voir le tableau dans
-  [docs/09_revision_methodologique.md](docs/09_revision_methodologique.md).
-
-### Résultats du diagnostic
-
-- 1 029 lignes ;
-- 182 725 trajets ;
-- 20 170 arrêts ;
-- 4 000 625 passages ;
-- 899 601 points de géométrie ;
-- aucune clé primaire dupliquée dans `routes`, `stops` et `trips` ;
-- 4 000 625 passages conservés après contrôle ;
-- 11 862 arrêts dans l'emprise indicative des Pays de la Loire ;
-- 8 308 arrêts signalés hors emprise et conservés pour analyse métier.
-
-## Organisation du projet
+## Structure
 
 ```text
-src/                    scripts numérotés de la chaîne (01 → 08)
-sql/                    schéma relationnel (03) et requêtes de validation (04)
-api/                    API FastAPI locale
-tests/                  tests de l'API (étape 3) et des étapes 6 et 7
-data/raw/gtfs/          export GTFS source, inchangé
-data/raw/external/      météo Open-Meteo et OSM (.pbf, local)
-data/processed/         fichiers GTFS nettoyés
-data/database/          base SQLite locale (non versionnée)
-reports/                rapports JSON/CSV, graphiques, tableau de bord Power BI, présentation
-docs/                   documentation par étape (voir tableau ci-dessous)
-generer_presentation.py génération de reports/presentation_analyse_mobilite.pptx
+src/        scripts numérotés de la chaîne (01 → 08)
+sql/        schéma relationnel et requêtes de validation
+api/        API FastAPI
+tests/      tests de l'API et des étapes 6 et 7
+reports/    résultats (JSON, CSV), graphiques, présentation
+docs/       documentation par étape, parcours détaillé, guide d'exécution
 ```
 
-| Document | Contenu |
-|---|---|
-| [docs/01_cadrage_diagnostic.md](docs/01_cadrage_diagnostic.md) | Étape 1 : cadrage, collecte et diagnostic |
-| [docs/03_schema_relationnel.md](docs/03_schema_relationnel.md) | Étape 2 : schéma relationnel SQLite |
-| [docs/04_api.md](docs/04_api.md) | Étape 3 : documentation de l'API et exemples |
-| [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) | Étape 3 : validation du jalon API |
-| [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md) | Étape 3 : rapport de contrôle |
-| [docs/07_analyse_exploratoire_et_veille.md](docs/07_analyse_exploratoire_et_veille.md) | Étape 4 : résultats et sources de veille |
-| [docs/08_rapport_checkup_etape_4.md](docs/08_rapport_checkup_etape_4.md) | Étape 4 : contrôle qualité (instantané avant la révision de l'étape 7) |
-| [docs/09_revision_methodologique.md](docs/09_revision_methodologique.md) | Étape 7 : révision méthodologique et résultats de référence |
+## Limites
 
-Correspondance scripts / étapes : `01`-`02` → étape 1, `03` → étape 2, `06` → étape 4,
-`05` → étape 5, `07` → étape 6, `08` → étape 7.
-
-## Reproduire les contrôles
-
-Depuis la racine du projet :
-
-```powershell
-python .\src\01_diagnostic_initial.py
-python .\src\02_controle_nettoyage_gtfs.py
-python .\src\03_charger_bdd_gtfs.py
-python .\src\05_analyse_offre.py
-python .\src\06_analyse_exploratoire.py
-python .\src\07_modelisation_risques.py
-python .\src\08_offre_fenetre_valide.py
-```
-
-Avec l'environnement fourni, utiliser de préférence :
-
-```powershell
-.\mon_env\Scripts\python.exe .\src\01_diagnostic_initial.py
-.\mon_env\Scripts\python.exe .\src\02_controle_nettoyage_gtfs.py
-.\mon_env\Scripts\python.exe .\src\03_charger_bdd_gtfs.py
-.\mon_env\Scripts\python.exe .\src\05_analyse_offre.py
-.\mon_env\Scripts\python.exe .\src\06_analyse_exploratoire.py
-.\mon_env\Scripts\python.exe .\src\07_modelisation_risques.py
-.\mon_env\Scripts\python.exe .\src\08_offre_fenetre_valide.py
-```
-
-Pour les scripts utilisant pandas, matplotlib ou scikit-learn sur une machine
-à mémoire limitée, limiter les threads numériques avant l'exécution :
-
-```powershell
-$env:OPENBLAS_NUM_THREADS="1"
-$env:OMP_NUM_THREADS="1"
-$env:MKL_NUM_THREADS="1"
-$env:NUMEXPR_NUM_THREADS="1"
-```
-
-Les scripts 01 à 03 et 05 n'utilisent que la bibliothèque standard Python ; les scripts 06 à 08, l'API et
-les tests utilisent les dépendances listées dans [requirements.txt](requirements.txt). Le script 08 lit
-directement les fichiers GTFS et n'a pas besoin de la base SQLite.
-
-Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03_schema_gtfs.sql](sql/03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
-
-### Placer la base SQLite hors de OneDrive
-
-Une base de 1,4 Go dans un dossier synchronisé (OneDrive, Dropbox…) est souvent verrouillée
-(`database is locked`, `PermissionError: [WinError 33]`). Les scripts, l'API et les tests lisent la
-variable d'environnement `GTFS_DB_PATH` ; sans elle, ils utilisent `data/database/gtfs_pays_loire.sqlite`.
-
-```powershell
-New-Item -ItemType Directory -Force C:\data | Out-Null
-Copy-Item .\data\database\gtfs_pays_loire.sqlite C:\data\   # ou relancer 03_charger_bdd_gtfs.py
-$env:GTFS_DB_PATH = "C:\data\gtfs_pays_loire.sqlite"            # pour la session en cours
-setx GTFS_DB_PATH "C:\data\gtfs_pays_loire.sqlite"              # pour les prochaines sessions
-```
-
-## API locale FastAPI
-
-L'API expose la base SQLite et les indicateurs d'offre sans dépendre d'une plateforme cloud. Elle est construite avec FastAPI, Pydantic et Uvicorn.
-
-**Statut du jalon : validé pour démonstration et soutenance.** La checklist est disponible dans [docs/05_jalon_api_fonctionnelle.md](docs/05_jalon_api_fonctionnelle.md) et le contrôle détaillé dans [docs/06_rapport_checkup_etape_3.md](docs/06_rapport_checkup_etape_3.md).
-
-### Lancer l'API
-
-Depuis la racine du projet :
-
-```powershell
-.\mon_env\Scripts\python.exe -m uvicorn api.main:app --host 127.0.0.1 --port 4000
-```
-
-Les URLs utiles sont alors :
-
-- API : [http://127.0.0.1:4000](http://127.0.0.1:4000) ;
-- documentation interactive Swagger : [http://127.0.0.1:4000/docs](http://127.0.0.1:4000/docs) ;
-- schéma OpenAPI : [http://127.0.0.1:4000/openapi.json](http://127.0.0.1:4000/openapi.json) ;
-- état de santé : [http://127.0.0.1:4000/health](http://127.0.0.1:4000/health).
-
-### Routes disponibles
-
-Les arrêts sont la ressource exposée en CRUD complet :
-
-| Méthode | Endpoint                  | Fonction                           |
-| ------- | ------------------------- | ---------------------------------- |
-| GET     | `/api/v1/stops`           | Lister et filtrer les arrêts       |
-| GET     | `/api/v1/stops/{stop_id}` | Consulter un arrêt précis          |
-| POST    | `/api/v1/stops`           | Créer un arrêt validé par Pydantic |
-| PUT     | `/api/v1/stops/{stop_id}` | Remplacer un arrêt                 |
-| PATCH   | `/api/v1/stops/{stop_id}` | Modifier certains champs           |
-| DELETE  | `/api/v1/stops/{stop_id}` | Supprimer un arrêt non référencé   |
-
-Les référentiels GTFS et les indicateurs sont disponibles en lecture seule :
-
-- `GET /api/v1/routes` : lignes de transport ;
-- `GET /api/v1/agencies` : opérateurs ;
-- `GET /api/v1/analytics/departures-by-stop-day` : départs planifiés par arrêt et par jour.
-
-Les paramètres de chemin et de requête sont validés par FastAPI. Les corps JSON sont contrôlés avec Pydantic. Les requêtes SQL sont paramétrées et les mutations peuvent être protégées par la variable d'environnement `GTFS_API_KEY` envoyée dans l'en-tête `X-API-Key`.
-
-La documentation détaillée et les exemples Python avec `requests` sont disponibles dans [docs/04_api.md](docs/04_api.md).
-
-### Tester l'API
-
-Les tests utilisent `FastAPI TestClient` et une copie temporaire de la base SQLite. Ils couvrent les endpoints système, les référentiels, la validation des paramètres, le CRUD des arrêts et la protection par clé API, sans modifier la base de référence.
-
-```powershell
-.\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
-```
-
-Résultat de référence : **8 tests réussis**.
-
-Les tests des étapes 6 et 7 n'ont besoin ni de la base ni du GTFS complet :
-
-```powershell
-.\mon_env\Scripts\python.exe -m pytest tests/test_modelisation_risques.py tests/test_offre_fenetre_valide.py -q
-```
-
-Pour lancer toute la suite : `.\mon_env\Scripts\python.exe -m pytest tests -q`.
-
-## Parcours de vérification recommandé
-
-1. Vérifier la présence de `data/raw/gtfs`, des fichiers nettoyés et de la base SQLite.
-2. Exécuter les scripts 01 à 03 pour reconstruire les contrôles et la base.
-3. Exécuter les scripts 05 à 08 pour régénérer les analyses et les rapports.
-4. Lancer les tests avec `.\mon_env\Scripts\python.exe -m pytest tests -q`.
-5. Démarrer l'API et ouvrir `/docs` pour vérifier le contrat OpenAPI.
-6. Régénérer la présentation avec `.\mon_env\Scripts\python.exe .\generer_presentation.py`.
-
-Fichiers produits dans `reports/` :
-
-| Étape | Fichiers |
-|---|---|
-| 1 | `diagnostic_initial.json`, `rapport_qualite_gtfs.json` |
-| 2 | `04_resultats_validation_bdd.json` |
-| 4 | `etape4_h1_*`, `etape4_h2_*`, `etape4_h3_*` (CSV et PNG) |
-| 5 | `analyse_offre.json` (première version) |
-| 6 | `etape6_modeles_risques.json` (première version ; risques toujours valables) |
-| 7 | `etape7_offre_fenetre_valide.json`, `etape7_offre_par_arret.csv`, `etape7_*.png` (**résultats de référence**) |
-| Restitution | `presentation_analyse_mobilite.pptx`, `DASHBOARD.pbix` |
-
-## Limites actuelles
-
-Le feed n'est complet que du 2 avril au 30 juin 2025, et 6 agences déclarées n'ont aucune ligne : IRIGO
-(Angers), TUL (Laval), STRAN (Saint-Nazaire), IMPULSYON (La Roche-sur-Yon), AGGLOBUS et l'aéroport. Leurs
-réseaux urbains ne sont donc pas couverts.
-
-Le GTFS décrit l'offre planifiée, pas la mobilité réellement observée. Le projet ne dispose pas encore de fréquentation, de validations, de retards, de suppressions ou de taux de remplissage. Les coordonnées hors emprise peuvent correspondre à des dessertes interrégionales et ne sont donc pas supprimées automatiquement.
-
-La météo ne couvre pour l'instant qu'un point régional et une journée. L'OSM, les données socio-économiques et les données d'exploitation réelle seront étudiés comme enrichissements ultérieurs.
-
-Les fichiers très volumineux, notamment `stop_times.txt`, `shapes.txt` et le fichier OSM `.pbf`, sont exclus du dépôt GitHub par [.gitignore](.gitignore) et restent disponibles localement.
-
-Pour une utilisation au-delà du contexte local, la vue analytique des départs
-reste coûteuse, le modèle est entraîné sur un feed local et les observations de
-test restent limitées. Les résultats de modélisation doivent donc être lus
-comme une évaluation de l'offre planifiée, pas comme une mesure de la demande.
-
-## Suite du projet
-
-Le parcours principal est terminé pour le périmètre local. Les prolongements
-prioritaires sont :
-
-- ajouter des données de fréquentation, de retards et de suppressions ;
-- enrichir la météo avec plusieurs points et plusieurs dates ;
-- intégrer l'OSM et des variables territoriales ou socio-économiques ;
-- évaluer le modèle sur davantage de fenêtres temporelles et de jeux de test ;
-- versionner le modèle et ajouter un endpoint de prédiction seulement après
-  validation de sa généralisation.
+- Offre **planifiée** sur 12 semaines du printemps 2025 : ni fréquentation, ni retards, ni suppressions.
+- Les réseaux urbains d'Angers, Laval, Saint-Nazaire et La Roche-sur-Yon sont absents de l'export
+  (6 agences déclarées sans aucune ligne).
+- Un indicateur de faible offre ne mesure pas le besoin : il faudrait le croiser avec la population
+  desservie avant tout arbitrage de desserte.
