@@ -26,6 +26,15 @@ Il s'agit de l'offre **planifiée** : le projet ne mesure ni la fréquentation, 
   (588 observations, toutes égales à 1) : la méthode a été entièrement revue
   ([révision méthodologique](docs/09_revision_methodologique.md)).
 
+### Tableau de bord Power BI
+
+![Tableau de bord Power BI : où l'offre est-elle la plus faible ?](reports/dashboard_page1.png)
+
+Fichier : [reports/DASHBOARD.pbix](reports/DASHBOARD.pbix), construit à partir des tables de `reports/powerbi/`
+([guide](docs/11_guide_power_bi.md)).
+
+### Figures de l'analyse
+
 | Offre par arrêt un jour ouvré | Prévision et offre réelle (5 semaines de test) |
 |---|---|
 | ![Carte de l'offre par arrêt](reports/etape7_carte_offre.png) | ![Prévision vs réel](reports/etape7_prevision_vs_reel.png) |
@@ -42,10 +51,10 @@ Il s'agit de l'offre **planifiée** : le projet ne mesure ni la fréquentation, 
 | 4. Analyse exploratoire | Hypothèses sur l'offre par période, type de jour et nombre de lignes | [docs/07](docs/07_analyse_exploratoire_et_veille.md) |
 | 5-6. Première prévision | Baseline, Random Forest, gradient boosting (évaluation remplacée à l'étape 7) | [parcours détaillé](docs/00_parcours_detaille.md) |
 | **7. Révision méthodologique** | Fenêtre de service valide, grille complète avec les créneaux à 0, périmètre régional, jours fériés et ponts, 5 méthodes comparées | [docs/09](docs/09_revision_methodologique.md), [script](src/08_offre_fenetre_valide.py) |
-| Restitution | Présentation de 9 diapositives générée à partir des résultats | [présentation](reports/presentation_analyse_mobilite.pptx) |
+| Restitution | Tableau de bord Power BI et présentation de 9 diapositives générée à partir des résultats | [tableau de bord](reports/DASHBOARD.pbix), [présentation](reports/presentation_analyse_mobilite.pptx) |
 
 **Outils** : Python (pandas, scikit-learn, matplotlib), SQL / SQLite, FastAPI et Pydantic, pytest,
-python-pptx.
+Power BI (DAX), python-pptx.
 
 ## Données
 
