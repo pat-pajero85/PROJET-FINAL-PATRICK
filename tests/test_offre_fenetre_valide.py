@@ -43,3 +43,17 @@ def test_calendrier_traite_les_feries_comme_des_dimanches() -> None:
     df = etape7.ajouter_calendrier(df)
     assert list(df["type_jour"]) == ["dimanche_ferie", "samedi", "ouvre", "ouvre"]
     assert list(df["pont"]) == [False, False, False, True]
+
+
+def test_profil_offre_moyenne_par_jour_et_ignore_les_feries() -> None:
+    dates = pd.to_datetime(["2025-05-05", "2025-05-06", "2025-05-10", "2025-05-11", "2025-05-08"])
+    df = pd.DataFrame({"date": dates.repeat(len(etape7.PERIODES)),
+                       "period": pd.Categorical(etape7.PERIODES * len(dates), categories=etape7.PERIODES)})
+    df["departures"] = 0
+    df.loc[df["period"] == "morning_peak", "departures"] = [10, 20, 4, 1, 99]  # le 8 mai (férié) est exclu
+    df = etape7.ajouter_calendrier(df)
+    synthese, table = etape7.profil_offre(df)
+    assert synthese["jours_normaux"] == {"dimanche_ferie": 1, "ouvre": 2, "samedi": 1}
+    assert synthese["departs_regionaux_par_jour"] == {"ouvre": 15, "samedi": 4, "dimanche_ferie": 1}
+    assert table.loc["morning_peak", "ouvre"] == 15
+    assert synthese["baisse_samedi_vs_ouvre"] == round(1 - 4 / 15, 3)

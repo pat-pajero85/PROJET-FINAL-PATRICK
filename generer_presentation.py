@@ -1,4 +1,4 @@
-"""Genere une presentation PowerPoint a partir des rapports du projet GTFS."""
+"""Génère la présentation PowerPoint à partir des résultats de l'étape 7 du projet GTFS."""
 
 from __future__ import annotations
 
@@ -168,7 +168,8 @@ def add_picture(slide, filename: str, x: float, y: float, width: float, height: 
     slide.shapes.add_picture(str(path), Inches(x), Inches(y), width=Inches(width), height=Inches(height))
 
 
-def add_table(slide, headers: list[str], rows: list[list[str]], x: float, y: float, width: float, height: float) -> None:
+def add_table(slide, headers: list[str], rows: list[list[str]], x: float, y: float, width: float, height: float,
+              col_widths: list[float] | None = None) -> None:
     table = slide.shapes.add_table(
         len(rows) + 1,
         len(headers),
@@ -178,6 +179,9 @@ def add_table(slide, headers: list[str], rows: list[list[str]], x: float, y: flo
         Inches(height),
     ).table
     table.first_row = True
+    if col_widths:
+        for column, col_width in enumerate(col_widths):
+            table.columns[column].width = Inches(col_width)
     for column, header in enumerate(headers):
         cell = table.cell(0, column)
         cell.text = header
@@ -201,231 +205,158 @@ def add_table(slide, headers: list[str], rows: list[list[str]], x: float, y: flo
                 paragraph.font.color.rgb = INK
 
 
+def format_iso(value: str) -> str:
+    """2025-04-07 -> 07/04/2025."""
+    return format_date(value.replace("-", ""))
+
+
+def pct(value: float, decimals: int = 0) -> str:
+    return f"{format_number(value * 100, decimals)} %"
+
+
 def build_presentation(output: Path) -> None:
-    model = read_json(REPORTS / "etape6_modeles_risques.json")
-    revision = read_json(REPORTS / "etape7_offre_fenetre_valide.json")
-    window_start, window_end = (value.replace("-", "") for value in revision["prevision"]["fenetre"])
-    h1 = read_csv(REPORTS / "etape4_h1_offre_par_periode.csv")
-    h2 = read_csv(REPORTS / "etape4_h2_offre_jours_ouvres_weekend.csv")
-    h3 = read_csv(REPORTS / "etape4_h3_correlation_lignes_departs.csv")
+    """Présentation fondée sur l'étape 7 (fenêtre de service valide, grille complète, prévision revue)."""
+    e7 = read_json(REPORTS / "etape7_offre_fenetre_valide.json")
+    perimetre, horizon, profil = e7["perimetre"], e7["horizon_feed"], e7["profil_offre"]
+    prevision, desserte = e7["prevision"], e7["faible_desserte"]
+    debut, fin = prevision["fenetre"]
+    modeles = prevision["modeles"]
+    retenu = modeles[prevision["modele_retenu"]]
+    v1 = modeles["baseline_v1_arret_periode"]
 
     prs = Presentation()
     prs.slide_width = SLIDE_WIDTH
     prs.slide_height = SLIDE_HEIGHT
 
+    # 1. Titre
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     background = slide.background.fill
     background.solid()
     background.fore_color.rgb = NAVY
-    accent = slide.shapes.add_shape(
-        MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(0.18), SLIDE_HEIGHT
-    )
+    accent = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(0.18), SLIDE_HEIGHT)
     accent.fill.solid()
     accent.fill.fore_color.rgb = TEAL
     accent.line.fill.background()
     add_text(slide, "MOBILITÉ • PAYS DE LA LOIRE", 0.85, 0.85, 10.7, 0.45, size=15, color=RGBColor(153, 214, 222), bold=True)
     add_text(slide, "Analyser l’offre\npour éclairer la desserte", 0.85, 1.65, 11.4, 1.8, size=36, color=WHITE, bold=True)
-    add_text(
-        slide,
-        "Analyse exploratoire et évaluation de prévisions à partir des données GTFS",
-        0.9,
-        4.0,
-        10.9,
-        0.8,
-        size=20,
-        color=WHITE,
-    )
-    add_text(
-        slide,
-        f"Fenêtre d’offre complète étudiée : {format_date(window_start)} – {format_date(window_end)}",
-        0.9,
-        6.55,
-        10.5,
-        0.35,
-        size=13,
-        color=RGBColor(203, 216, 226),
-    )
+    add_text(slide, "Analyse de l’offre planifiée et prévision à partir des données GTFS DESTINEO",
+             0.9, 4.0, 10.9, 0.8, size=20, color=WHITE)
+    add_text(slide, f"Période étudiée : {format_iso(debut)} – {format_iso(fin)} (12 semaines de service complet)",
+             0.9, 6.55, 10.5, 0.35, size=13, color=RGBColor(203, 216, 226))
 
+    # 2. Question et périmètre
     slide = new_content_slide(prs, "Question métier et périmètre")
-    add_text(slide, "Comment repérer les arrêts et créneaux où l’offre théorique est la plus faible, puis estimer le niveau d’offre attendu ?", 0.85, 1.85, 7.0, 1.2, size=23, color=NAVY, bold=True)
-    add_bullets(
-        slide,
-        [
-            "Indicateur : nombre de départs planifiés par arrêt, date et période horaire.",
-            "Source principale : données GTFS du réseau DESTINEO.",
-            "Les résultats décrivent l’offre planifiée, pas la fréquentation, la demande ni les retards réellement observés.",
-        ],
-        0.9,
-        3.35,
-        7.0,
-        2.4,
-        size=17,
-    )
-    add_metric_card(slide, 9.0, 2.05, format_number(revision["perimetre"]["grille_observations"]), "observations arrêt × date × période")
-    add_metric_card(slide, 9.0, 3.65, format_number(revision["faible_desserte"]["arrets_regionaux_actifs"]), "arrêts régionaux actifs", accent=ORANGE)
+    add_text(slide, "Comment repérer les arrêts et créneaux où l’offre théorique est la plus faible, puis estimer le niveau d’offre attendu ?",
+             0.85, 1.85, 7.0, 1.2, size=23, color=NAVY, bold=True)
+    add_bullets(slide, [
+        "Indicateur : départs planifiés par arrêt, date et période horaire ; un départ est un passage où la montée est possible.",
+        "Périmètre : arrêts situés dans les Pays de la Loire, sur les 12 semaines où le feed décrit tout le service.",
+        "Grille complète : les créneaux sans aucun départ comptent pour 0, ce qui fait apparaître les arrêts mal desservis.",
+        "Offre planifiée uniquement : ni fréquentation, ni demande, ni retards.",
+    ], 0.9, 3.25, 7.0, 3.3, size=16)
+    add_metric_card(slide, 9.0, 1.85, f"{format_number(perimetre['grille_observations'] / 1e6, 1)} M", "observations arrêt-date-période")
+    add_metric_card(slide, 9.0, 3.3, format_number(desserte["arrets_regionaux_actifs"]), "arrêts régionaux actifs", accent=ORANGE)
+    add_metric_card(slide, 9.0, 4.75, pct(perimetre["part_creneaux_sans_depart"]), "des créneaux sans aucun départ")
 
+    # 3. Socle de données
     slide = new_content_slide(prs, "Un socle de données contrôlé")
     add_text(slide, "Chaîne de traitement", 0.9, 1.8, 5.7, 0.4, size=20, color=NAVY, bold=True)
-    add_bullets(
-        slide,
-        [
-            "Fichiers GTFS : lignes, trajets, arrêts et horaires.",
-            "Contrôle et nettoyage, puis structuration relationnelle dans SQLite.",
-            "Vues analytiques pour agréger les départs par arrêt et période.",
-            "Exploration, puis révision sur la fenêtre complète du feed et comparaison de méthodes de prévision.",
-        ],
-        0.9,
-        2.35,
-        6.3,
-        3.2,
-        size=16,
-    )
-    add_text(slide, "Base de référence", 7.7, 1.8, 4.4, 0.4, size=20, color=NAVY, bold=True)
-    add_metric_card(slide, 7.7, 2.4, "4,0 M", "passages horaires contrôlés")
-    add_metric_card(slide, 10.7, 2.4, "20 170", "arrêts")
-    add_metric_card(slide, 7.7, 4.0, "182 725", "trajets planifiés", accent=ORANGE)
-    add_metric_card(slide, 10.7, 4.0, "1 029", "lignes")
-    add_text(slide, f"Fenêtre analysée : {format_date(window_start)} au {format_date(window_end)}.", 7.75, 5.8, 4.8, 0.55, size=13, color=MUTED)
+    add_bullets(slide, [
+        "Fichiers GTFS : lignes, trajets, arrêts et horaires.",
+        "Contrôle et nettoyage, puis base SQLite normalisée et API FastAPI testée.",
+        f"{format_number(perimetre['passages_sans_montee_exclus'])} passages sans montée possible (souvent des terminus) exclus des départs.",
+        "Analyse et prévision sur une grille complète arrêt × date × période.",
+    ], 0.9, 2.35, 6.3, 3.4, size=16)
+    add_text(slide, "Base de référence", 7.45, 1.8, 4.4, 0.4, size=20, color=NAVY, bold=True)
+    add_metric_card(slide, 7.45, 2.4, f"{format_number(perimetre['passages_total'] / 1e6, 1)} M", "passages horaires contrôlés")
+    add_metric_card(slide, 10.35, 2.4, "20 170", "arrêts")
+    add_metric_card(slide, 7.45, 4.0, "182 725", "trajets planifiés", accent=ORANGE)
+    add_metric_card(slide, 10.35, 4.0, "1 029", "lignes")
+    add_text(slide, f"Calendrier du feed : {format_iso(horizon['date_min_calendar'])} au {format_iso(horizon['date_max_calendar'])}, "
+                    f"mais service complet seulement jusqu’au {format_iso(horizon['derniere_date_offre_complete'])}.",
+             7.5, 5.6, 5.5, 0.8, size=13, color=MUTED)
 
+    # 4. Audit
+    slide = new_content_slide(prs, "Ce que l’audit méthodologique a corrigé")
+    add_picture(slide, "etape7_horizon_feed.png", 0.75, 1.7, 11.8, 3.78)
+    add_bullets(slide, [
+        f"Après juin 2025, le feed ne décrit presque plus rien ({format_number(horizon['departs_jour_median_2026'])} départs par jour en 2026) : "
+        "l’ancien test (588 observations, toutes égales à 1) ne mesurait rien. Analyse limitée à la fenêtre verte.",
+        f"{format_number(perimetre['dont_sncf'])} gares SNCF hors région retirées du périmètre ; créneaux à 0 réintégrés.",
+    ], 0.8, 5.55, 11.8, 1.5, size=14)
+
+    # 5. Profil horaire
     slide = new_content_slide(prs, "L’offre varie selon l’heure et le type de jour")
-    add_picture(slide, "etape4_h1_offre_par_periode.png", 0.75, 1.7, 6.0, 3.35)
-    add_picture(slide, "etape4_h2_offre_jours_ouvres_weekend.png", 6.85, 1.7, 5.7, 3.35)
-    h1_sorted = sorted(h1, key=lambda row: float(row["average_departures"]), reverse=True)
-    top_period = h1_sorted[0]
-    low_period = h1_sorted[-1]
-    weekday = next(row for row in h2 if row["day_type"] == "Jour ouvré")
-    weekend = next(row for row in h2 if row["day_type"] == "Week-end")
-    decrease = (1 - float(weekend["average_departures"]) / float(weekday["average_departures"])) * 100
-    add_text(
-        slide,
-        f"Pointes les plus élevées : {top_period['time_period']} ({format_number(float(top_period['average_departures']), 2)} départs moyens). "
-        f"Creux : {low_period['time_period']} ({format_number(float(low_period['average_departures']), 2)}).",
-        0.85,
-        5.28,
-        11.7,
-        0.65,
-        size=15,
-        color=INK,
-    )
-    add_text(
-        slide,
-        f"Jours ouvrés : {format_number(float(weekday['average_departures']), 2)} départs moyens ; week-end : "
-        f"{format_number(float(weekend['average_departures']), 2)}, soit une baisse d’environ {format_number(decrease, 1)} %.",
-        0.85,
-        6.0,
-        11.7,
-        0.5,
-        size=15,
-        color=TEAL,
-        bold=True,
-    )
+    add_picture(slide, "etape7_profil_horaire.png", 0.75, 1.7, 8.2, 3.12)
+    par_heure = profil["departs_par_heure_ouvre"]
+    jour = profil["departs_regionaux_par_jour"]
+    add_metric_card(slide, 9.6, 1.75, format_number(jour["ouvre"]), "départs par jour ouvré")
+    add_metric_card(slide, 9.6, 3.2, f"−{pct(profil['baisse_samedi_vs_ouvre'])}", "le samedi", accent=ORANGE)
+    add_metric_card(slide, 9.6, 4.65, f"−{pct(profil['baisse_dimanche_vs_ouvre'])}", "le dimanche et les jours fériés", accent=ORANGE)
+    add_text(slide, f"Deux pointes en semaine : {format_number(par_heure['morning_peak'])} départs par heure de 6 h à 9 h et "
+                    f"{format_number(par_heure['evening_peak'])} de 17 h à 20 h, contre {format_number(par_heure['night_service'])} après 20 h.",
+             0.85, 5.15, 8.3, 0.75, size=15, color=INK)
+    add_text(slide, "Le samedi, l’offre de la pointe du matin est divisée par deux ; le dimanche, le service est réduit sur toute la journée.",
+             0.85, 6.0, 8.3, 0.75, size=15, color=TEAL, bold=True)
 
-    slide = new_content_slide(prs, "Le nombre de lignes est associé à l’offre")
-    add_picture(slide, "etape4_h3_correlation_lignes_departs.png", 0.8, 1.75, 6.2, 3.65)
-    correlation = h3[0]
-    add_metric_card(slide, 7.65, 2.0, format_number(float(correlation["pearson_correlation"]), 4), "corrélation de Pearson")
-    add_metric_card(slide, 7.65, 3.55, format_number(float(correlation["spearman_correlation"]), 4), "corrélation de Spearman", accent=ORANGE)
-    add_text(slide, "La relation positive est modérée : plusieurs lignes vont souvent de pair avec davantage de départs, sans démontrer une causalité ni expliquer seules le niveau d’offre.", 7.65, 5.2, 4.5, 1.1, size=16, color=INK)
+    # 6. Faible desserte
+    slide = new_content_slide(prs, "Où l’offre est la plus faible")
+    add_picture(slide, "etape7_carte_offre.png", 0.7, 1.65, 5.1, 4.73)
+    add_metric_card(slide, 6.2, 1.8, pct(desserte["part_arrets_moins_de_5_departs_jour"]), "des arrêts sous 5 départs par jour ouvré", accent=ORANGE)
+    add_metric_card(slide, 9.2, 1.8, pct(desserte["part_arrets_sans_depart_pointe_matin"]), "sans aucun départ entre 6 h et 9 h", accent=ORANGE)
+    reseaux = {r["reseau"]: r for r in desserte["par_reseau"]}
+    lignes = []
+    for code, nom in [("ALEOP", "ALEOP (interurbain)"), ("TAN", "TAN (Nantes)"), ("CHOLETBUS", "Choletbus"), ("SNCF", "SNCF (gares régionales)")]:
+        r = reseaux[code]
+        lignes.append([nom, format_number(r["arrets"]), format_number(r["departs_jour_median"], 0),
+                       pct(r["part_moins_de_5_departs"]), pct(r["part_sans_pointe_matin"])])
+    add_table(slide, ["Réseau", "Arrêts", "Départs / jour\n(médiane)", "< 5 départs", "Sans pointe\nmatin"], lignes, 6.2, 3.35, 6.3, 2.3,
+              col_widths=[2.0, 0.9, 1.2, 1.0, 1.2])
+    add_text(slide, f"La faible desserte est d’abord interurbaine : la moitié des arrêts ALEOP ont {format_number(reseaux['ALEOP']['departs_jour_median'])} départs par jour ou moins. "
+                    f"Médiane régionale : {format_number(desserte['departs_jour_median'], 1)}.",
+             6.2, 5.85, 6.3, 0.95, size=14, color=TEAL, bold=True)
 
-    horizon = revision["horizon_feed"]
-    perimetre = revision["perimetre"]
-    slide = new_content_slide(prs, "Une fenêtre d’offre complète limitée à avril–juin 2025")
-    add_picture(slide, "etape7_horizon_feed.png", 0.75, 1.7, 7.2, 4.1)
-    add_metric_card(slide, 8.4, 1.9, format_number(horizon["departs_jour_ouvre_median_avril_juin_2025"]), "départs par jour ouvré (T2 2025)")
-    add_metric_card(slide, 8.4, 3.45, format_number(horizon["departs_jour_median_2026"]), "départs par jour en 2026 (médiane)", accent=ORANGE)
-    add_text(
-        slide,
-        f"Le calendrier court jusqu’au {format_date(horizon['date_max_calendar'].replace('-', ''))}, mais l’offre n’est complète que du "
-        f"{format_date(horizon['premiere_date_offre_complete'].replace('-', ''))} au {format_date(horizon['derniere_date_offre_complete'].replace('-', ''))}. "
-        f"La révision travaille sur cette fenêtre, sur les seuls arrêts régionaux ({format_number(perimetre['arrets_hors_pays_de_la_loire'])} arrêts hors région exclus) "
-        f"et sans les {format_number(perimetre['passages_sans_montee_exclus'])} passages sans montée possible.",
-        0.85,
-        6.0,
-        11.7,
-        0.9,
-        size=14,
-        color=INK,
-    )
+    # 7. Prévision : comparaison
+    slide = new_content_slide(prs, "Prévoir : bien modéliser le calendrier suffit")
+    noms = [("baseline_v1_arret_periode", "Baseline V1 : moyenne arrêt × période"),
+            ("baseline_calendrier", "Calendrier : arrêt × type de jour × période"),
+            ("baseline_calendrier_recent", "Calendrier récent (2 dernières semaines)"),
+            ("baseline_calendrier_recent_ponts", "Calendrier récent + ajustement des ponts"),
+            ("hist_gradient_boosting", "Gradient boosting (perte de Poisson)")]
+    rows = [[label + ("  ✔" if key == prevision["modele_retenu"] else ""), format_number(modeles[key]["mae"], 3),
+             format_number(modeles[key]["rmse"], 3), format_number(modeles[key]["mae_feries_ponts"], 3),
+             format_number(modeles[key]["mae_jours_normaux"], 3)] for key, label in noms]
+    add_table(slide, ["Méthode", "MAE", "RMSE", "MAE fériés\net ponts", "MAE jours\nnormaux"], rows, 0.9, 1.85, 11.5, 2.9,
+              col_widths=[5.1, 1.5, 1.5, 1.7, 1.7])
+    add_text(slide, f"Méthode retenue : calendrier récent + ponts, MAE {format_number(retenu['mae'], 3)} départ, "
+                    f"soit une erreur divisée par {format_number(v1['mae'] / retenu['mae'])} par rapport à la baseline V1.",
+             1.0, 5.0, 11.1, 0.55, size=17, color=TEAL, bold=True)
+    add_text(slide, f"Entraînement du {format_iso(prevision['entrainement'][0])} au {format_iso(prevision['entrainement'][1])}, "
+                    f"test du {format_iso(prevision['test'][0])} au {format_iso(prevision['test'][1])} : "
+                    f"{format_number(prevision['observations_test'])} observations, dont l’Ascension, son pont et le lundi de Pentecôte. "
+                    "La MAE est l’écart moyen, en départs, par arrêt et période.",
+             1.0, 5.65, 11.1, 0.9, size=14, color=INK)
 
-    desserte = revision["faible_desserte"]
-    slide = new_content_slide(prs, "Où l’offre est-elle la plus faible ?")
-    add_picture(slide, "etape7_carte_offre.png", 0.75, 1.7, 5.4, 4.6)
-    add_metric_card(slide, 6.5, 1.75, f"{format_number(desserte['part_arrets_moins_de_5_departs_jour'] * 100, 0)} %", "arrêts avec < 5 départs/jour ouvré")
-    add_metric_card(slide, 9.55, 1.75, f"{format_number(desserte['part_arrets_sans_depart_pointe_matin'] * 100, 0)} %", "arrêts sans départ 6 h–9 h", accent=ORANGE)
-    networks = [row for row in desserte["par_reseau"] if row["arrets"] >= 100]
-    add_table(
-        slide,
-        ["Réseau", "Arrêts", "Départs/jour\n(médiane)", "< 5 départs"],
-        [
-            [row["reseau"], format_number(row["arrets"]), format_number(row["departs_jour_median"], 1), f"{format_number(row['part_moins_de_5_departs'] * 100, 0)} %"]
-            for row in networks
-        ],
-        6.5,
-        3.35,
-        5.9,
-        2.6,
-    )
+    # 8. Prévision vs réel
+    slide = new_content_slide(prs, "La prévision suit l’offre réelle jour après jour")
+    add_picture(slide, "etape7_prevision_vs_reel.png", 0.75, 1.7, 11.8, 4.13)
+    add_text(slide, "Le gradient boosting fait moins bien (MAE "
+                    f"{format_number(modeles['hist_gradient_boosting']['mae'], 3)}) : il apprend sur des semaines antérieures au changement d’offre de la TAN "
+                    "à la mi-mai. Pour une offre planifiée, ce qui compte est de représenter le calendrier et de repérer les ruptures d’offre.",
+             0.85, 5.95, 11.7, 0.95, size=15, color=INK)
 
-    prevision = revision["prevision"]
-    labels = {
-        "baseline_v1_arret_periode": "Baseline v1 (arrêt × période)",
-        "baseline_calendrier": "Profil calendaire",
-        "baseline_calendrier_recent": "Profil calendaire récent",
-        "baseline_calendrier_recent_ponts": "Profil récent + ponts",
-        "hist_gradient_boosting": "Hist. Gradient Boosting",
-    }
-    slide = new_content_slide(prs, "Prédire : un profil calendaire récent divise l’erreur par 11")
-    add_table(
-        slide,
-        ["Méthode", "MAE", "RMSE", "MAE fériés / ponts", "MAE jours normaux"],
-        [
-            [
-                labels.get(name, name) + (" ✔" if name == prevision["modele_retenu"] else ""),
-                format_number(scores["mae"], 3),
-                format_number(scores["rmse"], 3),
-                format_number(scores["mae_feries_ponts"], 3),
-                format_number(scores["mae_jours_normaux"], 3),
-            ]
-            for name, scores in prevision["modeles"].items()
-        ],
-        0.9,
-        1.85,
-        11.5,
-        2.9,
-    )
-    add_text(
-        slide,
-        f"Entraînement du {format_date(prevision['entrainement'][0].replace('-', ''))} au {format_date(prevision['entrainement'][1].replace('-', ''))}, "
-        f"test du {format_date(prevision['test'][0].replace('-', ''))} au {format_date(prevision['test'][1].replace('-', ''))} : "
-        f"{format_number(prevision['observations_test'])} observations arrêt × date × période, dont "
-        f"{format_number(prevision['part_creneaux_sans_depart_test'] * 100, 0)} % de créneaux sans départ.",
-        1.0,
-        5.0,
-        11.1,
-        0.8,
-        size=15,
-        color=INK,
-    )
-    add_text(slide, "La MAE mesure l’écart absolu moyen en départs planifiés ; plus elle est faible, mieux c’est. La première évaluation (étape 6) portait sur des dates où le feed était presque vide et a été remplacée.", 1.0, 6.0, 11.1, 0.7, size=13, color=MUTED)
-
+    # 9. Limites
     slide = new_content_slide(prs, "Limites et pistes pour la décision")
-    risks = model["risks"]
-    risk_items = [
-        f"{risk['category'].replace('_', ' ').capitalize()} : {risk['risk']}"
-        for risk in risks
-    ]
-    add_bullets(slide, risk_items, 0.9, 1.85, 11.5, 3.8, size=15)
-    add_text(
-        slide,
-        "À retenir : utiliser ces résultats comme aide à l’analyse, puis les compléter par la fréquentation réelle, les retards, la demande locale et une validation métier avant tout arbitrage de desserte.",
-        0.95,
-        5.85,
-        11.3,
-        0.85,
-        size=17,
-        color=TEAL,
-        bold=True,
-    )
+    add_bullets(slide, [
+        "Offre planifiée sur 3 mois du printemps 2025 : ni fréquentation, ni retards, ni suppressions de service.",
+        "Réseaux urbains d’Angers, Laval, Saint-Nazaire et La Roche-sur-Yon absents de l’export (agences sans lignes).",
+        "Le comptage par arrêt dépend du découpage des arrêts physiques (quais), propre à chaque réseau.",
+        "Recalibrer la prévision à chaque nouveau feed et surveiller les ruptures d’offre (exemple : TAN mi-mai).",
+        "Un indicateur de faible offre ne mesure pas le besoin : croiser avec la population desservie avant d’arbitrer.",
+    ], 0.9, 1.85, 11.5, 3.9, size=16)
+    add_text(slide, "À retenir : prioriser l’analyse des arrêts interurbains sans départ en pointe du matin, puis compléter par la "
+                    "fréquentation réelle, la demande locale et une validation métier avant tout arbitrage de desserte.",
+             0.95, 5.85, 11.3, 0.85, size=17, color=TEAL, bold=True)
 
     output.parent.mkdir(parents=True, exist_ok=True)
     prs.save(output)

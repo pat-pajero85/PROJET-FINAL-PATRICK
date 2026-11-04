@@ -48,7 +48,21 @@ compte, c'est de bien représenter le calendrier et de repérer les ruptures d'o
 
 ![Prévision vs réel](../reports/etape7_prevision_vs_reel.png)
 
-## 4. Faible desserte (jour ouvré normal, semaines du 12 au 23 mai)
+## 4. Profil de l'offre par heure et type de jour
+
+Jours normaux de la fenêtre (hors fériés, ponts et vacances), grille complète, périmètre régional :
+
+- **258 555 départs par jour ouvré**, 187 641 le samedi (**−27 %**) et 70 860 le dimanche ou un jour férié
+  (**−73 %**).
+- Deux pointes en semaine : 18 386 départs par heure de 6 h à 9 h et 19 521 de 17 h à 20 h, contre 5 523 après
+  20 h. Le samedi, la pointe du matin est divisée par deux.
+
+Ces chiffres remplacent les hypothèses H1 et H2 de l'étape 4, calculées sur tout le calendrier du feed et
+sans les créneaux à 0.
+
+![Profil horaire](../reports/etape7_profil_horaire.png)
+
+## 5. Faible desserte (jour ouvré normal, semaines du 12 au 23 mai)
 
 - Médiane : **9,2 départs par jour** et par arrêt.
 - **33,7 %** des arrêts ont moins de 5 départs par jour ; **19,5 %** n'ont aucun départ entre 6 h et 9 h.
@@ -61,7 +75,7 @@ Le détail par arrêt (nom, coordonnées, départs par jour, départs en pointe 
 
 ![Carte de l'offre](../reports/etape7_carte_offre.png)
 
-## 5. Limites
+## 6. Limites
 
 - Offre **planifiée** sur 3 mois du printemps 2025 : ni fréquentation, ni retards, ni suppressions.
 - Réseaux urbains d'Angers, Laval, Saint-Nazaire et La Roche-sur-Yon absents de l'export.

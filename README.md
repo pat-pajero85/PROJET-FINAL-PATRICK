@@ -21,6 +21,8 @@ Le projet commence par l'analyse de l'offre planifiée : nombre de départs par 
   la méthode retenue, un profil calendaire récent ajusté pour les ponts, obtient une **MAE de 0,115**
   départ, contre 1,272 pour la baseline de la première version (erreur divisée par 11). Le gradient
   boosting fait moins bien (MAE 0,438).
+- **Profil de l'offre** : 258 555 départs régionaux par jour ouvré, −27 % le samedi et −73 % le dimanche ;
+  deux pointes en semaine (6 h-9 h et 17 h-20 h).
 
 | Horizon du feed | Prévision vs réel (test) |
 |---|---|
@@ -101,6 +103,10 @@ Trois hypothèses sont testées sur `v_departures_by_stop_period` :
 Les résultats confirment H1 et H2. H3 est partiellement confirmée, avec une
 corrélation positive modérée : Pearson `0,4036` et Spearman `0,4319`.
 Les tableaux et graphiques sont produits dans `reports/`.
+
+> Ces chiffres portent sur tout le calendrier du feed et ignorent les créneaux sans départ. L'étape 7
+> recalcule H1 et H2 sur la fenêtre valide avec une grille complète (`profil_offre`,
+> `reports/etape7_profil_horaire.png`) : −27 % le samedi et −73 % le dimanche par rapport à un jour ouvré.
 
 ### Étape 5 : baseline et analyse de l'offre
 

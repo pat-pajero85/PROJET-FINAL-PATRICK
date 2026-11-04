@@ -27,6 +27,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import matplotlib
+import matplotlib.ticker
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -210,6 +211,29 @@ def comparer_modeles(g: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
 # --------------------------------------------------------------------------------------------------
 # Analyses descriptives et figures
 # --------------------------------------------------------------------------------------------------
+def profil_offre(g: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
+    """Profil de l'offre régionale par période horaire et type de jour (jours normaux de la fenêtre).
+
+    Remplace les hypothèses H1 / H2 de l'étape 4, calculées sur tout le calendrier et sans les créneaux à 0.
+    """
+    normal = g[~g["ferie"] & ~g["pont"] & ~g["vacances"]]
+    jours = normal.groupby("type_jour")["date"].nunique()
+    total = normal.groupby(["type_jour", "period"], observed=True)["departures"].sum().unstack("type_jour")
+    par_jour = total.div(jours, axis=1).reindex(PERIODES)
+    par_jour = par_jour[["ouvre", "samedi", "dimanche_ferie"]]
+    jour_total = par_jour.sum()
+    ouvre = par_jour["ouvre"]
+    synthese = {
+        "jours_normaux": {k: int(v) for k, v in jours.items()},
+        "departs_regionaux_par_jour": {k: int(round(v)) for k, v in jour_total.items()},
+        "baisse_samedi_vs_ouvre": round(float(1 - jour_total["samedi"] / jour_total["ouvre"]), 3),
+        "baisse_dimanche_vs_ouvre": round(float(1 - jour_total["dimanche_ferie"] / jour_total["ouvre"]), 3),
+        "part_departs_ouvre_par_periode": {p: round(float(v / ouvre.sum()), 3) for p, v in ouvre.items()},
+        "departs_par_heure_ouvre": {p: int(round(v / h)) for (p, v), h in zip(ouvre.items(), [6, 3, 3, 2, 3, 3, 4])},
+    }
+    return synthese, par_jour
+
+
 def faible_desserte(g: pd.DataFrame, stops: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
     """Offre d'un jour ouvré normal (semaines récentes) par arrêt, réseau et période."""
     ref = g[(g["date"] >= pd.Timestamp(DEBUT_RECENT)) & (g["date"] < pd.Timestamp(DEBUT_TEST))
@@ -280,6 +304,23 @@ def figures(par_jour: pd.Series, par_arret: pd.DataFrame, resultats: dict, test:
     fig.tight_layout(); fig.savefig(REPORTS / "etape7_prevision_vs_reel.png", dpi=120); plt.close(fig)
 
 
+def figure_profil(par_jour: pd.DataFrame) -> None:
+    """Départs régionaux par heure, selon la période horaire et le type de jour."""
+    durees = pd.Series([6, 3, 3, 2, 3, 3, 4], index=PERIODES)
+    etiquettes = ["nuit\n0-6 h", "pointe matin\n6-9 h", "matinée\n9-12 h", "midi\n12-14 h",
+                  "après-midi\n14-17 h", "pointe soir\n17-20 h", "soirée\n20 h et +"]
+    d = par_jour.div(durees, axis=0)
+    d.index = etiquettes
+    d.columns = ["jour ouvré", "samedi", "dimanche / férié"]
+    fig, ax = plt.subplots(figsize=(10, 3.8))
+    d.plot.bar(ax=ax, rot=0, color=["#16304A", "#176B87", "#D97941"], width=0.8)
+    ax.set(title="Départs planifiés par heure dans la région, selon la période et le type de jour",
+           ylabel="départs / heure", xlabel="")
+    ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:,.0f}".replace(",", " ")))
+    ax.legend(fontsize=9)
+    fig.tight_layout(); fig.savefig(REPORTS / "etape7_profil_horaire.png", dpi=120); plt.close(fig)
+
+
 def main() -> None:
     stop_times = pd.read_csv(GTFS / "stop_times.txt", usecols=["trip_id", "departure_time", "stop_id", "pickup_type"],
                              dtype={"trip_id": "string", "stop_id": "string", "departure_time": "string"})
@@ -316,9 +357,12 @@ def main() -> None:
     }
     resultats, test = comparer_modeles(g)
     desserte, par_arret = faible_desserte(g, stops)
+    profil, profil_table = profil_offre(g)
     figures(par_jour, par_arret, resultats, test)
+    figure_profil(profil_table)
 
-    sortie = {"perimetre": perimetre, "horizon_feed": horizon, "prevision": resultats, "faible_desserte": desserte}
+    sortie = {"perimetre": perimetre, "horizon_feed": horizon, "profil_offre": profil, "prevision": resultats,
+              "faible_desserte": desserte}
     (REPORTS / "etape7_offre_fenetre_valide.json").write_text(json.dumps(sortie, ensure_ascii=False, indent=2),
                                                              encoding="utf-8")
     par_arret.sort_values("departs_jour").to_csv(REPORTS / "etape7_offre_par_arret.csv", index=False)

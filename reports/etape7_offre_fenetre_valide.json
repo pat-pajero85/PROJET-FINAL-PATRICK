@@ -17,6 +17,38 @@
     "departs_jour_ouvre_median_avril_juin_2025": 328447,
     "departs_jour_median_2026": 2
   },
+  "profil_offre": {
+    "jours_normaux": {
+      "dimanche_ferie": 10,
+      "ouvre": 42,
+      "samedi": 10
+    },
+    "departs_regionaux_par_jour": {
+      "ouvre": 258555,
+      "samedi": 187641,
+      "dimanche_ferie": 70860
+    },
+    "baisse_samedi_vs_ouvre": 0.274,
+    "baisse_dimanche_vs_ouvre": 0.726,
+    "part_departs_ouvre_par_periode": {
+      "night": 0.012,
+      "morning_peak": 0.213,
+      "morning": 0.161,
+      "midday": 0.12,
+      "afternoon": 0.181,
+      "evening_peak": 0.226,
+      "night_service": 0.085
+    },
+    "departs_par_heure_ouvre": {
+      "night": 524,
+      "morning_peak": 18386,
+      "morning": 13886,
+      "midday": 15519,
+      "afternoon": 15634,
+      "evening_peak": 19521,
+      "night_service": 5523
+    }
+  },
   "prevision": {
     "fenetre": [
       "2025-04-07",
