@@ -1,0 +1,134 @@
+{
+  "perimetre": {
+    "passages_total": 4000625,
+    "passages_sans_montee_exclus": 406377,
+    "arrets_actifs": 12144,
+    "arrets_hors_pays_de_la_loire": 4437,
+    "dont_sncf": 4434,
+    "arrets_coordonnees_nulles": 2,
+    "grille_observations": 4500552,
+    "part_creneaux_sans_depart": 0.5
+  },
+  "horizon_feed": {
+    "date_min_calendar": "2025-04-02",
+    "date_max_calendar": "2027-04-02",
+    "premiere_date_offre_complete": "2025-04-02",
+    "derniere_date_offre_complete": "2025-06-30",
+    "departs_jour_ouvre_median_avril_juin_2025": 328447,
+    "departs_jour_median_2026": 2
+  },
+  "prevision": {
+    "fenetre": [
+      "2025-04-07",
+      "2025-06-29"
+    ],
+    "entrainement": [
+      "2025-04-07",
+      "2025-05-25"
+    ],
+    "test": [
+      "2025-05-26",
+      "2025-06-29"
+    ],
+    "observations_test": 1875230,
+    "part_creneaux_sans_depart_test": 0.494,
+    "modeles": {
+      "baseline_v1_arret_periode": {
+        "mae": 1.272,
+        "rmse": 3.173,
+        "mae_feries_ponts": 1.91,
+        "mae_jours_normaux": 1.213
+      },
+      "baseline_calendrier": {
+        "mae": 0.388,
+        "rmse": 1.238,
+        "mae_feries_ponts": 0.641,
+        "mae_jours_normaux": 0.364
+      },
+      "baseline_calendrier_recent": {
+        "mae": 0.124,
+        "rmse": 0.741,
+        "mae_feries_ponts": 0.455,
+        "mae_jours_normaux": 0.093
+      },
+      "baseline_calendrier_recent_ponts": {
+        "mae": 0.115,
+        "rmse": 0.672,
+        "mae_feries_ponts": 0.357,
+        "mae_jours_normaux": 0.093
+      },
+      "hist_gradient_boosting": {
+        "mae": 0.438,
+        "rmse": 1.788,
+        "mae_feries_ponts": 0.753,
+        "mae_jours_normaux": 0.408
+      }
+    },
+    "modele_retenu": "baseline_calendrier_recent_ponts"
+  },
+  "faible_desserte": {
+    "jours_ouvres_de_reference": 10,
+    "arrets_regionaux_actifs": 7654,
+    "departs_jour_median": 9.2,
+    "part_arrets_moins_de_5_departs_jour": 0.337,
+    "part_arrets_sans_depart_pointe_matin": 0.195,
+    "par_reseau": [
+      {
+        "reseau": "ALEOP",
+        "arrets": 3785,
+        "departs_jour_median": 4.0,
+        "part_moins_de_5_departs": 0.571,
+        "part_sans_pointe_matin": 0.308
+      },
+      {
+        "reseau": "TAN",
+        "arrets": 2568,
+        "departs_jour_median": 51.4,
+        "part_moins_de_5_departs": 0.086,
+        "part_sans_pointe_matin": 0.057
+      },
+      {
+        "reseau": "LILAPRESQUILE",
+        "arrets": 431,
+        "departs_jour_median": 11.0,
+        "part_moins_de_5_departs": 0.03,
+        "part_sans_pointe_matin": 0.144
+      },
+      {
+        "reseau": "CHOLETBUS",
+        "arrets": 422,
+        "departs_jour_median": 26.0,
+        "part_moins_de_5_departs": 0.145,
+        "part_sans_pointe_matin": 0.047
+      },
+      {
+        "reseau": "SNCF",
+        "arrets": 366,
+        "departs_jour_median": 14.0,
+        "part_moins_de_5_departs": 0.287,
+        "part_sans_pointe_matin": 0.265
+      },
+      {
+        "reseau": "RESO",
+        "arrets": 56,
+        "departs_jour_median": 13.0,
+        "part_moins_de_5_departs": 0.089,
+        "part_sans_pointe_matin": 0.071
+      },
+      {
+        "reseau": "OLEANE",
+        "arrets": 14,
+        "departs_jour_median": 0.2,
+        "part_moins_de_5_departs": 1.0,
+        "part_sans_pointe_matin": 0.0
+      },
+      {
+        "reseau": "SETRAM",
+        "arrets": 12,
+        "departs_jour_median": 451.0,
+        "part_moins_de_5_departs": 0.0,
+        "part_sans_pointe_matin": 0.0
+      }
+    ]
+  }
+}

@@ -368,7 +368,7 @@ def departures_by_stop_day(
         "JOIN trip AS t ON t.service_id = sd.service_id "
         "JOIN stop_time AS st ON st.trip_id = t.trip_id "
         "JOIN stop AS s ON s.stop_id = st.stop_id "
-        "WHERE sd.exception_type = 1 "
+        "WHERE sd.exception_type = 1 AND COALESCE(st.pickup_type, 0) <> 1 "
         + ("AND " + " AND ".join(clauses) if clauses else "")
         + " GROUP BY sd.service_date, st.stop_id, s.stop_name "
         "ORDER BY sd.service_date, st.stop_id LIMIT ? OFFSET ?",

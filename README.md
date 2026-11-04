@@ -8,6 +8,24 @@ Projet final de formation Data Analyst consacré à l'analyse de l'offre de tran
 
 Le projet commence par l'analyse de l'offre planifiée : nombre de départs par arrêt, ligne, date, mode et période horaire. La prédiction portera d'abord sur le nombre de départs attendus ou sur une classe de niveau d'offre.
 
+## Résultats clés
+
+- **Données** : export GTFS DESTINEO (14 agences déclarées, 8 avec des lignes), 4 000 625 passages
+  planifiés, chargés dans une base SQLite normalisée (0 orphelin) et exposés par une API FastAPI testée.
+- **Fenêtre réellement exploitable** : l'offre n'est complète que du 2 avril au 30 juin 2025
+  (≈ 328 000 départs par jour ouvré), alors que le calendrier court jusqu'en 2027.
+- **Faible desserte** : un jour ouvré, **34 % des 7 654 arrêts régionaux** ont moins de 5 départs et
+  **20 %** n'en ont aucun entre 6 h et 9 h, surtout sur le réseau interurbain ALEOP (médiane : 4 départs
+  par jour, contre 51 pour la TAN à Nantes).
+- **Prévision** de l'offre par arrêt, jour et période sur 5 semaines de test (1,9 million d'observations) :
+  la méthode retenue, un profil calendaire récent ajusté pour les ponts, obtient une **MAE de 0,115**
+  départ, contre 1,272 pour la baseline de la première version (erreur divisée par 11). Le gradient
+  boosting fait moins bien (MAE 0,438).
+
+| Horizon du feed | Prévision vs réel (test) |
+|---|---|
+| ![](reports/etape7_horizon_feed.png) | ![](reports/etape7_prevision_vs_reel.png) |
+
 ## Vue d'ensemble du parcours
 
 Le projet suit une chaîne complète, de l'audit des fichiers GTFS à la
@@ -18,7 +36,9 @@ consultation par API et à l'évaluation d'un modèle prédictif :
 3. exposer la base et les indicateurs avec une API FastAPI ;
 4. analyser les tendances de l'offre et produire les visualisations ;
 5. construire une baseline temporelle et repérer les situations de faible offre ;
-6. comparer deux modèles et mesurer leur stabilité sur plusieurs périodes futures.
+6. comparer deux modèles et mesurer leur stabilité sur plusieurs périodes futures ;
+7. réviser la méthode : fenêtre de validité du feed, créneaux sans départ, périmètre régional
+   ([docs/09_revision_methodologique.md](docs/09_revision_methodologique.md)).
 
 Le périmètre prédictif porte sur l'offre planifiée GTFS. Il ne s'agit pas d'une
 prédiction de fréquentation ou de demande réelle.
@@ -87,12 +107,18 @@ Les tableaux et graphiques sont produits dans `reports/`.
 
 ### Étape 5 : baseline et analyse de l'offre
 
+> Résultats de la première version, **remplacés par l'étape 7** : le test portait sur des dates où le feed
+> ne contient presque plus d'offre.
+
 Le script `src/05_analyse_offre.py` travaille au grain arrêt-date-période,
 identifie les niveaux moyens d'offre les plus faibles et évalue une baseline
 fondée sur la moyenne historique par arrêt et période. Sur `588` observations
 de test, cette baseline obtient une MAE de `0,7059` et une RMSE de `0,7069`.
 
 ### Étape 6 : modélisation et risques
+
+> Première version, **remplacée par l'étape 7** pour la partie évaluation (holdout de 588 observations
+> toutes égales à 1). L'analyse des risques reste valable.
 
 Le script `src/07_modelisation_risques.py` compare un
 `RandomForestRegressor` et un `HistGradientBoostingRegressor`, avec une
@@ -122,6 +148,19 @@ le besoin de mobilité. Il constitue une aide au repérage des secteurs à
 examiner, mais ses résultats doivent être complétés par des données de
 fréquentation et validés par une analyse territoriale et métier avant toute
 décision de renforcement de desserte.
+
+### Étape 7 : révision méthodologique
+
+Le script `src/08_offre_fenetre_valide.py` reprend l'analyse directement depuis les fichiers GTFS :
+
+- fenêtre de 12 semaines où le feed est complet (7 avril → 29 juin 2025) ;
+- grille complète arrêt × date × période (4,5 millions d'observations), **avec les créneaux sans départ**
+  (50 % des créneaux) que la vue SQL ne faisait pas apparaître ;
+- arrêts limités aux Pays de la Loire (4 434 gares SNCF hors région exclues, soit 24 % des départs) ;
+- passages sans montée possible (`pickup_type = 1`) exclus, aussi corrigé dans les vues SQL et l'API ;
+- jours fériés, ponts et vacances scolaires pris en compte ;
+- 5 méthodes comparées sur 5 semaines de test, voir le tableau dans
+  [docs/09_revision_methodologique.md](docs/09_revision_methodologique.md).
 
 ### Résultats du diagnostic
 
@@ -163,6 +202,7 @@ python .\src\03_charger_bdd_gtfs.py
 python .\src\05_analyse_offre.py
 python .\src\06_analyse_exploratoire.py
 python .\src\07_modelisation_risques.py
+python .\src\08_offre_fenetre_valide.py
 ```
 
 Avec l'environnement fourni, utiliser de préférence :
@@ -174,6 +214,7 @@ Avec l'environnement fourni, utiliser de préférence :
 .\mon_env\Scripts\python.exe .\src\05_analyse_offre.py
 .\mon_env\Scripts\python.exe .\src\06_analyse_exploratoire.py
 .\mon_env\Scripts\python.exe .\src\07_modelisation_risques.py
+.\mon_env\Scripts\python.exe .\src\08_offre_fenetre_valide.py
 ```
 
 Pour les scripts utilisant pandas, matplotlib ou scikit-learn sur une machine
@@ -186,7 +227,9 @@ $env:MKL_NUM_THREADS="1"
 $env:NUMEXPR_NUM_THREADS="1"
 ```
 
-Les scripts utilisent uniquement la bibliothèque standard Python pour les contrôles actuels. Les dépendances de l'environnement sont listées dans [requirements.txt](requirements.txt).
+Les scripts 01 à 03 et 05 n'utilisent que la bibliothèque standard Python ; les scripts 06 à 08, l'API et
+les tests utilisent les dépendances listées dans [requirements.txt](requirements.txt). Le script 08 lit
+directement les fichiers GTFS et n'a pas besoin de la base SQLite.
 
 Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03_schema_gtfs.sql](sql/03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
 
@@ -242,7 +285,13 @@ Les tests utilisent `FastAPI TestClient` et une copie temporaire de la base SQLi
 .\mon_env\Scripts\python.exe -m pytest tests/test_api.py -q
 ```
 
-Résultat de référence : **8 tests réussis**. Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
+Résultat de référence : **8 tests réussis**.
+
+Les tests des étapes 6 et 7 n'ont besoin ni de la base ni du GTFS complet :
+
+```powershell
+.\mon_env\Scripts\python.exe -m pytest tests/test_modelisation_risques.py tests/test_offre_fenetre_valide.py -q
+``` Les tests utilisent une copie temporaire de la base et ne modifient pas les données de référence.
 
 ## Parcours de vérification recommandé
 
@@ -256,6 +305,10 @@ Les fichiers attendus dans `reports/` sont les rapports JSON de diagnostic,
 qualité, analyse d'offre et modélisation, ainsi que les CSV et PNG de l'étape 4.
 
 ## Limites actuelles
+
+Le feed n'est complet que du 2 avril au 30 juin 2025, et 6 agences déclarées n'ont aucune ligne : IRIGO
+(Angers), TUL (Laval), STRAN (Saint-Nazaire), IMPULSYON (La Roche-sur-Yon), AGGLOBUS et l'aéroport. Leurs
+réseaux urbains ne sont donc pas couverts.
 
 Le GTFS décrit l'offre planifiée, pas la mobilité réellement observée. Le projet ne dispose pas encore de fréquentation, de validations, de retards, de suppressions ou de taux de remplissage. Les coordonnées hors emprise peuvent correspondre à des dessertes interrégionales et ne sont donc pas supprimées automatiquement.
 

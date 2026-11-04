@@ -300,6 +300,7 @@ JOIN trip AS t ON t.service_id = sd.service_id
 JOIN stop_time AS st ON st.trip_id = t.trip_id
 JOIN stop AS s ON s.stop_id = st.stop_id
 WHERE sd.exception_type = 1
+  AND COALESCE(st.pickup_type, 0) <> 1  -- pas de montée possible : pas un départ
 GROUP BY sd.service_date, st.stop_id, s.stop_name;
 
 -- Agrégat quotidien par ligne pour les analyses de couverture du réseau.
@@ -315,6 +316,7 @@ JOIN trip AS t ON t.service_id = sd.service_id
 JOIN route AS r ON r.route_id = t.route_id
 JOIN stop_time AS st ON st.trip_id = t.trip_id
 WHERE sd.exception_type = 1
+  AND COALESCE(st.pickup_type, 0) <> 1  -- pas de montée possible : pas un départ
 GROUP BY sd.service_date, r.route_id, route_name;
 
 -- Découpage horaire commun aux analyses H1 et H3 de l'étape 4.
@@ -341,6 +343,7 @@ JOIN trip AS t ON t.service_id = sd.service_id
 JOIN stop_time AS st ON st.trip_id = t.trip_id
 JOIN stop AS s ON s.stop_id = st.stop_id
 WHERE sd.exception_type = 1
+  AND COALESCE(st.pickup_type, 0) <> 1  -- pas de montée possible : pas un départ
 GROUP BY sd.service_date, st.stop_id, s.stop_name,
          s.coordinate_status, time_period;
 
