@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import sqlite3
 from pathlib import Path
 
@@ -9,7 +10,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-DATABASE = ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"
+# Chemin de la base : variable GTFS_DB_PATH si elle est définie (ex. base placée hors de OneDrive),
+# sinon data/database/gtfs_pays_loire.sqlite dans le projet.
+DATABASE = Path(os.getenv("GTFS_DB_PATH") or os.getenv("GTFS_DATABASE") or ROOT / "data" / "database" / "gtfs_pays_loire.sqlite")
 REPORTS = ROOT / "reports"
 
 

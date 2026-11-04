@@ -21,7 +21,9 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
 ROOT = Path(__file__).resolve().parent.parent
-DATABASE = ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"
+# Chemin de la base : variable GTFS_DB_PATH si elle est définie (ex. base placée hors de OneDrive),
+# sinon data/database/gtfs_pays_loire.sqlite dans le projet.
+DATABASE = Path(os.getenv("GTFS_DB_PATH") or os.getenv("GTFS_DATABASE") or ROOT / "data" / "database" / "gtfs_pays_loire.sqlite")
 OUTPUT = ROOT / "reports" / "etape6_modeles_risques.json"
 RANDOM_STATE = 42
 MAX_TRAIN_ROWS = 10_000

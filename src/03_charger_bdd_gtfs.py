@@ -1,5 +1,6 @@
 """Charge les CSV nettoyés puis exécute tout le traitement SQL."""
 
+import os
 import csv
 import json
 import sqlite3
@@ -10,7 +11,9 @@ ROOT = Path(__file__).resolve().parent.parent
 GTFS_DIR = ROOT / "data" / "raw" / "gtfs"
 EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
 PROCESSED_DATA_DIR = ROOT / "data" / "processed"
-DATABASE = ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"
+# Chemin de la base : variable GTFS_DB_PATH si elle est définie (ex. base placée hors de OneDrive),
+# sinon data/database/gtfs_pays_loire.sqlite dans le projet.
+DATABASE = Path(os.getenv("GTFS_DB_PATH") or os.getenv("GTFS_DATABASE") or ROOT / "data" / "database" / "gtfs_pays_loire.sqlite")
 VALIDATION_REPORT = ROOT / "reports" / "04_resultats_validation_bdd.json"
 SCHEMA_FILE = ROOT / "sql" / "03_schema_gtfs.sql"
 
@@ -161,6 +164,8 @@ def build_validation_report(connection: sqlite3.Connection) -> dict:
 def main() -> None:
     # Les fichiers sont d'abord chargés en staging, puis le SQL applique les
     # nettoyages, contraintes et transformations du schéma final.
+    DATABASE.parent.mkdir(parents=True, exist_ok=True)
+    print(f"Base SQLite : {DATABASE}")
     connection = sqlite3.connect(DATABASE)
     connection.execute("PRAGMA foreign_keys = ON")
     schema = SCHEMA_FILE.read_text(encoding="utf-8")

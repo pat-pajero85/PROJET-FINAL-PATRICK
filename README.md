@@ -233,6 +233,19 @@ directement les fichiers GTFS et n'a pas besoin de la base SQLite.
 
 Le traitement de nettoyage et de structuration est réalisé en SQL dans [sql/03_schema_gtfs.sql](sql/03_schema_gtfs.sql). Python sert uniquement de passerelle d'import des fichiers CSV, SQLite ne disposant pas d'une commande CSV portable native.
 
+### Placer la base SQLite hors de OneDrive
+
+Une base de 1,4 Go dans un dossier synchronisé (OneDrive, Dropbox…) est souvent verrouillée
+(`database is locked`, `PermissionError: [WinError 33]`). Les scripts, l'API et les tests lisent la
+variable d'environnement `GTFS_DB_PATH` ; sans elle, ils utilisent `data/database/gtfs_pays_loire.sqlite`.
+
+```powershell
+New-Item -ItemType Directory -Force C:\data | Out-Null
+Copy-Item .\data\database\gtfs_pays_loire.sqlite C:\data\   # ou relancer 03_charger_bdd_gtfs.py
+$env:GTFS_DB_PATH = "C:\data\gtfs_pays_loire.sqlite"            # pour la session en cours
+setx GTFS_DB_PATH "C:\data\gtfs_pays_loire.sqlite"              # pour les prochaines sessions
+```
+
 ## Étape 3 : API locale FastAPI
 
 L'API expose la base SQLite et les indicateurs d'offre sans dépendre d'une plateforme cloud. Elle est construite avec FastAPI, Pydantic et Uvicorn.

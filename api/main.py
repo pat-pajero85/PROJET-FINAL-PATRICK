@@ -14,7 +14,9 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Path as FastAPIPath
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ROOT = Path(__file__).resolve().parent.parent
-DATABASE = Path(os.getenv("GTFS_DATABASE", ROOT / "data" / "database" / "gtfs_pays_loire.sqlite"))
+# Chemin de la base : variable GTFS_DB_PATH si elle est définie (ex. base placée hors de OneDrive),
+# sinon data/database/gtfs_pays_loire.sqlite dans le projet.
+DATABASE = Path(os.getenv("GTFS_DB_PATH") or os.getenv("GTFS_DATABASE") or ROOT / "data" / "database" / "gtfs_pays_loire.sqlite")
 API_KEY = os.getenv("GTFS_API_KEY")
 
 TAGS_METADATA = [

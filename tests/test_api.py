@@ -12,6 +12,8 @@ from api import main
 @pytest.fixture(scope="session")
 def test_database(tmp_path_factory: pytest.TempPathFactory) -> Path:
     # Les tests CRUD travaillent sur une copie pour ne jamais modifier la base de référence.
+    if not main.DATABASE.exists():
+        pytest.skip(f"Base SQLite introuvable ({main.DATABASE}) : définir GTFS_DB_PATH ou lancer 03_charger_bdd_gtfs.py")
     test_database = tmp_path_factory.mktemp("api") / "gtfs_test.sqlite"
     shutil.copy2(main.DATABASE, test_database)
     return test_database
