@@ -40,16 +40,18 @@ Dans la vue **Données** :
 
 ## 3. Créer les mesures
 
-Sélectionner la table `arrets`, puis **Nouvelle mesure** pour chacune :
+Sélectionner la table `arrets`, puis **Nouvelle mesure** pour chacune, dans l'ordre (les suivantes utilisent
+`[Arrêts]`). Avec Power BI en français, les arguments sont séparés par **`;`** ; si Power BI est en
+anglais, remplacer `;` par `,`.
 
 ```dax
 Arrêts = COUNTROWS ( arrets )
 
 % arrêts < 5 départs =
-DIVIDE ( CALCULATE ( [Arrêts], arrets[departs_jour] < 5 ), [Arrêts] )
+DIVIDE ( CALCULATE ( [Arrêts] ; arrets[departs_jour] < 5 ) ; [Arrêts] )
 
 % sans départ 6 h-9 h =
-DIVIDE ( CALCULATE ( [Arrêts], arrets[sans_depart_pointe_matin] = "Oui" ), [Arrêts] )
+DIVIDE ( CALCULATE ( [Arrêts] ; arrets[sans_depart_pointe_matin] = "Oui" ) ; [Arrêts] )
 
 Départs médians par arrêt = MEDIAN ( arrets[departs_jour] )
 ```
@@ -57,10 +59,10 @@ Départs médians par arrêt = MEDIAN ( arrets[departs_jour] )
 Dans la table `modeles` :
 
 ```dax
-MAE retenue = CALCULATE ( MIN ( modeles[mae] ), modeles[retenue] = "Oui" )
+MAE retenue = CALCULATE ( MIN ( modeles[mae] ) ; modeles[retenue] = "Oui" )
 
 Erreur divisée par =
-DIVIDE ( CALCULATE ( MIN ( modeles[mae] ), modeles[ordre] = 1 ), [MAE retenue] )
+DIVIDE ( CALCULATE ( MIN ( modeles[mae] ) ; modeles[ordre] = 1 ) ; [MAE retenue] )
 ```
 
 Formats : les deux mesures en % en **Pourcentage, 0 décimale** ; `MAE retenue` en 3 décimales ;
